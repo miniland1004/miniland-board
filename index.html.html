@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>MINI LAND</title>
+    
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#ffffff;--bg2:#fdf6f8;--bg3:#faedf1;
+  --panel:#ffffff;--panel2:#fdf2f5;--panel3:#fae8ed;
+  --pink:#f4a7bb;--pink2:#f7bfcc;--pink3:#fbe4ea;
+  --pink-dark:#e07a96;--pink-deep:#c9536e;
+  --mint:#7ecfc0;
+  --lavender:#b39ddb;
+  --peach:#ffb08a;
+  --text:#3a2a30;--text2:#8a6a72;--text3:#bda0a8;
+  --border:#f0dce2;--border2:#e8c8d2;
+  --green:#5cc8a8;--red:#e07a7a;
+  --event:var(--pink-dark);--notice:var(--mint);--patch:var(--lavender);
+}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg3);color:var(--text);min-height:100vh}
+.wrap{max-width:900px;margin:0 auto;padding:14px}
+
+.header{background:linear-gradient(135deg,#fff0f4,#fde6ed,#fff0f4);border:2px solid var(--pink2);border-radius:12px;padding:14px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(244,167,187,0.15)}
+.header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(244,167,187,0.04) 20px,rgba(244,167,187,0.04) 40px)}
+.logo-area{display:flex;align-items:center;gap:10px}
+.logo-icon{font-size:26px;filter:drop-shadow(0 0 8px rgba(244,167,187,0.6))}
+.logo-text{font-size:20px;font-weight:700;color:var(--pink-deep);letter-spacing:2px}
+.logo-sub{font-size:10px;color:var(--text2);letter-spacing:3px;margin-top:2px}
+.header-right{display:flex;align-items:center;gap:10px}
+.admin-btn{background:rgba(244,167,187,0.12);border:1px solid var(--pink);color:var(--pink-dark);font-size:11px;padding:5px 12px;border-radius:6px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;display:flex;align-items:center;gap:5px;transition:all .15s}
+.admin-btn:hover{background:rgba(244,167,187,0.22)}
+.admin-btn.logged{background:rgba(92,200,168,0.12);border-color:var(--green);color:#3aaa88}
+.online-badge{background:rgba(92,200,168,0.15);border:1px solid rgba(92,200,168,0.45);color:#3aaa88;font-size:11px;padding:3px 10px;border-radius:20px;display:flex;align-items:center;gap:5px}
+.online-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+.tab-bar{display:flex;gap:6px;margin-bottom:14px;border-bottom:2px solid var(--border);padding-bottom:0}
+.tab{padding:9px 20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Noto Sans KR',sans-serif;border-radius:8px 8px 0 0;border:1px solid transparent;border-bottom:none;color:var(--text3);transition:all .15s;display:flex;align-items:center;gap:7px;position:relative;bottom:-2px}
+.tab:hover{color:var(--text2);background:rgba(244,167,187,0.06)}
+.tab.on{background:var(--panel);border-color:var(--border);color:var(--text);border-bottom-color:var(--panel)}
+.tab.on.all{border-top:2px solid #d08898;color:#d08898}
+.tab.on.event{border-top:2px solid var(--event);color:var(--event)}
+.tab.on.notice{border-top:2px solid var(--notice);color:var(--mint)}
+.tab.on.patch{border-top:2px solid var(--patch);color:var(--lavender)}
+.tab-dot{width:7px;height:7px;border-radius:50%}
+.cnt-badge{font-size:10px;padding:1px 6px;border-radius:10px;font-weight:700;margin-left:2px}
+.cnt-all{background:rgba(180,140,155,0.12);color:#a06070}
+.cnt-event{background:rgba(224,122,150,0.12);color:var(--pink-dark)}
+.cnt-notice{background:rgba(126,207,192,0.15);color:#3aaa88}
+.cnt-patch{background:rgba(179,157,219,0.15);color:var(--lavender)}
+
+.board-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.board-title{font-size:15px;font-weight:500;display:flex;align-items:center;gap:8px;color:var(--text)}
+.board-title-dot{width:8px;height:8px;border-radius:50%}
+.write-btn{background:rgba(244,167,187,0.12);border:1px solid var(--pink);color:var(--pink-dark);padding:7px 14px;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;font-family:'Noto Sans KR',sans-serif;display:flex;align-items:center;gap:5px;transition:all .15s}
+.write-btn:hover{background:rgba(244,167,187,0.22)}
+.write-btn:disabled{opacity:.3;cursor:not-allowed}
+
+.post-list{display:flex;flex-direction:column;gap:6px}
+.post-item{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:12px;box-shadow:0 1px 4px rgba(244,167,187,0.08)}
+.post-item:hover{border-color:var(--pink2);background:var(--panel2);box-shadow:0 2px 8px rgba(244,167,187,0.15)}
+.post-item.pinned{border-color:rgba(244,167,187,0.45);background:rgba(244,167,187,0.06)}
+.pin-icon{font-size:13px;flex-shrink:0;opacity:.7}
+.post-main{flex:1;min-width:0}
+.post-tags{display:flex;gap:5px;margin-bottom:5px;align-items:center;flex-wrap:wrap}
+.ptag{font-size:10px;padding:1px 7px;border-radius:3px;font-weight:600;letter-spacing:.5px}
+.ptag-new{background:rgba(224,122,122,0.1);color:#d05050;border:1px solid rgba(224,122,122,0.25)}
+.ptag-pinned{background:rgba(244,167,187,0.14);color:var(--pink-dark);border:1px solid rgba(244,167,187,0.35)}
+.ptag-event{background:rgba(224,122,150,0.1);color:var(--pink-dark);border:1px solid rgba(244,167,187,0.3)}
+.ptag-notice{background:rgba(126,207,192,0.12);color:#3aaa88;border:1px solid rgba(126,207,192,0.3)}
+.ptag-patch{background:rgba(179,157,219,0.12);color:#8a6abf;border:1px solid rgba(179,157,219,0.3)}
+.post-title{font-size:13px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.post-meta{font-size:11px;color:var(--text3);margin-top:4px;display:flex;gap:10px}
+.post-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
+.post-date{font-size:11px;color:var(--text3)}
+
+.empty-board{text-align:center;padding:50px 20px;color:var(--text2)}
+.empty-icon{font-size:36px;margin-bottom:10px}
+
+/* 로딩 */
+.loading{text-align:center;padding:40px 20px;color:var(--text2);display:flex;flex-direction:column;align-items:center;gap:10px}
+.spinner{width:28px;height:28px;border:3px solid var(--border2);border-top-color:var(--pink-dark);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.post-detail{background:var(--panel);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 12px rgba(244,167,187,0.1)}
+.detail-header{padding:18px 20px;border-bottom:1px solid var(--border);background:var(--bg2)}
+.detail-tags{display:flex;gap:6px;margin-bottom:10px;align-items:center;flex-wrap:wrap}
+.detail-title{font-size:18px;font-weight:700;color:var(--text);margin-bottom:10px;line-height:1.4}
+.detail-meta{display:flex;gap:14px;font-size:12px;color:var(--text2);align-items:center;flex-wrap:wrap}
+.detail-meta-sep{color:var(--text3)}
+.detail-body{padding:22px 20px;min-height:200px;line-height:1.8;font-size:14px;color:var(--text);white-space:pre-wrap;border-bottom:1px solid var(--border)}
+.detail-footer{padding:12px 20px;display:flex;justify-content:space-between;align-items:center;background:var(--bg2)}
+.back-btn{background:var(--panel);border:1px solid var(--border2);color:var(--text2);padding:7px 14px;border-radius:6px;font-size:12px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;display:flex;align-items:center;gap:5px;transition:all .15s}
+.back-btn:hover{border-color:var(--pink);color:var(--pink-dark)}
+.del-btn{background:rgba(224,122,122,0.08);border:1px solid rgba(224,122,122,0.25);color:#d05050;padding:7px 14px;border-radius:6px;font-size:12px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .15s}
+.del-btn:hover{background:rgba(224,122,122,0.15)}
+
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(60,30,40,0.45);z-index:100;align-items:center;justify-content:center;backdrop-filter:blur(3px)}
+.modal-bg.open{display:flex}
+.modal{background:var(--panel);border:2px solid var(--pink2);border-radius:14px;width:620px;max-width:96vw;max-height:90vh;overflow-y:auto;box-shadow:0 8px 32px rgba(244,167,187,0.2)}
+.mh{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--bg2)}
+.mh-title{font-size:15px;font-weight:700;color:var(--pink-dark)}
+.mh-close{background:none;border:none;color:var(--text2);cursor:pointer;font-size:18px;line-height:1;transition:color .15s}
+.mh-close:hover{color:var(--pink-dark)}
+.mb{padding:18px}
+.fl{font-size:12px;color:var(--text2);margin-bottom:5px;font-weight:500}
+.fl-hint{font-size:11px;color:var(--text3);margin-bottom:5px}
+.form-row{margin-bottom:14px}
+.fi{width:100%;background:var(--bg2);border:1px solid var(--border2);color:var(--text);padding:8px 12px;border-radius:7px;font-size:13px;font-family:'Noto Sans KR',sans-serif;outline:none;transition:border-color .15s}
+.fi:focus{border-color:var(--pink)}
+.fi-ta{width:100%;background:var(--bg2);border:1px solid var(--border2);color:var(--text);padding:10px 12px;border-radius:7px;font-size:13px;font-family:'Noto Sans KR',sans-serif;outline:none;resize:vertical;min-height:200px;line-height:1.7;transition:border-color .15s}
+.fi-ta:focus{border-color:var(--pink)}
+.form-row-inline{display:flex;gap:10px}
+.pin-check{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2);cursor:pointer;padding:8px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:7px}
+.pin-check input{accent-color:var(--pink-dark);width:14px;height:14px;cursor:pointer}
+.mfoot{display:flex;gap:8px;padding-top:4px}
+.mbt{flex:1;padding:10px;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .15s}
+.mbt-cancel{background:var(--bg2);border:1px solid var(--border2);color:var(--text2)}
+.mbt-cancel:hover{border-color:var(--border);color:var(--text)}
+.mbt-submit{background:linear-gradient(135deg,var(--pink),var(--pink-dark));border:none;color:#fff;font-weight:600}
+.mbt-submit:hover{opacity:.88}
+.mbt-submit:disabled{opacity:.5;cursor:not-allowed}
+
+.login-modal{background:var(--panel);border:2px solid var(--pink2);border-radius:14px;width:360px;max-width:96vw;box-shadow:0 8px 32px rgba(244,167,187,0.2)}
+.login-err{font-size:12px;color:#d05050;margin-top:6px;display:none}
+.login-err.show{display:block}
+.login-hint{font-size:11px;color:var(--text3);margin-top:8px;line-height:1.6;padding:8px 10px;background:var(--bg3);border-radius:6px}
+
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--panel);border:1px solid var(--pink2);color:var(--pink-dark);padding:9px 18px;border-radius:8px;font-size:12px;font-family:'Noto Sans KR',sans-serif;z-index:300;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;box-shadow:0 4px 16px rgba(244,167,187,0.2)}
+.toast.show{opacity:1}
+
+/* 설정 미완료 배너 */
+.setup-banner{background:rgba(255,176,138,0.12);border:1px solid rgba(255,176,138,0.4);border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#b06030;display:flex;align-items:center;gap:8px}
+.setup-banner i{font-size:16px}
+.setup-banner.done{display:none}
+</style>
+
+<div class="wrap">
+  <div class="header">
+    <div class="logo-area">
+      <div class="logo-icon">🍁</div>
+      <div>
+        <div class="logo-text">MINI LAND</div>
+        <div class="logo-sub">공식 게시판</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="online-badge"><div class="online-dot"></div>서버 온라인</div>
+      <button class="admin-btn" id="adminBtn" onclick="toggleAdmin()">
+        <i class="ti ti-lock"></i>
+        <span id="adminBtnText">관리자 로그인</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="setup-banner" id="setupBanner">
+    <i class="ti ti-alert-triangle"></i>
+    <span>GitHub 설정이 필요합니다. 이 파일 상단의 <strong>GITHUB_OWNER</strong>, <strong>GITHUB_REPO</strong> 값을 채워주세요.</span>
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab on all" id="tab-all" onclick="switchTab('all')">
+      <div class="tab-dot" style="background:#d08898"></div>
+      전체보기
+      <span class="cnt-badge cnt-all" id="cnt-all">0</span>
+    </div>
+    <div class="tab event" id="tab-event" onclick="switchTab('event')">
+      <div class="tab-dot" style="background:var(--event)"></div>
+      이벤트
+      <span class="cnt-badge cnt-event" id="cnt-event">0</span>
+    </div>
+    <div class="tab notice" id="tab-notice" onclick="switchTab('notice')">
+      <div class="tab-dot" style="background:var(--notice)"></div>
+      공지사항
+      <span class="cnt-badge cnt-notice" id="cnt-notice">0</span>
+    </div>
+    <div class="tab patch" id="tab-patch" onclick="switchTab('patch')">
+      <div class="tab-dot" style="background:var(--patch)"></div>
+      패치노트
+      <span class="cnt-badge cnt-patch" id="cnt-patch">0</span>
+    </div>
+  </div>
+
+  <div id="boardView">
+    <div class="board-toolbar">
+      <div class="board-title" id="boardTitle">
+        <div class="board-title-dot" style="background:#d08898"></div>
+        전체보기
+      </div>
+      <button class="write-btn" id="writeBtn" onclick="openWrite()" disabled>
+        <i class="ti ti-edit"></i> 글 작성
+      </button>
+    </div>
+    <div class="post-list" id="postList"></div>
+  </div>
+
+  <div id="detailView" style="display:none">
+    <div class="post-detail" id="postDetail"></div>
+  </div>
+</div>
+
+<div class="modal-bg" id="writeModal">
+  <div class="modal">
+    <div class="mh">
+      <div class="mh-title">✏️ 글 작성</div>
+      <button class="mh-close" onclick="closeWrite()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="mb">
+      <div class="form-row">
+        <div class="fl">제목 *</div>
+        <input class="fi" id="f_title" placeholder="제목을 입력하세요">
+      </div>
+      <div class="form-row form-row-inline">
+        <div style="flex:1">
+          <div class="fl">태그</div>
+          <select class="fi" id="f_tag">
+            <option value="">태그 없음</option>
+            <option value="new">NEW</option>
+            <option value="hot">HOT</option>
+            <option value="important">중요</option>
+          </select>
+        </div>
+        <div style="display:flex;align-items:flex-end">
+          <label class="pin-check">
+            <input type="checkbox" id="f_pin"> 📌 상단 고정
+          </label>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="fl">내용 *</div>
+        <textarea class="fi-ta" id="f_body" placeholder="내용을 입력하세요..."></textarea>
+      </div>
+      <div class="mfoot">
+        <button class="mbt mbt-cancel" onclick="closeWrite()">취소</button>
+        <button class="mbt mbt-submit" id="submitBtn" onclick="submitPost()">게시하기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="loginModal">
+  <div class="login-modal">
+    <div class="mh">
+      <div class="mh-title"><i class="ti ti-lock"></i> 관리자 로그인</div>
+      <button class="mh-close" onclick="closeLogin()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="mb">
+      <div class="form-row">
+        <div class="fl">GitHub Personal Access Token</div>
+        <input class="fi" id="f_pw" type="password" placeholder="ghp_xxxxxxxxxxxx" onkeydown="if(event.key==='Enter')tryLogin()">
+        <div class="login-err" id="loginErr">토큰이 올바르지 않거나 권한이 없습니다</div>
+        <div class="login-hint">
+          💡 GitHub에서 발급한 Personal Access Token을 입력하세요.<br>
+          발급 위치: GitHub → Settings → Developer settings → Personal access tokens
+        </div>
+      </div>
+      <div class="mfoot">
+        <button class="mbt mbt-cancel" onclick="closeLogin()">취소</button>
+        <button class="mbt mbt-submit" id="loginBtn" onclick="tryLogin()">로그인</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+//  ★ 관리자가 반드시 설정해야 하는 값 ★
+//  GITHUB_OWNER : GitHub 계정명 (예: 'miniland1004')
+//  GITHUB_REPO  : 레포지토리 이름 (예: 'miniland-board')
+// ============================================================
+const GITHUB_OWNER = 'miniland1004';   // ← 수정 완료!
+const GITHUB_REPO = '';   // ← 여기에 레포 이름 입력
+// ============================================================
+
+const API_BASE = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/issues`;
+
+// 탭 → GitHub Label 매핑
+const TAB_INFO = {
+  all:    { label:'전체',     color:'#d08898',       tagClass:'',           labelName:null       },
+  event:  { label:'이벤트',   color:'var(--event)',  tagClass:'ptag-event', labelName:'이벤트'   },
+  notice: { label:'공지사항', color:'var(--notice)', tagClass:'ptag-notice',labelName:'공지사항' },
+  patch:  { label:'패치노트', color:'var(--patch)',  tagClass:'ptag-patch', labelName:'패치노트' },
+};
+
+// 캐시 (탭별 게시글 보관)
+let cache = { event:[], notice:[], patch:[] };
+let currentTab = 'all';
+let adminToken = '';
+let isAdmin = false;
+let viewingPostId = null;
+
+// ── 설정 체크 ──────────────────────────────────────────
+function checkSetup(){
+  if(!GITHUB_OWNER || !GITHUB_REPO){
+    document.getElementById('setupBanner').classList.remove('done');
+  } else {
+    document.getElementById('setupBanner').classList.add('done');
+  }
+}
+
+// ── GitHub API 공통 fetch ──────────────────────────────
+async function ghFetch(url, options={}){
+  const headers = { 'Accept':'application/vnd.github+json', ...options.headers };
+  if(adminToken) headers['Authorization'] = `token ${adminToken}`;
+  const res = await fetch(url, { ...options, headers });
+  return res;
+}
+
+// ── 게시글 불러오기 ────────────────────────────────────
+async function loadPosts(tab){
+  if(!GITHUB_OWNER || !GITHUB_REPO) return showDemoData();
+
+  showLoading();
+  try {
+    const tabs = tab === 'all' ? ['event','notice','patch'] : [tab];
+    for(const t of tabs){
+      const info = TAB_INFO[t];
+      const url = `${API_BASE}?labels=${encodeURIComponent(info.labelName)}&state=open&per_page=50`;
+      const res = await ghFetch(url);
+      if(!res.ok) throw new Error(res.status);
+      const issues = await res.json();
+      cache[t] = issues.map(parseIssue);
+    }
+    updateCounts();
+    renderList();
+  } catch(e){
+    showError('게시글을 불러오지 못했습니다. 설정을 확인해주세요.');
+  }
+}
+
+// GitHub Issue → 게시글 객체 변환
+function parseIssue(issue){
+  // body 첫 줄: 메타정보 JSON (태그, 고정 여부)
+  // 형식: let tag = '', pinned = false, body = issue.body || '';
+  const metaMatch = body.match(/^\n?/);
+  if(metaMatch){
+    try { const m = JSON.parse(metaMatch[1]); tag=m.tag||''; pinned=!!m.pinned; } catch(e){}
+    body = body.replace(/^\n?/, '');
+  }
+  return {
+    id:     issue.number,
+    title:  issue.title,
+    body:   body,
+    tag:    tag,
+    pinned: pinned,
+    author: issue.user?.login || '운영팀',
+    date:   issue.created_at?.slice(0,10) || '',
+    views:  0,
+  };
+}
+
+// ── 렌더링 ─────────────────────────────────────────────
+function renderList(){
+  const isAll = currentTab === 'all';
+  let list = isAll
+    ? [
+        ...cache.event.map(p=>({...p,_tab:'event'})),
+        ...cache.notice.map(p=>({...p,_tab:'notice'})),
+        ...cache.patch.map(p=>({...p,_tab:'patch'})),
+      ].sort((a,b)=>(b.pinned?1:0)-(a.pinned?1:0)||(b.id-a.id))
+    : [...cache[currentTab]].sort((a,b)=>(b.pinned?1:0)-(a.pinned?1:0)||(b.id-a.id));
+
+  const container = document.getElementById('postList');
+  if(!list.length){
+    container.innerHTML=`<div class="empty-board"><div class="empty-icon">🍁</div><div>등록된 글이 없습니다</div></div>`;
+    return;
+  }
+  container.innerHTML = list.map(p=>{
+    const t = isAll ? p._tab : currentTab;
+    const ti = TAB_INFO[t];
+    const pinnedTag = p.pinned?'<span class="ptag ptag-pinned">📌 고정</span>':'';
+    const typeTag   = `<span class="ptag ${ti.tagClass}">${ti.label}</span>`;
+    const extraTag  = tagBadge(p.tag);
+    return `<div class="post-item${p.pinned?' pinned':''}" onclick="openPost(${p.id},'${t}')">
+  ${p.pinned?'<span class="pin-icon">📌</span>':'<span style="width:18px;flex-shrink:0"></span>'}
+  <div class="post-main">
+    <div class="post-tags">${pinnedTag}${typeTag}${extraTag}</div>
+    <div class="post-title">${escHtml(p.title)}</div>
+    <div class="post-meta"><span>${escHtml(p.author)}</span></div>
+  </div>
+  <div class="post-right"><span class="post-date">${p.date}</span></div>
+</div>`;
+  }).join('');
+}
+
+function tagBadge(tag){
+  if(tag==='new')       return '<span class="ptag ptag-new">NEW</span>';
+  if(tag==='hot')       return '<span class="ptag" style="background:rgba(255,176,138,0.14);color:#d07040;border:1px solid rgba(255,176,138,0.35)">HOT</span>';
+  if(tag==='important') return '<span class="ptag" style="background:rgba(244,167,187,0.14);color:#c9536e;border:1px solid rgba(244,167,187,0.35)">중요</span>';
+  return '';
+}
+
+function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// ── 글 상세보기 ────────────────────────────────────────
+function openPost(id, tabHint){
+  const allPosts = [...cache.event,...cache.notice,...cache.patch];
+  const p = allPosts.find(x=>x.id===id);
+  if(!p) return;
+  viewingPostId = id;
+  const info = TAB_INFO[tabHint||currentTab];
+  const delBtn = isAdmin
+    ? `<button class="del-btn" onclick="deletePost(${id})"><i class="ti ti-trash"></i> 삭제</button>`
+    : '<span></span>';
+  document.getElementById('postDetail').innerHTML = `
+<div class="detail-header">
+  <div class="detail-tags">
+    <span class="ptag ${info.tagClass}">${info.label}</span>
+    ${p.pinned?'<span class="ptag ptag-pinned">📌 고정</span>':''}
+    ${tagBadge(p.tag)}
+  </div>
+  <div class="detail-title">${escHtml(p.title)}</div>
+  <div class="detail-meta">
+    <span><i class="ti ti-user" style="font-size:13px;vertical-align:-1px;margin-right:3px"></i>${escHtml(p.author)}</span>
+    <span class="detail-meta-sep">·</span>
+    <span>${p.date}</span>
+  </div>
+</div>
+<div class="detail-body">${escHtml(p.body)}</div>
+<div class="detail-footer">
+  <button class="back-btn" onclick="backToList()"><i class="ti ti-arrow-left"></i> 목록으로</button>
+  ${delBtn}
+</div>`;
+  document.getElementById('boardView').style.display='none';
+  document.getElementById('detailView').style.display='';
+}
+
+function backToList(){
+  document.getElementById('boardView').style.display='';
+  document.getElementById('detailView').style.display='none';
+}
+
+// ── 글 작성 ────────────────────────────────────────────
+function openWrite(){
+  if(!isAdmin){ showToast('관리자만 글을 작성할 수 있습니다'); return; }
+  document.getElementById('writeModal').classList.add('open');
+}
+function closeWrite(){
+  document.getElementById('writeModal').classList.remove('open');
+  ['f_title','f_body'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f_tag').value='';
+  document.getElementById('f_pin').checked=false;
+}
+
+async function submitPost(){
+  const title = document.getElementById('f_title').value.trim();
+  const rawBody  = document.getElementById('f_body').value.trim();
+  if(!title||!rawBody){ showToast('제목과 내용을 입력하세요'); return; }
+
+  const tag    = document.getElementById('f_tag').value;
+  const pinned = document.getElementById('f_pin').checked;
+  const targetTab = currentTab==='all' ? 'event' : currentTab;
+  const labelName = TAB_INFO[targetTab].labelName;
+
+  // 메타 정보를 본문 첫 줄에 숨겨서 저장
+  const meta = `\n`;
+  const body = meta + rawBody;
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true; btn.textContent = '등록 중...';
+
+  try {
+    const res = await ghFetch(API_BASE, {
+      method: 'POST',
+      body: JSON.stringify({ title, body, labels:[labelName] }),
+    });
+    if(!res.ok) throw new Error(res.status);
+    const issue = await res.json();
+    cache[targetTab].unshift(parseIssue(issue));
+    updateCounts();
+    closeWrite();
+    renderList();
+    showToast('게시글이 등록되었습니다 ✓');
+  } catch(e){
+    showToast('등록 실패. 토큰 권한을 확인하세요');
+  } finally {
+    btn.disabled = false; btn.textContent = '게시하기';
+  }
+}
+
+// ── 글 삭제 (Issue close) ──────────────────────────────
+async function deletePost(id){
+  if(!confirm('정말 삭제하시겠습니까?\n(GitHub Issue가 닫힙니다)')) return;
+  try {
+    const res = await ghFetch(`${API_BASE}/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ state:'closed' }),
+    });
+    if(!res.ok) throw new Error(res.status);
+    // 캐시에서 제거
+    ['event','notice','patch'].forEach(t=>{
+      cache[t] = cache[t].filter(p=>p.id!==id);
+    });
+    updateCounts();
+    backToList();
+    showToast('글이 삭제되었습니다');
+  } catch(e){
+    showToast('삭제 실패. 토큰 권한을 확인하세요');
+  }
+}
+
+// ── 관리자 로그인 ──────────────────────────────────────
+function toggleAdmin(){
+  if(isAdmin){
+    isAdmin=false; adminToken='';
+    document.getElementById('adminBtn').className='admin-btn';
+    document.getElementById('adminBtnText').textContent='관리자 로그인';
+    document.getElementById('writeBtn').disabled=true;
+    showToast('로그아웃 되었습니다');
+  } else {
+    document.getElementById('loginModal').classList.add('open');
+    setTimeout(()=>document.getElementById('f_pw').focus(),100);
+  }
+}
+function closeLogin(){
+  document.getElementById('loginModal').classList.remove('open');
+  document.getElementById('f_pw').value='';
+  document.getElementById('loginErr').classList.remove('show');
+}
+async function tryLogin(){
+  const token = document.getElementById('f_pw').value.trim();
+  if(!token) return;
+  const btn = document.getElementById('loginBtn');
+  btn.disabled=true; btn.textContent='확인 중...';
+  try {
+    // 토큰 유효성 검증 — 레포 접근 테스트
+    const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}`, {
+      headers:{ 'Authorization':`token ${token}`, 'Accept':'application/vnd.github+json' }
+    });
+    if(!res.ok) throw new Error();
+    adminToken = token;
+    isAdmin = true;
+    document.getElementById('adminBtn').className='admin-btn logged';
+    document.getElementById('adminBtnText').textContent='관리자 모드';
+    document.getElementById('writeBtn').disabled=false;
+    closeLogin();
+    showToast('관리자 로그인 성공! ✓');
+  } catch(e){
+    document.getElementById('loginErr').classList.add('show');
+    document.getElementById('f_pw').value='';
+    document.getElementById('f_pw').focus();
+  } finally {
+    btn.disabled=false; btn.textContent='로그인';
+  }
+}
+document.getElementById('loginModal').addEventListener('click',function(e){if(e.target===this)closeLogin();});
+document.getElementById('writeModal').addEventListener('click',function(e){if(e.target===this)closeWrite();});
+
+// ── 탭 전환 ────────────────────────────────────────────
+function switchTab(tab){
+  currentTab = tab;
+  document.querySelectorAll('.tab').forEach(el=>el.classList.remove('on','all','event','notice','patch'));
+  const el = document.getElementById('tab-'+tab);
+  el.classList.add('on', tab);
+  const info = TAB_INFO[tab];
+  document.getElementById('boardTitle').innerHTML =
+    `<div class="board-title-dot" style="background:${info.color}"></div>${tab==='all'?'전체보기':info.label}`;
+  document.getElementById('boardView').style.display='';
+  document.getElementById('detailView').style.display='none';
+  loadPosts(tab);
+}
+
+// ── 카운트 업데이트 ────────────────────────────────────
+function updateCounts(){
+  ['event','notice','patch'].forEach(t=>{
+    document.getElementById('cnt-'+t).textContent = cache[t].length;
+  });
+  const total = cache.event.length+cache.notice.length+cache.patch.length;
+  document.getElementById('cnt-all').textContent = total;
+}
+
+// ── 유틸 ───────────────────────────────────────────────
+function showLoading(){
+  document.getElementById('postList').innerHTML=
+    `<div class="loading"><div class="spinner"></div><span>게시글 불러오는 중...</span></div>`;
+}
+function showError(msg){
+  document.getElementById('postList').innerHTML=
+    `<div class="empty-board"><div class="empty-icon">⚠️</div><div>${msg}</div></div>`;
+}
+function showToast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+// ── 데모 데이터 (설정 전 미리보기용) ──────────────────
+function showDemoData(){
+  cache = {
+    event:[
+      {id:1,title:'🌸 봄맞이 경험치 2배 이벤트 안내',body:'안녕하세요, MINI LAND 운영팀입니다.\n\n봄을 맞이하여 경험치 2배 이벤트를 진행합니다!\n\n■ 기간: 2024년 3월 20일 ~ 4월 10일\n■ 대상: 전 서버 유저\n■ 내용: 사냥 경험치 200% 적용',pinned:true,tag:'new',author:'운영팀',date:'2024-03-20',views:0},
+      {id:2,title:'주간 보스 클리어 보상 이벤트',body:'주간 보스를 클리어하고 추가 보상을 받아가세요!',pinned:false,tag:'',author:'운영팀',date:'2024-03-18',views:0},
+    ],
+    notice:[
+      {id:3,title:'📢 서버 정기 점검 안내 (3/25)',body:'정기 점검 일정을 안내드립니다.\n■ 점검 일시: 2024년 3월 25일(월) 오전 6:00 ~ 10:00',pinned:true,tag:'important',author:'운영팀',date:'2024-03-22',views:0},
+    ],
+    patch:[
+      {id:4,title:'v1.2.4 패치노트 — 밸런스 조정',body:'■ 밸런스 조정\n- 보스 HP 15% 감소\n- 마법사 계열 마력 상향',pinned:false,tag:'new',author:'개발팀',date:'2024-03-21',views:0},
+    ],
+  };
+  updateCounts();
+  renderList();
+}
+
+// ── 초기 실행 ──────────────────────────────────────────
+checkSetup();
+loadPosts('all');
+</script>
+
+</body>
+</html>
