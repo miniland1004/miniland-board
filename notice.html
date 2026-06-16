@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미니랜드 공지사항</title>
+    <link rel="icon" href="homepagelogo.jpg">
+    <style>
+        :root { --bg-main: #ffffff; --text-main: #333333; --text-muted: #888888; --nav-bg: rgba(255, 255, 255, 0.95); --border-main: #eaeaea; --card-bg: #fafafa; --card-hover: #f4fdf9; --card-border: #eeeeee; --modal-bg: #ffffff; --modal-inner: #f9fdfb; }
+        [data-theme="dark"] { --bg-main: #121212; --text-main: #e0e0e0; --text-muted: #999999; --nav-bg: rgba(24, 24, 24, 0.95); --border-main: #333333; --card-bg: #1e1e1e; --card-hover: #2a2a2a; --card-border: #333333; --modal-bg: #1e1e1e; --modal-inner: #252525; }
+        @font-face { font-family: 'Pretendard-Regular'; src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff'); font-weight: 400; }
+        @font-face { font-family: 'NexonMaplestory'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFLight.woff') format('woff'); font-weight: 300; }
+        @font-face { font-family: 'NexonMaplestory'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff'); font-weight: 700; }
+        * { font-family: 'Pretendard-Regular', sans-serif !important; -webkit-font-smoothing: antialiased; box-sizing: border-box; }
+        body { background: var(--bg-main); color: var(--text-main); margin: 0; padding: 0; transition: background 0.3s, color 0.3s; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        
+        .page-section { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .page-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .header-wrapper { position: sticky; top: 0; z-index: 100; }
+        .top-nav { position: relative; background: var(--nav-bg); padding: 0 50px; display: flex; align-items: center; justify-content: space-between; height: 80px; border-bottom: 1px solid var(--border-main); z-index: 101; backdrop-filter: blur(5px); }
+        .logo-img { height: 70px; object-fit: contain; cursor: pointer; z-index: 102; transition: transform 0.2s; }
+        .logo-img:hover { transform: scale(1.08); }
+        .nav-links { display: flex; gap: 50px; position: absolute; left: 50%; transform: translateX(-50%); height: 100%; z-index: 102; }
+        
+        .main-link { display: flex; align-items: center; height: 80px; font-size: 17px; font-weight: 700; color: var(--text-main); position: relative; transition: color 0.2s; cursor: pointer; }
+        .main-link:hover { color: #20c997; }
+        
+        .dropdown { position: relative; display: inline-block; height: 80px; }
+        .dropdown-content { display: none; position: absolute; top: 75px; left: 50%; transform: translateX(-50%); background-color: var(--nav-bg); min-width: 150px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); border-radius: 8px; border: 1px solid var(--border-main); z-index: 200; overflow: hidden; backdrop-filter: blur(5px); }
+        .dropdown:hover .dropdown-content { display: block; animation: fadeIn 0.2s ease-in-out; }
+        .dropdown-content a { color: var(--text-main); padding: 12px 16px; text-decoration: none; display: block; font-size: 15px; font-weight: 600; text-align: center; transition: background 0.2s, color 0.2s; }
+        .dropdown-content a:hover { background-color: var(--card-hover); color: #20c997; }
+
+        .theme-toggle { cursor: pointer; font-size: 22px; user-select: none; transition: transform 0.2s; padding: 10px; }
+        .theme-toggle:hover { transform: scale(1.15); }
+        .sub-wrapper { max-width: 1000px; margin: 30px auto; padding: 0 20px; min-height: 60vh; }
+        
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; margin-right: 12px; min-width: 45px; text-align: center; }
+        .badge-notice { background: #e3f2fd; color: #1976d2; }
+        [data-theme="dark"] .badge-notice { background: #1a2a3a; color: #64b5f6; }
+        
+        .page-title { font-family: 'NexonMaplestory', sans-serif !important; font-size: 32px; margin-bottom: 30px; border-bottom: 3px solid var(--text-main); padding-bottom: 15px; }
+        .board-table { width: 100%; border-collapse: collapse; text-align: center; }
+        .board-table th { padding: 15px 10px; border-bottom: 1px solid var(--text-muted); font-size: 15px; }
+        .board-table td { padding: 18px 10px; border-bottom: 1px solid var(--border-main); font-size: 15px; }
+        .board-table tr.clickable-row:hover td { background: var(--card-hover); cursor: pointer; }
+        .td-num { width: 80px; color: var(--text-muted); }
+        .td-badge { width: 100px; }
+        .td-title { text-align: left; font-weight: 600; }
+        .td-writer { width: 120px; color: var(--text-muted); }
+        .td-date { width: 120px; color: var(--text-muted); }
+
+        .post-header { border-bottom: 2px solid var(--text-main); padding-bottom: 20px; margin-bottom: 30px; }
+        .post-title-text { font-size: 28px; font-weight: 700; margin: 0 0 15px 0; display: flex; align-items: center; }
+        .post-meta { display: flex; gap: 20px; font-size: 14px; color: var(--text-muted); }
+        .post-content { font-size: 16px; padding-bottom: 20px; min-height: 200px; line-height: 1.8; }
+        .rule-title { font-size: 18px; color: #20c997; margin-bottom: 8px; display: block; font-family: 'NexonMaplestory', sans-serif !important; }
+        
+        .post-navigation { border-top: 2px solid var(--text-main); border-bottom: 1px solid var(--border-main); margin-top: 40px; margin-bottom: 30px; }
+        .post-navigation .nav-item { padding: 15px 10px; border-bottom: 1px solid var(--border-main); cursor: pointer; display: flex; align-items: center; font-size: 15px; transition: background 0.2s; }
+        .post-navigation .nav-item:last-child { border-bottom: none; }
+        .post-navigation .nav-item:hover:not(.disabled) { background: var(--card-hover); color: #20c997; }
+        .post-navigation .nav-item span { font-weight: 700; width: 80px; color: var(--text-muted); }
+        .post-navigation .nav-item.disabled { color: var(--text-muted); cursor: default; }
+
+        .reward-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; margin-top: 20px; }
+        .reward-card { background: var(--card-bg); border: 1px solid var(--border-main); border-radius: 8px; padding: 20px; }
+        .reward-card strong { color: #20c997; display: block; margin-bottom: 10px; font-size: 17px; }
+        .reward-card ul { padding-left: 20px; margin: 0; font-size: 14px; color: var(--text-muted); }
+        .reward-card ul li { margin-bottom: 5px; }
+
+        .discord-link { color: #5865F2; font-weight: 700; text-decoration: underline; text-decoration-color: transparent; }
+        .discord-link:hover { text-decoration-color: #5865F2; }
+        [data-theme="dark"] .discord-link { color: #7289da; }
+        [data-theme="dark"] .discord-link:hover { text-decoration-color: #7289da; }
+        
+        .btn-wrapper { text-align: center; margin-bottom: 30px; }
+        .btn-list { display: inline-block; padding: 12px 30px; background-color: var(--card-bg); border: 1px solid var(--border-main); border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.2s, color 0.2s; }
+        .btn-list:hover { background-color: #20c997; color: white; border-color: #20c997; }
+
+        .left-wing-banner { position: absolute; top: 120px; left: 30px; width: 220px; background: var(--nav-bg); border: 1px solid var(--border-main); border-radius: 12px; padding: 20px; box-shadow: 0 8px 16px rgba(0,0,0,0.05); z-index: 50; backdrop-filter: blur(5px); transition: top 0.4s ease-out; }
+        .left-wing-title { font-family: 'NexonMaplestory', sans-serif !important; font-size: 18px; color: #20c997; margin-top: 0; margin-bottom: 15px; text-align: center; border-bottom: 1px dashed var(--border-main); padding-bottom: 10px; }
+        .wing-menu { list-style: none; padding: 0; margin: 0; }
+        .wing-menu li { margin-bottom: 10px; }
+        .wing-menu li:last-child { margin-bottom: 0; }
+        .wing-btn { display: block; padding: 12px 10px; background: var(--bg-main); border: 1px solid var(--border-main); border-radius: 8px; text-align: center; font-size: 14px; font-weight: 700; color: var(--text-main); cursor: pointer; transition: all 0.2s ease; }
+        .wing-btn:hover { background: #20c997; color: white; border-color: #20c997; transform: translateY(-3px); box-shadow: 0 4px 8px rgba(32, 201, 151, 0.2); }
+
+        .footer { border-top: 1px solid var(--border-main); padding: 40px 20px; text-align: left; background: var(--card-bg); color: var(--text-muted); font-size: 13px; margin-top: 50px; }
+        .footer-content { max-width: 1200px; margin: 0 auto; }
+        
+        @media (max-width: 1550px) { .left-wing-banner { display: none; } }
+        @media (max-width: 768px) {
+            .top-nav { flex-direction: column; height: auto; gap: 15px; padding: 15px; }
+            .nav-links { position: static; transform: none; flex-wrap: wrap; justify-content: center; gap: 20px; }
+            .dropdown-content { top: 40px; }
+            .td-num, .td-writer { display: none; }
+        }
+        
+        .patch-list { padding-left: 20px; line-height: 1.8; color: var(--text-main); font-size: 15px; }
+        .patch-list li { margin-bottom: 8px; }
+        .patch-list strong { color: #20c997; margin-right: 5px; }
+        [data-theme="dark"] .patch-list strong { color: #38d9a9; }
+    </style>
+</head>
+<body>
+
+    <div class="left-wing-banner">
+        <h3 class="left-wing-title">Quick Menu</h3>
+        <ul class="wing-menu">
+            <li><div class="wing-btn" onclick="location.href='job.html'">미니랜드 직업별 스킬</div></li>
+            <li><div class="wing-btn" onclick="window.open('https://miniland1004.github.io/-/', '_blank')">미니랜드 홍보 사이트</div></li>
+            <li><div class="wing-btn" onclick="window.open('https://miniland1004.github.io/avatar-gallery/?no=01', '_blank')">미니랜드 아바타 미리보기</div></li>
+            <li><div class="wing-btn" onclick="window.open('https://drive.google.com/file/d/15UVraq9WrkiTKRxIERLXczL_s4liPKRK/view?usp=sharing', '_blank')">미니랜드 다운로드</div></li>
+            <li><div class="wing-btn" onclick="location.href='error.html'">미니랜드 오류해결</div></li>
+        </ul>
+    </div>
+
+    <div class="header-wrapper">
+        <div class="top-nav">
+            <img src="logo.png" alt="미니랜드 로고" class="logo-img" onclick="location.href='index.html'">
+            <div class="nav-links">
+                <a href="notice.html" class="main-link" style="color: #20c997;">공지사항</a>
+                <a href="event.html" class="main-link">이벤트</a>
+                <a href="patch.html" class="main-link">패치노트</a>
+                <a href="skill.html" class="main-link">스킬패치</a>
+                
+                <div class="dropdown">
+                    <a class="main-link">고객센터</a>
+                    <div class="dropdown-content">
+                        <a href="discord://-/channels/1474594207229546549/1474594208026329104">티켓문의</a>
+                        <a href="discord://-/channels/1474594207229546549/1474594208357548255">오류제보</a>
+                        <a href="discord://-/channels/1474594207229546549/1474594208357548254">건의사항</a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-right"><div class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()">🌙</div></div>
+        </div>
+    </div>
+
+    <div id="page-notice" class="page-section active sub-wrapper">
+        <h2 class="page-title">공지사항</h2>
+        <table class="board-table">
+            <thead><tr><th class="td-num">번호</th><th class="td-badge">분류</th><th class="td-title">제목</th><th class="td-writer">작성자</th><th class="td-date">등록일</th></tr></thead>
+            <tbody>
+                <tr class="clickable-row" onclick="showPage('view_kong_info')"><td class="td-num">5</td><td class="td-badge"><span class="badge badge-notice">공지</span></td><td class="td-title">콩 관련 안내</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
+                <tr class="clickable-row" onclick="showPage('view_critical')"><td class="td-num">4</td><td class="td-badge"><span class="badge badge-notice">공지</span></td><td class="td-title">크리티컬 데미지 배율 관련 안내</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
+                <tr class="clickable-row" onclick="showPage('view_nickname')"><td class="td-num">3</td><td class="td-badge"><span class="badge badge-notice">공지</span></td><td class="td-title">디스코드 및 인게임 닉네임 동일화 안내</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
+                <tr class="clickable-row" onclick="showPage('view_macro')"><td class="td-num">2</td><td class="td-badge"><span class="badge badge-notice">공지</span></td><td class="td-title">매크로/동꼽 관련안내</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
+                <tr class="clickable-row" onclick="showPage('view_rule')"><td class="td-num">1</td><td class="td-badge"><span class="badge badge-notice">공지</span></td><td class="td-title">서버규칙</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="page-view_kong_info" class="page-section sub-wrapper" style="max-width: 1000px;">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-notice" style="font-size:15px; padding:5px 12px; margin-right: 15px;">공지</span>콩 관련 안내</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
+        </div>
+        <div class="post-content">
+            안녕하세요 운영진입니다<br><br>
+            미니랜드 콩 관련 안내 및 누적 보상을 안내해 드립니다<br>
+            하단의 결제 방법 및 누적 보상 목록을 확인해 주시기 바랍니다<br><br>
+            <div class="rule-item">
+                <strong class="rule-title">◆ 콩 기본 안내 및 이벤트</strong>
+                <ul class="patch-list">
+                    <li><strong>1콩</strong> = 10,000원</li>
+                    <li><strong>콩 : 인형 비율</strong> = 1,000 : 1</li>
+                    <li style="color: #ff5252; font-weight: bold;">콩 인형 x2 추가 이벤트 진행 중 !</li>
+                </ul>
+            </div>
+            <div class="rule-item">
+                <strong class="rule-title">◆ 콩 결제 방법 안내</strong>
+                <ul class="patch-list">
+                    <li>배민쿠폰</li>
+                    <li>카드결제</li>
+                    <li>문화상품권</li>
+                    <li>서든어택SP</li>
+                    <li>오픈톡 입금</li>
+                    <li>핸드폰 소액결제</li>
+                </ul>
+                <div style="margin-top: 20px; text-align: left;">
+                    <strong style="color: #ff5252; display: block; margin-bottom: 10px;">• 콩 충전 문의하기</strong>
+                    <a href="discord://-/users/1275321168433254452" class="btn-list" style="display: inline-block; padding: 8px 20px; font-size: 14px;">💬 미니에게 DM 보내기</a>
+                </div>
+            </div>
+            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
+            <h3 style="text-align: center; color: #20c997; font-family: 'NexonMaplestory', sans-serif !important; font-size: 24px; margin-bottom: 5px;">💎 미니랜드 콩 누적 보상 안내 💎</h3>
+            <p style="text-align: center; color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">[ 캐시 아이템 업글은 1가지 캐시 아이템에 업글 가능합니다 ]</p>
+            <div class="reward-grid">
+                <div class="reward-card"><strong>🔸 콩 LV.1 [25콩] 🔸</strong><ul><li>백의 주문서 100% x10</li><li>혼돈의 주문서 60% x5</li><li>미니 블루 코인 100개</li><li>미니 핑크 코인 1000개</li><li>미니의 단풍잎 x10</li><li>원하는 캐시템 올텟+30 / 공+15 / 마+30</li><li>♥미니의 용돈♥ 칭호</li></ul></div>
+                <div class="reward-card"><strong>🔸 콩 LV.2 [50콩] 🔸</strong><ul><li>백의 주문서 100% x10</li><li>혼돈의 주문서 60% x5</li><li>미니 블루 코인 150개</li><li>미니 핑크 코인 1500개</li><li>미니의 단풍잎 x15</li><li>원하는 캐시템 올텟+30 / 공+15 / 마+30</li><li>♥미니의 짝꿍♥ 칭호</li></ul></div>
+                <div class="reward-card"><strong>🔸 콩 LV.3 [75콩] 🔸</strong><ul><li>백의 주문서 100% x10</li><li>혼돈의 주문서 60% x5</li><li>미니 블루 코인 200개</li><li>미니 핑크 코인 2000개</li><li>미니의 단풍잎 x20</li><li>원하는 캐시템 올텟+30 / 공+15 / 마+30</li><li>♥미니의 월급♥ 칭호</li></ul></div>
+                <div class="reward-card"><strong>🔸 콩 LV.4 [100콩] 🔸</strong><ul><li>백의 주문서 100% x20</li><li>혼돈의 주문서 60% x10</li><li>미니 블루 코인 250개</li><li>미니 핑크 코인 2500개</li><li>미니의 단풍잎 x25</li><li>원하는 캐시템 올텟+30 / 공+15 / 마+30</li><li>♥미니의 통장♥ 칭호</li></ul></div>
+                <div class="reward-card"><strong>🔸 콩 LV.5 [125콩] 🔸</strong><ul><li>백의 주문서 100% x20</li><li>혼돈의 주문서 60% x10</li><li>미니 블루 코인 300개</li><li>미니 핑크 코인 3000개</li><li>미니의 단풍잎 x30</li><li>원하는 캐시템 올텟+30 / 공+15 / 마+30</li><li>♥미니의 금고♥ 칭호</li></ul></div>
+                <div class="reward-card"><strong>🔸 콩 LV.6 [150콩] 🔸</strong><ul><li>백의 주문서 100% x20</li><li>혼돈의 주문서 60% x10</li><li>미니 블루 코인 350개</li><li>미니 핑크 코인 3500개</li><li>미니의 단풍잎 x35</li><li>원하는 캐시템 올텟+30 / 공+15 / 마+30</li><li>♥미니의 코인♥ 칭호</li></ul></div>
+                <div class="reward-card"><strong>🔸 콩 LV.7 [175콩] 🔸</strong><ul><li>백의 주문서 100% x30</li><li>혼돈의 주문서 60% x20</li><li>미니 블루 코인 400개</li><li>미니 핑크 코인 4000개</li><li>미니의 단풍잎 x40</li><li>원하는 캐시템 올텟+30 / 공+15 / 마+30</li><li>♥미니의 빌딩♥ 칭호</li></ul></div>
+                <div class="reward-card"><strong>🔸 콩 LV.8 [200콩] 🔸</strong><ul><li>백의 주문서 100% x30</li><li>혼돈의 주문서 60% x20</li><li>미니 블루 코인 450개</li><li>미니 핑크 코인 4500개</li><li>미니의 단풍잎 x45</li><li>원하는 캐시템 올텟+30 / 공+15 / 마+30</li><li>♥미니의 재벌♥ 칭호</li></ul></div>
+                <div class="reward-card"><strong>🔸 콩 LV.9 [225콩] 🔸</strong><ul><li>백의 주문서 100% x40</li><li>혼돈의 주문서 60% x30</li><li>미니 블루 코인 500개</li><li>보스 보따리 세트 2개</li><li>미니의 단풍잎 x50</li><li>원하는 캐시템 올텟+40 / 공+20 / 마+40</li><li>★후니의 시급★ 칭호</li></ul></div>
+                <div class="reward-card"><strong>🔸 콩 LV.10 [250콩] 🔸</strong><ul><li>백의 주문서 100% x40</li><li>혼돈의 주문서 60% x30</li><li>미니 블루 코인 550개</li><li>보스 보따리 세트 2개</li><li>미니의 단풍잎 x55</li><li>원하는 캐시템 올텟+40 / 공+20 / 마+40</li><li>★후니의 월세★ 칭호</li></ul></div>
+                <div class="reward-card"><strong>🔸 콩 LV.11 [275콩] 🔸</strong><ul><li>백의 주문서 100% x50</li><li>혼돈의 주문서 60% x30</li><li>미니 블루 코인 600개</li><li>보스 보따리 세트 2개</li><li>미니의 단풍잎 x60</li><li>원하는 캐시템 올텟+40 / 공+20 / 마+40</li><li>★후니의 전세★ 칭호</li></ul></div>
+                <div class="reward-card"><strong>🔸 콩 LV.12 [300콩] 🔸</strong><ul><li>백의 주문서 100% x50</li><li>혼돈의 주문서 60% x30</li><li>미니 블루 코인 650개</li><li>보스 보따리 세트 2개</li><li>미니의 단풍잎 x65</li><li>원하는 캐시템 올텟+40 / 공+20 / 마+40</li><li>★후니의 주식★ 칭호</li></ul></div>
+                <div class="reward-card"><strong>🔸 콩 LV.13 [325콩] 🔸</strong><ul><li>백의 주문서 100% x60</li><li>긍정의 혼돈의 주문서 100% x5</li><li>미니 블루 코인 700개</li><li>보스 보따리 세트 3개</li><li>미니의 단풍잎 x70</li><li>원하는 캐시템 올텟+60 / 공+30 / 마+60</li><li>개인 칭호 제작 OR 기존 캐시템 업글</li></ul></div>
+                <div class="reward-card"><strong>🔸 콩 LV.14 [350콩] 🔸</strong><ul><li>백의 주문서 100% x60</li><li>긍정의 혼돈의 주문서 100% x5</li><li>미니 블루 코인 750개</li><li>보스 보따리 세트 3개</li><li>미니의 단풍잎 x75</li><li>원하는 캐시템 올텟+60 / 공+30 / 마+60</li><li>개인 칭호 제작 OR 기존 캐시템 업글</li></ul></div>
+                <div class="reward-card"><strong>🔸 콩 LV.15 [375콩] 🔸</strong><ul><li>백의 주문서 100% x60</li><li>긍정의 혼돈의 주문서 100% x5</li><li>미니 블루 코인 800개</li><li>보스 보따리 세트 3개</li><li>미니의 단풍잎 x80</li><li>원하는 캐시템 올텟+60 / 공+30 / 마+60</li><li>개인 칭호 제작 OR 기존 캐시템 업글</li></ul></div>
+                <div class="reward-card"><strong>🔸 콩 LV.16 [400콩] 🔸</strong><ul><li>백의 주문서 100% x60</li><li>긍정의 혼돈의 주문서 100% x5</li><li>미니 블루 코인 850개</li><li>보스 보따리 세트 3개</li><li>미니의 단풍잎 x85</li><li>원하는 캐시템 올텟+60 / 공+30 / 마+60</li><li>개인 칭호 제작 OR 기존 캐시템 업글</li></ul></div>
+                <div class="reward-card" style="border-color: #20c997;">
+                    <strong style="color: #20c997;">🔸 콩 LV.~ ing [400콩 이상] 🔸</strong>
+                    <p style="font-size: 13px; color: #ff5252; margin-top: -5px; margin-bottom: 10px; font-weight: bold;">[ 25콩 누적 간격마다 위 동일 한 보상 지급 ]</p>
+                    <ul>
+                        <li>긍정의 혼돈의 주문서 100% x10</li>
+                        <li>미니 블루 코인 1500개</li>
+                        <li>보스 보따리 세트 5개</li>
+                        <li>미니의 단풍잎 x100</li>
+                        <li>원하는 캐시템 올텟+60 / 공+30 / 마+60</li>
+                        <li>개인 칭호 제작 OR 기존 캐시템 업글</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="post-navigation">
+            <div class="nav-item disabled"><span>▲ 다음글</span>다음 글이 없습니다.</div>
+            <div class="nav-item" onclick="showPage('view_critical')"><span>▼ 이전글</span>크리티컬 데미지 배율 관련 안내</div>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('notice')" class="btn-list">목록으로 돌아가기</span></div>
+    </div>
+
+    <div id="page-view_critical" class="page-section sub-wrapper" style="max-width: 900px;">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-notice" style="font-size:15px; padding:5px 12px; margin-right: 15px;">공지</span>크리티컬 데미지 배율 관련 안내</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
+        </div>
+        <div class="post-content">
+            안녕하세요 운영진입니다<br><br>
+            작일 접수된 일부 직업군의 크리티컬 데미지 배율 차이 제보 건에 대해 상세 조사 결과를 안내해 드립니다<br>
+            결론부터 말씀드리면, 현재 서버의 데미지 공식은 <strong>과거 원작(옛날 메이플) 고증에 맞게 정상적으로 적용</strong>되고 있습니다<br><br>
+            유저분들께서 가장 혼동하기 쉬운 옛날 메이플 고유의 연산 방식을 명확히 정리해 드립니다<br><br>
+            <div class="rule-item">
+                <strong class="rule-title">◆ 핵심 원인 : 크리티컬은 '곱연산'이 아닌 '합연산'</strong>
+                옛날 메이플의 크리티컬은 스킬 데미지에 배율을 곱하는 것(곱적용)이 아니라, 기본 퍼뎀에 크리티컬 상승치(기본값 100%를 제외한 수치)를 더하는 방식(합적용)입니다
+            </div>
+            <div class="rule-item">
+                <strong class="rule-title">◆ 샤프아이즈 미적용 시 (트리플 스로우 기준)</strong>
+                • 트스 기본(150%) + 크리티컬 스로우(+100%) = 250%<br>
+                • 최종 배율: 250% / 150% = <strong>1.6배</strong> (제보해주신 1.6배와 일치)
+            </div>
+            <div class="rule-item">
+                <strong class="rule-title">◆ 샤프아이즈 적용 시 (트리플 스로우 기준)</strong>
+                샤프아이즈의 크뎀 +40% 표기는 실제 원작에서도 +140% 합연산으로 작동했습니다<br>
+                • 트스 기본(150%) + 크리티컬(+100%) + 샤프아이즈(+140%) = 390%<br>
+                • 최종 배율: 390% / 150% = <strong>2.6배</strong> (제보해주신 2.66배는 맥스 데미지 난수에 따른 정상 수치)
+            </div>
+            <div class="rule-item">
+                <strong class="rule-title">◆ 직업별 배율이 다른 이유</strong>
+                궁수 직업군(보마, 신궁)의 배율이 나이트로드와 다르게 측정된 것 또한 정상입니다<br>
+                각 직업의 크리티컬 스킬 수치가 다를 뿐만 아니라, 합연산 공식 특성상 스킬 자체의 기본 퍼뎀(폭시, 스트레이프 등)이 낮을수록 크리티컬 발생 시의 최종 '배율'은 더 높게 측정되기 때문입니다    
+            </div>
+            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
+            현재 서버의 모든 크리티컬 및 샤프아이즈 연산은 과거 철저한 고증을 바탕으로 완벽하게 구현되어 있으니 안심하고 이용해 주시기 바랍니다<br><br>
+            더욱 투명하고 안정적인 환경을 제공하는 서버가 되겠습니다<br>
+            제보해 주신 유저분께 감사드립니다<br><br>
+            감사합니다 ( • ⩊ • )
+        </div>
+        <div class="post-navigation">
+            <div class="nav-item" onclick="showPage('view_kong_info')"><span>▲ 다음글</span>콩 관련 안내</div>
+            <div class="nav-item" onclick="showPage('view_nickname')"><span>▼ 이전글</span>디스코드 및 인게임 닉네임 동일화 안내</div>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('notice')" class="btn-list">목록으로 돌아가기</span></div>
+    </div>
+
+    <div id="page-view_nickname" class="page-section sub-wrapper" style="max-width: 900px;">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-notice" style="font-size:15px; padding:5px 12px; margin-right: 15px;">공지</span>디스코드 및 인게임 닉네임 동일화 안내</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
+        </div>
+        <div class="post-content">
+            안녕하세요 운영진입니다<br><br>
+            원활한 서버 운영과 유저 관리를 위해 <strong>디스코드 닉네임과 인게임(캐릭터) 닉네임을 반드시 동일하게 변경</strong>해 주시기를 바랍니다<br><br>
+            <div class="rule-item"><strong class="rule-title">◆ 적용 대상</strong>디스코드에 참여 중인 모든 유저</div>
+            <div class="rule-item"><strong class="rule-title">◆ 제재 안내</strong>캐릭터 생성일 기준 <strong>3일 이내</strong>에 닉네임 일치화가 확인되지 않을 경우, 사전 경고 없이 <strong>캐릭터 이용 제한(밴) 조치</strong>가 진행될 수 있습니다</div>
+            유저 여러분의 적극적인 협조 부탁드립니다 감사합니다
+        </div>
+        <div class="post-navigation">
+            <div class="nav-item" onclick="showPage('view_critical')"><span>▲ 다음글</span>크리티컬 데미지 배율 관련 안내</div>
+            <div class="nav-item" onclick="showPage('view_macro')"><span>▼ 이전글</span>매크로/동꼽 관련안내</div>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('notice')" class="btn-list">목록으로 돌아가기</span></div>
+    </div>
+
+    <div id="page-view_macro" class="page-section sub-wrapper" style="max-width: 900px;">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-notice" style="font-size:15px; padding:5px 12px; margin-right: 15px;">공지</span>매크로/동꼽 관련안내</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
+        </div>
+        <div class="post-content">
+            <div class="rule-item"><strong class="rule-title">1. 매크로 기본 방침</strong>서버는 매크로 허용 서버가 아닙니다<br>핵, 매크로, 자동화 프로그램 정 등 비인가 프로그램 사용은 원칙적으로 금지됩니다</div>
+            <div class="rule-item"><strong class="rule-title">2. 비활성 동꼽에 대한 기존 운영 방침</strong>과거에는 유저 편의를 고려하여비활성 동꼽 매크로 / 단순 동꼽 행위는 금지입니다</div>
+            <div class="rule-item"><strong class="rule-title">3. 유의 사항</strong>본 규칙은 모든 유저 동일 하게 적용되며,<br>“잠깐 자리 비움”, “몰랐다”, “괜찮은 줄 알았다” 등의 사유는예외로 인정되지 않습니다</div>
+            <div class="rule-item"><strong class="rule-title">4. 최종 판단 권한</strong>모든 판단은 운영진의 로그 및 상황 확인을 기준으로 최종 결정되며,<br>해당 조치에 대한 개별 이의 제기 및 재심 요청은 절대 불가 입니다</div>
+        </div>
+        <div class="post-navigation">
+            <div class="nav-item" onclick="showPage('view_nickname')"><span>▲ 다음글</span>디스코드 및 인게임 닉네임 동일화 안내</div>
+            <div class="nav-item" onclick="showPage('view_rule')"><span>▼ 이전글</span>서버규칙</div>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('notice')" class="btn-list">목록으로 돌아가기</span></div>
+    </div>
+
+    <div id="page-view_rule" class="page-section sub-wrapper" style="max-width: 900px;">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-notice" style="font-size:15px; padding:5px 12px; margin-right: 15px;">공지</span>서버규칙</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
+        </div>
+        <div class="post-content">
+            <div class="rule-item"><strong class="rule-title">1. 1인 1PC/1클라 원칙</strong>1인 2PC/2클라 이상 사용하는 행위는 금지됩니다<br>2인 이상 동거 또는 예외 상황 시 인증이 필요하며, 반드시 티켓 문의를 통해 허가받아야 합니다</div>
+            <div class="rule-item"><strong class="rule-title">2. 불법 프로그램 사용 금지</strong>핵/리패커/매크로/자동화 프로그램 정 등 모든 비인가 프로그램 사용은 금지됩니다<br>적발 시 즉시 영구 정지 조치됩니다<br>동꼽 관련 해서 모니터링X 시에는 1회 경고 2회 정지입니다</div>
+            <div class="rule-item"><strong class="rule-title">3. 현금 거래 및 계정 양도 금지</strong>유저 간 현금 거래/계정 양도/계정 대여 등의 행위는 절대 금지됩니다<br>적발 시 계정 영구 정지 및 관련 계정 모두 제재됩니다</div>
+            <div class="rule-item"><strong class="rule-title">4. 비매너 행위 및 분쟁 유도 금지</strong>욕설/음란 표현/도배/비하/갈등 유도 등은 엄격히 금지됩니다<br>유저 간 분쟁은 운영진이 개입하지 않습니다</div>
+            <div class="rule-item"><strong class="rule-title">5. 버그 악용 및 유포 금지</strong>버그를 발견하더라도 악용하거나 다른 유저에게 공유하는 것은 금지됩니다<br>버그는 아래 채널을 통해 신속히 제보해 주세요<br>
+                <strong>[오류 제보 채널] <a href="discord://-/channels/1474594207229546549/1474594208357548255" class="discord-link">💌┃오류제보</a></strong>
+            </div>
+            <div class="rule-item"><strong class="rule-title">6. 스킬 패치 관련 문의 불가</strong>스킬 밸런스/패치 내용 등은 문의 대상에서 제외됩니다</div>
+            <div class="rule-item"><strong class="rule-title">7. 문의 절차 준수 (티켓 시스템)</strong>모든 문의는 반드시 티켓을 통해서만 접수 가능합니다<br>개인 DM(쪽지) 문의는 금지됩니다<br>
+                <strong>[티켓 문의 채널] <a href="discord://-/channels/1474594207229546549/1474594208026329104" class="discord-link">☎️┃티켓문의</a></strong>
+            </div>
+            <div class="rule-item"><strong class="rule-title">8. 운영 방해 및 시스템 악용 금지</strong>위 규칙 외에도 서버 운영을 방해하거나 시스템을 악용하는 경우, 운영진의 판단에 따라 영구 정지 조치될 수 있습니다</div>
+        </div>
+        <div class="post-navigation">
+            <div class="nav-item" onclick="showPage('view_macro')"><span>▲ 다음글</span>매크로/동꼽 관련안내</div>
+            <div class="nav-item disabled"><span>▼ 이전글</span>이전 글이 없습니다.</div>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('notice')" class="btn-list">목록으로 돌아가기</span></div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-links">운영정책 | 개인정보처리방침</div>
+            <p>운영진 미니 | 서버<br>© 2026 MINI. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        /* 싱글 페이지 화면 전환 기능 (로컬 파일 내에서 동작) */
+        function showPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+            const target = document.getElementById('page-' + pageId);
+            if(target) { target.classList.add('active'); }
+            window.scrollTo(0, 0); // 화면 맨 위로 부드럽게 끌어올려줌
+        }
+
+        /* 외부 링크(메인)에서 넘어왔을 때 해당 게시글 바로 열어주는 기능 */
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const post = urlParams.get('post');
+            if(post) {
+                showPage(post);
+            }
+        });
+
+        const themeBtn = document.getElementById('themeToggleBtn');
+        if (localStorage.getItem('theme') === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); themeBtn.textContent = '☀️'; }
+        function toggleTheme() { if (document.documentElement.getAttribute('data-theme') === 'dark') { document.documentElement.removeAttribute('data-theme'); themeBtn.textContent = '🌙'; localStorage.setItem('theme', 'light'); } else { document.documentElement.setAttribute('data-theme', 'dark'); themeBtn.textContent = '☀️'; localStorage.setItem('theme', 'dark'); } }
+
+        // 🕊️ 퀵 메뉴 스크롤 부드럽게 따라다니는 효과 추가
+        window.addEventListener('scroll', function() {
+            const banner = document.querySelector('.left-wing-banner');
+            if(window.innerWidth > 1550) { // PC 화면에서만 작동
+                banner.style.top = (window.scrollY + 120) + 'px';
+            }
+        });
+    </script>
+</body>
+</html>

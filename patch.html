@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미니랜드 패치노트</title>
+    <link rel="icon" href="homepagelogo.jpg">
+    <style>
+        :root { --bg-main: #ffffff; --text-main: #333333; --text-muted: #888888; --nav-bg: rgba(255, 255, 255, 0.95); --border-main: #eaeaea; --card-bg: #fafafa; --card-hover: #f4fdf9; --card-border: #eeeeee; --modal-bg: #ffffff; --modal-inner: #f9fdfb; }
+        [data-theme="dark"] { --bg-main: #121212; --text-main: #e0e0e0; --text-muted: #999999; --nav-bg: rgba(24, 24, 24, 0.95); --border-main: #333333; --card-bg: #1e1e1e; --card-hover: #2a2a2a; --card-border: #333333; --modal-bg: #1e1e1e; --modal-inner: #252525; }
+        @font-face { font-family: 'Pretendard-Regular'; src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff'); font-weight: 400; }
+        @font-face { font-family: 'NexonMaplestory'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFLight.woff') format('woff'); font-weight: 300; }
+        @font-face { font-family: 'NexonMaplestory'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff'); font-weight: 700; }
+        * { font-family: 'Pretendard-Regular', sans-serif !important; -webkit-font-smoothing: antialiased; box-sizing: border-box; }
+        body { background: var(--bg-main); color: var(--text-main); margin: 0; padding: 0; transition: background 0.3s, color 0.3s; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        .page-section { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .page-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .header-wrapper { position: sticky; top: 0; z-index: 100; }
+        .top-nav { position: relative; background: var(--nav-bg); padding: 0 50px; display: flex; align-items: center; justify-content: space-between; height: 80px; border-bottom: 1px solid var(--border-main); z-index: 101; backdrop-filter: blur(5px); }
+        .logo-img { height: 70px; object-fit: contain; cursor: pointer; z-index: 102; transition: transform 0.2s; }
+        .logo-img:hover { transform: scale(1.08); }
+        .nav-links { display: flex; gap: 50px; position: absolute; left: 50%; transform: translateX(-50%); height: 100%; z-index: 102; }
+        .main-link { display: flex; align-items: center; height: 80px; font-size: 17px; font-weight: 700; color: var(--text-main); position: relative; transition: color 0.2s; cursor: pointer; }
+        .main-link:hover { color: #20c997; }
+        .dropdown { position: relative; display: inline-block; height: 80px; }
+        .dropdown-content { display: none; position: absolute; top: 75px; left: 50%; transform: translateX(-50%); background-color: var(--nav-bg); min-width: 150px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); border-radius: 8px; border: 1px solid var(--border-main); z-index: 200; overflow: hidden; backdrop-filter: blur(5px); }
+        .dropdown:hover .dropdown-content { display: block; animation: fadeIn 0.2s ease-in-out; }
+        .dropdown-content a { color: var(--text-main); padding: 12px 16px; text-decoration: none; display: block; font-size: 15px; font-weight: 600; text-align: center; transition: background 0.2s, color 0.2s; }
+        .dropdown-content a:hover { background-color: var(--card-hover); color: #20c997; }
+        .theme-toggle { cursor: pointer; font-size: 22px; user-select: none; transition: transform 0.2s; padding: 10px; }
+        .theme-toggle:hover { transform: scale(1.15); }
+        .sub-wrapper { max-width: 1000px; margin: 30px auto; padding: 0 20px; min-height: 60vh; }
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; margin-right: 12px; min-width: 45px; text-align: center; }
+        .badge-patch { background: #fff3e0; color: #f57c00; }
+        [data-theme="dark"] .badge-patch { background: #332211; color: #ffb74d; }
+        .page-title { font-family: 'NexonMaplestory', sans-serif !important; font-size: 32px; margin-bottom: 30px; border-bottom: 3px solid var(--text-main); padding-bottom: 15px; }
+        .board-table { width: 100%; border-collapse: collapse; text-align: center; }
+        .board-table th { padding: 15px 10px; border-bottom: 1px solid var(--text-muted); font-size: 15px; }
+        .board-table td { padding: 18px 10px; border-bottom: 1px solid var(--border-main); font-size: 15px; }
+        .board-table tr.clickable-row:hover td { background: var(--card-hover); cursor: pointer; }
+        .td-num { width: 80px; color: var(--text-muted); }
+        .td-badge { width: 100px; }
+        .td-title { text-align: left; font-weight: 600; }
+        .td-writer { width: 120px; color: var(--text-muted); }
+        .td-date { width: 120px; color: var(--text-muted); }
+        .post-header { border-bottom: 2px solid var(--text-main); padding-bottom: 20px; margin-bottom: 30px; }
+        .post-title-text { font-size: 28px; font-weight: 700; margin: 0 0 15px 0; display: flex; align-items: center; }
+        .post-meta { display: flex; gap: 20px; font-size: 14px; color: var(--text-muted); }
+        .post-content { font-size: 16px; padding-bottom: 20px; min-height: 200px; line-height: 1.8; }
+        .rule-title { font-size: 18px; color: #20c997; margin-bottom: 8px; display: block; font-family: 'NexonMaplestory', sans-serif !important; }
+        .post-navigation { border-top: 2px solid var(--text-main); border-bottom: 1px solid var(--border-main); margin-top: 40px; margin-bottom: 30px; }
+        .post-navigation .nav-item { padding: 15px 10px; border-bottom: 1px solid var(--border-main); cursor: pointer; display: flex; align-items: center; font-size: 15px; transition: background 0.2s; }
+        .post-navigation .nav-item:last-child { border-bottom: none; }
+        .post-navigation .nav-item:hover:not(.disabled) { background: var(--card-hover); color: #20c997; }
+        .post-navigation .nav-item span { font-weight: 700; width: 80px; color: var(--text-muted); }
+        .post-navigation .nav-item.disabled { color: var(--text-muted); cursor: default; }
+        .btn-wrapper { text-align: center; margin-bottom: 30px; }
+        .btn-list { display: inline-block; padding: 12px 30px; background-color: var(--card-bg); border: 1px solid var(--border-main); border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.2s, color 0.2s; }
+        .btn-list:hover { background-color: #20c997; color: white; border-color: #20c997; }
+        .left-wing-banner { position: absolute; top: 120px; left: 30px; width: 220px; background: var(--nav-bg); border: 1px solid var(--border-main); border-radius: 12px; padding: 20px; box-shadow: 0 8px 16px rgba(0,0,0,0.05); z-index: 50; backdrop-filter: blur(5px); transition: top 0.4s ease-out; }
+        .left-wing-title { font-family: 'NexonMaplestory', sans-serif !important; font-size: 18px; color: #20c997; margin-top: 0; margin-bottom: 15px; text-align: center; border-bottom: 1px dashed var(--border-main); padding-bottom: 10px; }
+        .wing-menu { list-style: none; padding: 0; margin: 0; }
+        .wing-menu li { margin-bottom: 10px; }
+        .wing-menu li:last-child { margin-bottom: 0; }
+        .wing-btn { display: block; padding: 12px 10px; background: var(--bg-main); border: 1px solid var(--border-main); border-radius: 8px; text-align: center; font-size: 14px; font-weight: 700; color: var(--text-main); cursor: pointer; transition: all 0.2s ease; }
+        .wing-btn:hover { background: #20c997; color: white; border-color: #20c997; transform: translateY(-3px); box-shadow: 0 4px 8px rgba(32, 201, 151, 0.2); }
+        .footer { border-top: 1px solid var(--border-main); padding: 40px 20px; text-align: left; background: var(--card-bg); color: var(--text-muted); font-size: 13px; margin-top: 50px; }
+        .footer-content { max-width: 1200px; margin: 0 auto; }
+        .patch-list { padding-left: 20px; line-height: 1.8; color: var(--text-main); font-size: 15px; }
+        .patch-list li { margin-bottom: 8px; }
+        .patch-list strong { color: #20c997; margin-right: 5px; }
+        [data-theme="dark"] .patch-list strong { color: #38d9a9; }
+        
+        /* 여제 아이템 박스 스타일 */
+        .item-box { background: var(--card-bg); border: 1.5px dashed var(--border-main); border-radius: 10px; padding: 20px; margin-bottom: 20px; font-size: 14px; line-height: 1.8; color: var(--text-main); }
+        .item-box h4 { font-family: 'NexonMaplestory', sans-serif !important; font-size: 18px; color: #20c997; margin-top: 0; margin-bottom: 15px; border-bottom: 1px solid var(--border-main); padding-bottom: 8px; }
+        [data-theme="dark"] .item-box h4 { color: #38d9a9; }
+        .item-row { display: flex; margin-bottom: 5px; }
+        .item-name { font-weight: 700; width: 180px; flex-shrink: 0; }
+        .item-stat { color: var(--text-muted); }
+        
+        @media (max-width: 1550px) { .left-wing-banner { display: none; } }
+        @media (max-width: 768px) {
+            .top-nav { flex-direction: column; height: auto; gap: 15px; padding: 15px; }
+            .nav-links { position: static; transform: none; flex-wrap: wrap; justify-content: center; gap: 20px; }
+            .td-num, .td-writer { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="left-wing-banner">
+        <h3 class="left-wing-title">Quick Menu</h3>
+        <ul class="wing-menu">
+            <li><div class="wing-btn" onclick="location.href='job.html'">미니랜드 직업별 스킬</div></li>
+            <li><div class="wing-btn" onclick="window.open('https://miniland1004.github.io/-/', '_blank')">미니랜드 홍보 사이트</div></li>
+            <li><div class="wing-btn" onclick="window.open('https://miniland1004.github.io/avatar-gallery/?no=01', '_blank')">미니랜드 아바타 미리보기</div></li>
+            <li><div class="wing-btn" onclick="window.open('https://drive.google.com/file/d/15UVraq9WrkiTKRxIERLXczL_s4liPKRK/view?usp=sharing', '_blank')">미니랜드 다운로드</div></li>
+            <li><div class="wing-btn" onclick="location.href='error.html'">미니랜드 오류해결</div></li>
+        </ul>
+    </div>
+
+    <div class="header-wrapper">
+        <div class="top-nav">
+            <img src="logo.png" alt="미니랜드 로고" class="logo-img" onclick="location.href='index.html'">
+            <div class="nav-links">
+                <a href="notice.html" class="main-link">공지사항</a>
+                <a href="event.html" class="main-link">이벤트</a>
+                <a href="patch.html" class="main-link" style="color: #20c997;">패치노트</a>
+                <a href="skill.html" class="main-link">스킬패치</a>
+                <div class="dropdown">
+                    <a class="main-link">고객센터</a>
+                    <div class="dropdown-content">
+                        <a href="discord://-/channels/1474594207229546549/1474594208026329104">티켓문의</a>
+                        <a href="discord://-/channels/1474594207229546549/1474594208357548255">오류제보</a>
+                        <a href="discord://-/channels/1474594207229546549/1474594208357548254">건의사항</a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-right"><div class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()">🌙</div></div>
+        </div>
+    </div>
+
+    <div id="page-patch" class="page-section active sub-wrapper">
+        <h2 class="page-title">패치노트</h2>
+        <table class="board-table">
+            <thead><tr><th class="td-num">번호</th><th class="td-badge">분류</th><th class="td-title">제목</th><th class="td-writer">작성자</th><th class="td-date">등록일</th></tr></thead>
+            <tbody>
+                <tr class="clickable-row" onclick="showPage('view_patch_v1_6')"><td class="td-num">7</td><td class="td-badge"><span class="badge badge-patch">패치</span></td><td class="td-title">패치노트 v1.6</td><td class="td-writer">미니</td><td class="td-date">2026.06.16</td></tr>
+                <tr class="clickable-row" onclick="showPage('view_patch_v1_5')"><td class="td-num">6</td><td class="td-badge"><span class="badge badge-patch">패치</span></td><td class="td-title">패치노트 v1.5</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
+                <tr class="clickable-row" onclick="showPage('view_patch_v1_4')"><td class="td-num">5</td><td class="td-badge"><span class="badge badge-patch">패치</span></td><td class="td-title">패치노트 v1.4</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
+                <tr class="clickable-row" onclick="showPage('view_patch_v1_3')"><td class="td-num">4</td><td class="td-badge"><span class="badge badge-patch">패치</span></td><td class="td-title">패치노트 v1.3</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
+                <tr class="clickable-row" onclick="showPage('view_patch_v1_2')"><td class="td-num">3</td><td class="td-badge"><span class="badge badge-patch">패치</span></td><td class="td-title">패치노트 v1.2</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
+                <tr class="clickable-row" onclick="showPage('view_patch_v1_1')"><td class="td-num">2</td><td class="td-badge"><span class="badge badge-patch">패치</span></td><td class="td-title">패치노트 v1.1</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
+                <tr class="clickable-row" onclick="showPage('view_patch_v1_0')"><td class="td-num">1</td><td class="td-badge"><span class="badge badge-patch">패치</span></td><td class="td-title">패치노트 v1.0</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="page-view_patch_v1_6" class="page-section sub-wrapper">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-patch" style="font-size:15px; padding:5px 12px; margin-right: 15px;">패치</span>패치노트 v1.6</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.16</span></div>
+        </div>
+        <div class="post-content">
+            안녕하세요 운영진입니다<br><br>
+            서버의 v1.6 패치노트를 안내해 드립니다<br>
+            드디어 많은 분들이 기다려 주신 <strong>여제 장비 아이템</strong>이 추가되었습니다!<br><br>
+            <div class="rule-item">
+                <strong class="rule-title">◆ 패치노트 v1.6 상세 내역</strong>
+                <ul class="patch-list">
+                    <li><strong>140</strong> 홍보사이트 내 <strong>일반/특별 인증 동시 제출 기능</strong> 추가</li>
+                    <li><strong>141</strong> 표창 교환 목록에 <strong>'플레임 표창'</strong> 추가 완료</li>
+                    <li style="margin-top: 15px;"><strong>142</strong> <strong>여제 장비/무기 세트 정식 추가</strong>
+                        <p style="margin-top: 8px; font-size: 14px; color: var(--text-muted);">전 직업군의 여제 아이템 능력치가 적용되었습니다.</p>
+                        
+                        <div class="item-box">
+                            <h4>⚔️ 전사 여제 아이템</h4>
+                            <div class="item-row"><div class="item-name">한손검 (커틀러스)</div><div class="item-stat">STR 35 / DEX 20 / 공격력 131 / 명중률 100 / 업횟 10</div></div>
+                            <div class="item-row"><div class="item-name">한손도끼 (챔피온엑스)</div><div class="item-stat">STR 35 / DEX 20 / 공격력 131 / 명중률 100 / 업횟 10</div></div>
+                            <div class="item-row"><div class="item-name">한손둔기 (배틀해머)</div><div class="item-stat">STR 35 / DEX 20 / 공격력 131 / 명중률 100 / 업횟 10</div></div>
+                            <div class="item-row"><div class="item-name">두손검 (배틀시미터)</div><div class="item-stat">STR 35 / DEX 20 / 공격력 134 / 명중률 100 / 업횟 10</div></div>
+                            <div class="item-row"><div class="item-name">두손도끼 (배틀엑스)</div><div class="item-stat">STR 35 / DEX 20 / 공격력 134 / 명중률 100 / 업횟 10</div></div>
+                            <div class="item-row"><div class="item-name">두손둔기 (기간틱모울)</div><div class="item-stat">STR 35 / DEX 20 / 공격력 134 / 명중률 100 / 업횟 10</div></div>
+                            <div class="item-row"><div class="item-name">창 (푸스키나)</div><div class="item-stat">STR 35 / DEX 20 / 공격력 134 / 명중률 100 / 업횟 10</div></div>
+                            <div class="item-row"><div class="item-name">폴암 (파르티잔)</div><div class="item-stat">STR 35 / DEX 20 / 공격력 134 / 명중률 100 / 업횟 10</div></div>
+                            <div class="item-row"><div class="item-name">방패 (워리어 쉴드)</div><div class="item-stat">STR 10 / DEX 10 / 방어력 130 / 마법방어력 130 / 업횟 10</div></div>
+                            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 12px 0;">
+                            <div class="item-row"><div class="item-name">모자 (배틀헬름)</div><div class="item-stat">STR 23 / DEX 23 / MaxHP 250 / MaxMP 250 / 방어력 300 / 마법방어력 300 / 업횟 11</div></div>
+                            <div class="item-row"><div class="item-name">전신갑옷 (배틀메일)</div><div class="item-stat">STR 32 / DEX 32 / MaxHP 30 / MaxMP 30 / 방어력 300 / 마법방어력 300 / 업횟 10</div></div>
+                            <div class="item-row"><div class="item-name">장갑 (배틀브레이서)</div><div class="item-stat">STR 12 / DEX 12 / MaxHP 50 / MaxMP 50 / 방어력 100 / 마법방어력 100 / 업횟 5</div></div>
+                            <div class="item-row"><div class="item-name">신발 (배틀부츠)</div><div class="item-stat">STR 12 / DEX 12 / 이동속도 5 / 점프력 5 / 방어력 150 / 마법방어력 150 / 업횟 5</div></div>
+                            <div class="item-row"><div class="item-name">망토 (배틀케이프)</div><div class="item-stat">올스탯 7 / 방어력 150 / 마법방어력 150 / 업횟 7</div></div>
+                            <div class="item-row"><div class="item-name">어깨장식 (배틀숄더)</div><div class="item-stat">올스탯 10 / 공격력 7 / 마력 7 / 방어력 100 / 마법방어력 100 / 업횟 1</div></div>
+                        </div>
+
+                        <div class="item-box">
+                            <h4>🔮 마법사 여제 아이템</h4>
+                            <div class="item-row"><div class="item-name">완드 (아크완드)</div><div class="item-stat">INT 35 / LUK 20 / 마력 138 / 공격력 85 / 명중률 100 / 업횟 10</div></div>
+                            <div class="item-row"><div class="item-name">스태프 (워스태프)</div><div class="item-stat">INT 35 / LUK 20 / 마력 141 / 공격력 91 / 명중률 100 / 업횟 10</div></div>
+                            <div class="item-row"><div class="item-name">방패 (세이지 쉴드)</div><div class="item-stat">INT 10 / LUK 10 / 마력 2 / 방어력 110 / 마법방어력 110 / 업횟 10</div></div>
+                            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 12px 0;">
+                            <div class="item-row"><div class="item-name">모자 (메이지샐릿)</div><div class="item-stat">INT 23 / LUK 23 / MaxHP 250 / MaxMP 250 / 방어력 300 / 마법방어력 300 / 업횟 11</div></div>
+                            <div class="item-row"><div class="item-name">전신갑옷 (메이지로브)</div><div class="item-stat">INT 32 / LUK 32 / MaxHP 30 / MaxMP 30 / 방어력 300 / 마법방어력 300 / 업횟 10</div></div>
+                            <div class="item-row"><div class="item-name">장갑 (메이지피스트)</div><div class="item-stat">INT 12 / LUK 12 / MaxHP 50 / MaxMP 50 / 방어력 100 / 마법방어력 100 / 업횟 5</div></div>
+                            <div class="item-row"><div class="item-name">신발 (메이지슈즈)</div><div class="item-stat">INT 12 / LUK 12 / 이동속도 5 / 점프력 5 / 방어력 150 / 마법방어력 150 / 업횟 5</div></div>
+                            <div class="item-row"><div class="item-name">망토 (메이지케이프)</div><div class="item-stat">올스탯 7 / 방어력 150 / 마법방어력 150 / 업횟 7</div></div>
+                            <div class="item-row"><div class="item-name">어깨장식 (메이지숄더)</div><div class="item-stat">올스탯 10 / 공격력 7 / 마력 7 / 방어력 100 / 마법방어력 100 / 업횟 1</div></div>
+                        </div>
+
+                        <div class="item-box">
+                            <h4>🏹 궁수 여제 아이템</h4>
+                            <div class="item-row"><div class="item-name">활 (컴포지트 보우)</div><div class="item-stat">DEX 35 / STR 20 / 공격력 128 / 명중률 100 / 넉백 68% / 업횟 10</div></div>
+                            <div class="item-row"><div class="item-name">석궁 (헤비크로스보우)</div><div class="item-stat">DEX 35 / STR 20 / 공격력 131 / 명중률 100 / 넉백 68% / 업횟 10</div></div>
+                            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 12px 0;">
+                            <div class="item-row"><div class="item-name">모자 (센티널캡)</div><div class="item-stat">DEX 23 / STR 23 / MaxHP 250 / MaxMP 250 / 방어력 300 / 마법방어력 300 / 업횟 11</div></div>
+                            <div class="item-row"><div class="item-name">전신갑옷 (센티널슈트)</div><div class="item-stat">DEX 32 / STR 32 / MaxHP 30 / MaxMP 30 / 방어력 300 / 마법방어력 300 / 업횟 10</div></div>
+                            <div class="item-row"><div class="item-name">장갑 (센티널글러브)</div><div class="item-stat">DEX 12 / STR 12 / MaxHP 50 / MaxMP 50 / 방어력 100 / 마법방어력 100 / 업횟 5</div></div>
+                            <div class="item-row"><div class="item-name">신발 (센티널부츠)</div><div class="item-stat">DEX 12 / STR 12 / 이동속도 5 / 점프력 5 / 방어력 150 / 마법방어력 150 / 업횟 5</div></div>
+                            <div class="item-row"><div class="item-name">망토 (센티널케이프)</div><div class="item-stat">올스탯 7 / 방어력 150 / 마법방어력 150 / 업횟 7</div></div>
+                            <div class="item-row"><div class="item-name">어깨장식 (센티널숄더)</div><div class="item-stat">올스탯 10 / 공격력 7 / 마력 7 / 방어력 100 / 마법방어력 100 / 업횟 1</div></div>
+                        </div>
+
+                        <div class="item-box">
+                            <h4>🗡️ 도적 여제 아이템</h4>
+                            <div class="item-row"><div class="item-name">단검 (바젤라드)</div><div class="item-stat">LUK 35 / DEX 20 / 공격력 128 / 명중률 100 / 업횟 10</div></div>
+                            <div class="item-row"><div class="item-name">아대 (메탈피스트)</div><div class="item-stat">LUK 35 / DEX 20 / 공격력 69 / 명중률 100 / 업횟 10</div></div>
+                            <div class="item-row"><div class="item-name">방패 (다크니스 쉴드)</div><div class="item-stat">LUK 10 / DEX 10 / 방어력 120 / 마법방어력 120 / 업횟 10</div></div>
+                            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 12px 0;">
+                            <div class="item-row"><div class="item-name">모자 (체이서햇)</div><div class="item-stat">LUK 23 / DEX 23 / MaxHP 250 / MaxMP 250 / 방어력 300 / 마법방어력 300 / 업횟 11</div></div>
+                            <div class="item-row"><div class="item-name">전신갑옷 (체이서아머)</div><div class="item-stat">LUK 32 / DEX 32 / MaxHP 30 / MaxMP 30 / 방어력 300 / 마법방어력 300 / 업횟 10</div></div>
+                            <div class="item-row"><div class="item-name">장갑 (체이서글러브)</div><div class="item-stat">LUK 12 / DEX 12 / MaxHP 50 / MaxMP 50 / 방어력 100 / 마법방어력 100 / 업횟 5</div></div>
+                            <div class="item-row"><div class="item-name">신발 (체이서부츠)</div><div class="item-stat">LUK 12 / DEX 12 / 이동속도 5 / 점프력 5 / 방어력 150 / 마법방어력 150 / 업횟 5</div></div>
+                            <div class="item-row"><div class="item-name">망토 (체이서케이프)</div><div class="item-stat">올스탯 7 / 방어력 150 / 마법방어력 150 / 업횟 7</div></div>
+                            <div class="item-row"><div class="item-name">어깨장식 (체이서숄더)</div><div class="item-stat">올스탯 10 / 공격력 7 / 마력 7 / 방어력 100 / 마법방어력 100 / 업횟 1</div></div>
+                        </div>
+
+                        <div class="item-box">
+                            <h4>🔫 해적 여제 아이템</h4>
+                            <div class="item-row"><div class="item-name">건 (샤프슈터)</div><div class="item-stat">DEX 35 / STR 20 / 공격력 96 / 명중률 100 / 업횟 10</div></div>
+                            <div class="item-row"><div class="item-name">너클 (와일드탈론)</div><div class="item-stat">STR 35 / DEX 20 / 공격력 98 / 명중률 100 / 업횟 10</div></div>
+                            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 12px 0;">
+                            <div class="item-row"><div class="item-name">모자 (스키퍼햇)</div><div class="item-stat">STR 23 / DEX 23 / MaxHP 250 / MaxMP 250 / 방어력 300 / 마법방어력 300 / 업횟 11</div></div>
+                            <div class="item-row"><div class="item-name">전신갑옷 (스키퍼코트)</div><div class="item-stat">STR 32 / DEX 32 / MaxHP 30 / MaxMP 30 / 방어력 300 / 마법방어력 300 / 업횟 10</div></div>
+                            <div class="item-row"><div class="item-name">장갑 (스키퍼글러브)</div><div class="item-stat">STR 12 / DEX 12 / MaxHP 50 / MaxMP 50 / 방어력 100 / 마법방어력 100 / 업횟 5</div></div>
+                            <div class="item-row"><div class="item-name">신발 (스키퍼부츠)</div><div class="item-stat">STR 12 / DEX 12 / 이동속도 5 / 점프력 5 / 방어력 150 / 마법방어력 150 / 업횟 5</div></div>
+                            <div class="item-row"><div class="item-name">망토 (스키퍼케이프)</div><div class="item-stat">올스탯 7 / 방어력 150 / 마법방어력 150 / 업횟 7</div></div>
+                            <div class="item-row"><div class="item-name">어깨장식 (스키퍼숄더)</div><div class="item-stat">올스탯 10 / 공격력 7 / 마력 7 / 방어력 100 / 마법방어력 100 / 업횟 1</div></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
+            앞으로도 지속적인 업데이트를 통해 완성도 높은 서버를 만들어 가겠습니다<br>
+            감사합니다 ( • ⩊ • )
+        </div>
+        <div class="post-navigation">
+            <div class="nav-item disabled"><span>▲ 다음글</span>다음 글이 없습니다.</div>
+            <div class="nav-item" onclick="showPage('view_patch_v1_5')"><span>▼ 이전글</span>패치노트 v1.5</div>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('patch')" class="btn-list">목록으로 돌아가기</span></div>
+    </div>
+
+    <div id="page-view_patch_v1_5" class="page-section sub-wrapper">
+        <div class="post-header"><h1 class="post-title-text"><span class="badge badge-patch">패치</span>패치노트 v1.5</h1><div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div></div>
+        <div class="post-content">
+            <div class="rule-item">
+                <ul class="patch-list">
+                    <li><strong>128</strong> 직업별 방어구 수집 추가 완료 (올스탯 +1 증가)</li>
+                    <li><strong>129</strong> NPC 스트링 최신화 완료</li>
+                    <li><strong>130</strong> 보스 초기화 추가 (홍코/후코)</li>
+                    <li><strong>131</strong> 홍보 상점 경험치/드랍률 쿠폰 추가</li>
+                    <li><strong>132</strong> 장비/방어구/표창/기타 수집 시 일괄 등록 가능하도록 수정</li>
+                    <li><strong>133</strong> 미니의 단풍 슬롯머신 추가</li>
+                    <li><strong>134</strong> 보라색 서핑 보드 '자쿰' 드랍 추가</li>
+                    <li><strong>135</strong> 레벨 보상 확장 (LV.300 ~ LV.1000)</li>
+                    <li><strong>136</strong> '나는야 럭키가이' 훈장 강화 추가</li>
+                    <li><strong>137</strong> '미블코 랜덤뽑기' 100회 뽑기로 상향</li>
+                    <li><strong>138</strong> @드랍 몬스터 검색 시 레벨 표기 추가</li>
+                    <li><strong>139</strong> 베르가모트 1일 1회 입장 수정</li>
+                </ul>
+            </div>
+            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">감사합니다 ( • ⩊ • )
+        </div>
+        <div class="post-navigation"><div class="nav-item" onclick="showPage('view_patch_v1_6')"><span>▲ 다음글</span>패치노트 v1.6</div><div class="nav-item" onclick="showPage('view_patch_v1_4')"><span>▼ 이전글</span>패치노트 v1.4</div></div><div class="btn-wrapper"><span onclick="showPage('patch')" class="btn-list">목록으로 돌아가기</span></div>
+    </div>
+    
+    <div id="page-view_patch_v1_4" class="page-section sub-wrapper">
+        <div class="post-header"><h1 class="post-title-text"><span class="badge badge-patch">패치</span>패치노트 v1.4</h1><div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div></div>
+        <div class="post-content">
+            <div class="rule-item">
+                <ul class="patch-list">
+                    <li><strong>101</strong> 아이템 공/마 제한 해제 및 상향 (32767)</li>
+                    <li><strong>102</strong> 거탐 예외 상황 @거탐 명령어 추가</li>
+                    <li><strong>103</strong> 카오스 혼테일 견장 오류 수정</li>
+                    <li><strong>104</strong> 1+2 레벨업 버닝 추가</li>
+                    <li><strong>105</strong> 인벤토리 페이지 분리 도입 (@인벤1, @인벤2)</li>
+                    <li><strong>106</strong> 미니의 단풍잎 예외 강화 가능 아이템 추가</li>
+                    <li><strong>107</strong> 무기고 마법 데미지 오류 해결</li>
+                    <li><strong>108</strong> 무기고 '절대음감' 드랍 추가</li>
+                    <li><strong>109</strong> 보스 개인 보상 누락 개선</li>
+                    <li><strong>110</strong> 원정대 중간 합류 버그 수정</li>
+                    <li><strong>111</strong> 몬스터북 장비 복구 기능 추가</li>
+                    <li><strong>112</strong> 설치 탭 정렬 튕김 현상 수정</li>
+                    <li><strong>113</strong> 배틀쉽 탑승 스킬 추가</li>
+                    <li><strong>114</strong> 일반 장비 스킬 레벨 +1 능력 제거</li>
+                    <li><strong>115</strong> @판매 예외 처리 적용</li>
+                    <li><strong>116</strong> 게임 런처 파일 체크 속도 개선</li>
+                    <li><strong>117</strong> 홍보 누적 보상 추가 (500회)</li>
+                    <li><strong>118</strong> 백간랑하 스킵 티켓 추가</li>
+                    <li><strong>119</strong> 장비 수집 컬렉션 추가 완료</li>
+                    <li><strong>120</strong> 미니의 단풍잎 강화 한도 상향 (25강)</li>
+                    <li><strong>121</strong> 낚시터 추가 완료</li>
+                    <li><strong>122</strong> 사냥터 드랍 재화 변경 (단풍잎 직접 드랍)</li>
+                    <li><strong>123</strong> 몬스터 컬렉션 요구량 수정</li>
+                    <li><strong>124</strong> 아바타 번호 검색 누락 현상 수정</li>
+                    <li><strong>125</strong> @보너스 명령어 출력 강화</li>
+                    <li><strong>126</strong> 용사의 의지 마스터 레벨 확장 (10)</li>
+                    <li><strong>127</strong> 윈드 부스터 심볼 추가</li>
+                </ul>
+            </div>
+            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">감사합니다 ( • ⩊ • )
+        </div>
+        <div class="post-navigation"><div class="nav-item" onclick="showPage('view_patch_v1_5')"><span>▲ 다음글</span>패치노트 v1.5</div><div class="nav-item" onclick="showPage('view_patch_v1_3')"><span>▼ 이전글</span>패치노트 v1.3</div></div><div class="btn-wrapper"><span onclick="showPage('patch')" class="btn-list">목록으로 돌아가기</span></div>
+    </div>
+    
+    <div id="page-view_patch_v1_3" class="page-section sub-wrapper">
+        <div class="post-header"><h1 class="post-title-text"><span class="badge badge-patch">패치</span>패치노트 v1.3</h1><div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div></div>
+        <div class="post-content">
+            <div class="rule-item">
+                <ul class="patch-list">
+                    <li><strong>074</strong> 표창/불릿 교환 추가</li>
+                    <li><strong>075</strong> 주문서 교환 상점 요구량 조정</li>
+                    <li><strong>076</strong> 여름 이벤트 NPC 추가</li>
+                    <li><strong>077</strong> 딜 미터기 기능 추가</li>
+                    <li><strong>078</strong> @도감 명령어 추가</li>
+                    <li><strong>079</strong> 필드보스/보스 드랍 테이블 수정</li>
+                    <li><strong>080</strong> 단풍잎 장비 강화 시스템 추가</li>
+                    <li><strong>081</strong> 응가 상점 추가</li>
+                    <li><strong>082</strong> 디스코드 아이템 확성기 툴팁 개선</li>
+                    <li><strong>083</strong> 보스 개인 드랍 원정대 기준으로 확장</li>
+                    <li><strong>084</strong> 전체 NPC 스트링 수정</li>
+                    <li><strong>085</strong> 콩 상점 물품 추가</li>
+                    <li><strong>086</strong> 카혼 맵/콘텐츠 추가</li>
+                    <li><strong>087</strong> 캐릭터 최대 HP/MP 상한 확장 (80,000)</li>
+                    <li><strong>088</strong> 인벤토리 정렬 튕김 수정</li>
+                    <li><strong>089</strong> 아이템 링크 디스코드 연동 적용</li>
+                    <li><strong>090</strong> 카쿰 투구 고유 아이템 속성 제거</li>
+                    <li><strong>091</strong> 에피네아 반지 교환 가능 변경</li>
+                    <li><strong>092</strong> 단계별 심볼 추가</li>
+                    <li><strong>093</strong> 몬스터북 카드 구매 시스템 추가</li>
+                    <li><strong>094</strong> 카혼 드랍 테이블 추가</li>
+                    <li><strong>095</strong> 카혼/핑빈 타임리스 드랍률 상승</li>
+                    <li><strong>096</strong> 확장분 정상 적용 수정</li>
+                    <li><strong>097</strong> HP/MP 증가 주문서 전용 NPC 추가</li>
+                    <li><strong>098</strong> 응가 교환 상점 비용 조정</li>
+                    <li><strong>099</strong> 무지개 펭귄 뽑기 보상 상향</li>
+                    <li><strong>100</strong> 일일 퀘스트 (가위바위보) 추가</li>
+                </ul>
+            </div>
+            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">감사합니다 ( • ⩊ • )
+        </div>
+        <div class="post-navigation"><div class="nav-item" onclick="showPage('view_patch_v1_4')"><span>▲ 다음글</span>패치노트 v1.4</div><div class="nav-item" onclick="showPage('view_patch_v1_2')"><span>▼ 이전글</span>패치노트 v1.2</div></div><div class="btn-wrapper"><span onclick="showPage('patch')" class="btn-list">목록으로 돌아가기</span></div>
+    </div>
+    
+    <div id="page-view_patch_v1_2" class="page-section sub-wrapper">
+        <div class="post-header"><h1 class="post-title-text"><span class="badge badge-patch">패치</span>패치노트 v1.2</h1><div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div></div>
+        <div class="post-content">
+            <div class="rule-item">
+                <ul class="patch-list">
+                    <li><strong>060</strong> 거탐 적발 감옥 탈출 NPC 추가</li>
+                    <li><strong>061</strong> 낚시터 추가 (@낚시터)</li>
+                    <li><strong>062</strong> 뉴비 지원 물약 증가</li>
+                    <li><strong>063</strong> 서버 드랍 배율 5배 증가</li>
+                    <li><strong>064</strong> 스노우보드 드랍 및 교환 추가</li>
+                    <li><strong>065</strong> 낚시/홍보/콩 심볼 추가</li>
+                    <li><strong>066</strong> 다마고치 NPC 수정</li>
+                    <li><strong>067</strong> 아이스크림 제작 컨텐츠 추가</li>
+                    <li><strong>068</strong> 딜 미터기 추가</li>
+                    <li><strong>069</strong> 법사 겉뎀 오류 해결</li>
+                    <li><strong>070</strong> 수하 몬스터 스탯 정상화</li>
+                    <li><strong>071</strong> 시그너스 자동전직 추가</li>
+                    <li><strong>072</strong> 젠 관련 패치 (스폰포인트 3배 상향)</li>
+                </ul>
+            </div>
+            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">감사합니다 ( • ⩊ • )
+        </div>
+        <div class="post-navigation"><div class="nav-item" onclick="showPage('view_patch_v1_3')"><span>▲ 다음글</span>패치노트 v1.3</div><div class="nav-item" onclick="showPage('view_patch_v1_1')"><span>▼ 이전글</span>패치노트 v1.1</div></div><div class="btn-wrapper"><span onclick="showPage('patch')" class="btn-list">목록으로 돌아가기</span></div>
+    </div>
+
+    <div id="page-view_patch_v1_1" class="page-section sub-wrapper">
+        <div class="post-header"><h1 class="post-title-text"><span class="badge badge-patch">패치</span>패치노트 v1.1</h1><div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div></div>
+        <div class="post-content">
+            <div class="rule-item">
+                <ul class="patch-list">
+                    <li><strong>043</strong> 모루 시스템 추가</li>
+                    <li><strong>044</strong> 뎀스 변경 추가</li>
+                    <li><strong>045</strong> 시그너스 버프 상향</li>
+                    <li><strong>046</strong> 시그너스 스트링 표기 수정</li>
+                    <li><strong>047</strong> 쪽지 드랍 추가</li>
+                    <li><strong>048</strong> 홍보/콩 포인트 ➔ 코인 변경</li>
+                    <li><strong>049</strong> 뉴비 지원 추가</li>
+                    <li><strong>050</strong> 버프 세이브 기능 개선</li>
+                    <li><strong>051</strong> 거탐 시스템 변경 (전용 NPC 생성)</li>
+                    <li><strong>052</strong> 장비 드롭 상옵 수치 변경</li>
+                    <li><strong>053</strong> 뎀스 가격 인하</li>
+                    <li><strong>054</strong> 거탐 방식 재변경</li>
+                    <li><strong>055</strong> 심볼 스탯 오류 수정</li>
+                    <li><strong>056</strong> 부활 무반응 로그 강화</li>
+                    <li><strong>057</strong> 홍보 누적 횟수 안내 추가</li>
+                    <li><strong>058</strong> 미니 핑크 코인 추가</li>
+                    <li><strong>059</strong> 마스터리북 상점 추가</li>
+                </ul>
+            </div>
+            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">감사합니다 ( • ⩊ • )
+        </div>
+        <div class="post-navigation"><div class="nav-item" onclick="showPage('view_patch_v1_2')"><span>▲ 다음글</span>패치노트 v1.2</div><div class="nav-item" onclick="showPage('view_patch_v1_0')"><span>▼ 이전글</span>패치노트 v1.0</div></div><div class="btn-wrapper"><span onclick="showPage('patch')" class="btn-list">목록으로 돌아가기</span></div>
+    </div>
+
+    <div id="page-view_patch_v1_0" class="page-section sub-wrapper">
+        <div class="post-header"><h1 class="post-title-text"><span class="badge badge-patch">패치</span>패치노트 v1.0</h1><div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div></div>
+        <div class="post-content">
+            <div class="rule-item">
+                <ul class="patch-list">
+                    <li><strong>001</strong> 모든 스킬 퍼뎀 순정화</li>
+                    <li><strong>002</strong> 표기 순정화</li>
+                    <li><strong>003</strong> 버프 지속 1800초</li>
+                    <li><strong>004</strong> 다중 해상도 지원</li>
+                    <li><strong>005</strong> 맥뎀 해제</li>
+                    <li><strong>006</strong> 화면 가속</li>
+                    <li><strong>007</strong> @묘묘 추가</li>
+                    <li><strong>008</strong> 툴팁 변경</li>
+                    <li><strong>009</strong> 펫 먹이 미소모</li>
+                    <li><strong>010</strong> 인벤 풀칸 확장</li>
+                    <li><strong>011</strong> 고확 디코 연동</li>
+                    <li><strong>012</strong> 사다리 이속 상향</li>
+                    <li><strong>013</strong> 도배방지 제거</li>
+                    <li><strong>015</strong> 딜레이 제거</li>
+                    <li><strong>016</strong> @택배 추가</li>
+                    <li><strong>017</strong> @뷰티 추가</li>
+                    <li><strong>018</strong> 소지개수 30,000개</li>
+                    <li><strong>019</strong> 주스탯 분배 명령어</li>
+                    <li><strong>020</strong> @이동 추가</li>
+                    <li><strong>021</strong> 캐시템 버리기 가능</li>
+                    <li><strong>022</strong> @드랍 추가</li>
+                    <li><strong>023</strong> 하향점프 상향</li>
+                    <li><strong>024</strong> 배틀쉽 편의 개선</li>
+                    <li><strong>025</strong> 초보자 길드 생성</li>
+                    <li><strong>026</strong> 드랍테이블 순정화</li>
+                    <li><strong>027</strong> 물약 지원</li>
+                    <li><strong>028</strong> 오토루팅</li>
+                    <li><strong>029</strong> 윗점 / 덥점</li>
+                    <li><strong>030</strong> 길마 추가</li>
+                    <li><strong>031</strong> 부화기 삭제</li>
+                    <li><strong>032</strong> 메이커 삭제</li>
+                    <li><strong>033</strong> 훈장요구 하향</li>
+                    <li><strong>034</strong> 자동포션 (@포션)</li>
+                    <li><strong>035</strong> 계정창고</li>
+                    <li><strong>036</strong> 장비 상옵 증가</li>
+                    <li><strong>037</strong> 콩 상점</li>
+                    <li><strong>038</strong> 몬스터 컬렉션</li>
+                    <li><strong>039</strong> 장비 컬렉션</li>
+                    <li><strong>040</strong> 무지개 펭귄 뽑기</li>
+                    <li><strong>041</strong> 스탯창 변경</li>
+                    <li><strong>042</strong> 버프 심볼 추가</li>
+                </ul>
+            </div>
+            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">감사합니다 ( • ⩊ • )
+        </div>
+        <div class="post-navigation"><div class="nav-item" onclick="showPage('view_patch_v1_1')"><span>▲ 다음글</span>패치노트 v1.1</div><div class="nav-item disabled"><span>▼ 이전글</span>이전 글이 없습니다.</div></div><div class="btn-wrapper"><span onclick="showPage('patch')" class="btn-list">목록으로 돌아가기</span></div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-links">운영정책 | 개인정보처리방침</div>
+            <p>운영진 미니 | 서버<br>© 2026 MINI. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+            const target = document.getElementById('page-' + pageId);
+            if(target) { target.classList.add('active'); }
+            window.scrollTo(0, 0);
+        }
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const post = urlParams.get('post');
+            if(post) { showPage(post); }
+        });
+        const themeBtn = document.getElementById('themeToggleBtn');
+        if (localStorage.getItem('theme') === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); themeBtn.textContent = '☀️'; }
+        function toggleTheme() { if (document.documentElement.getAttribute('data-theme') === 'dark') { document.documentElement.removeAttribute('data-theme'); themeBtn.textContent = '🌙'; localStorage.setItem('theme', 'light'); } else { document.documentElement.setAttribute('data-theme', 'dark'); themeBtn.textContent = '☀️'; localStorage.setItem('theme', 'dark'); } }
+        window.addEventListener('scroll', function() {
+            const banner = document.querySelector('.left-wing-banner');
+            if(window.innerWidth > 1550) { banner.style.top = (window.scrollY + 120) + 'px'; }
+        });
+    </script>
+</body>
+</html>

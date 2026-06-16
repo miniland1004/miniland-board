@@ -12,7 +12,7 @@
         @font-face { font-family: 'NexonMaplestory'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFLight.woff') format('woff'); font-weight: 300; }
         @font-face { font-family: 'NexonMaplestory'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff'); font-weight: 700; }
         * { font-family: 'Pretendard-Regular', sans-serif !important; -webkit-font-smoothing: antialiased; box-sizing: border-box; }
-        body { background: var(--bg-main); color: var(--text-main); margin: 0; padding: 0; transition: background 0.3s, color 0.3s; line-height: 1.6; }
+        body { background: var(--bg-main); color: var(--text-main); margin: 0; padding: 0; transition: background 0.3s, color 0.3s; line-height: 1.6; position: relative; }
         a { text-decoration: none; color: inherit; }
         
         /* 싱글 페이지 화면 전환용 CSS */
@@ -57,7 +57,6 @@
         .post-list { list-style: none; padding: 0; margin: 0; }
         .post-list li { display: flex; align-items: center; padding: 12px 5px; border-bottom: 1px solid var(--border-main); font-size: 14px; cursor: pointer; }
         .post-list li:hover { background: var(--card-hover); }
-        .post-list li.empty-list:hover { background: transparent; cursor: default; }
         
         .badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; margin-right: 12px; min-width: 45px; text-align: center; }
         .badge-notice { background: #e3f2fd; color: #1976d2; }
@@ -73,59 +72,12 @@
         .post-date { color: var(--text-muted); font-size: 13px; margin-left: 15px; }
         
         .quick-menu-section { display: flex; gap: 20px; width: 100%; margin-bottom: 40px; }
-        .quick-box { flex: 1; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 30px 20px; text-align: center; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 120px; }
+        .quick-box { flex: 1; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 30px 20px; text-align: center; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 120px; transition: all 0.2s; }
         .quick-box:hover { transform: translateY(-5px); border-color: #20c997; }
         .quick-box h4 { margin: 0 0 5px 0; font-size: 18px; }
         .quick-box p { margin: 0; font-size: 13px; color: var(--text-muted); }
 
-        .page-title { font-family: 'NexonMaplestory', sans-serif !important; font-size: 32px; margin-bottom: 30px; border-bottom: 3px solid var(--text-main); padding-bottom: 15px; }
-        .board-table { width: 100%; border-collapse: collapse; text-align: center; }
-        .board-table th { padding: 15px 10px; border-bottom: 1px solid var(--text-muted); font-size: 15px; }
-        .board-table td { padding: 18px 10px; border-bottom: 1px solid var(--border-main); font-size: 15px; }
-        .board-table tr.clickable-row:hover td { background: var(--card-hover); cursor: pointer; }
-        .td-num { width: 80px; color: var(--text-muted); }
-        .td-badge { width: 100px; }
-        .td-title { text-align: left; font-weight: 600; }
-        .td-writer { width: 120px; color: var(--text-muted); }
-        .td-date { width: 120px; color: var(--text-muted); }
-
-        .post-header { border-bottom: 2px solid var(--text-main); padding-bottom: 20px; margin-bottom: 30px; }
-        .post-title-text { font-size: 28px; font-weight: 700; margin: 0 0 15px 0; display: flex; align-items: center; }
-        .post-meta { display: flex; gap: 20px; font-size: 14px; color: var(--text-muted); }
-        .post-content { font-size: 16px; padding-bottom: 20px; min-height: 200px; line-height: 1.8; }
-        .rule-title { font-size: 18px; color: #20c997; margin-bottom: 8px; display: block; font-family: 'NexonMaplestory', sans-serif !important; }
-        
-        .post-navigation { border-top: 2px solid var(--text-main); border-bottom: 1px solid var(--border-main); margin-top: 40px; margin-bottom: 30px; }
-        .post-navigation .nav-item { padding: 15px 10px; border-bottom: 1px solid var(--border-main); cursor: pointer; display: flex; align-items: center; font-size: 15px; transition: background 0.2s; }
-        .post-navigation .nav-item:last-child { border-bottom: none; }
-        .post-navigation .nav-item:hover:not(.disabled) { background: var(--card-hover); color: #20c997; }
-        .post-navigation .nav-item span { font-weight: 700; width: 80px; color: var(--text-muted); }
-        .post-navigation .nav-item.disabled { color: var(--text-muted); cursor: default; }
-
-        .skill-table { width: 100%; border-collapse: collapse; text-align: left; margin-top: 15px; font-size: 14px; border-top: 2px solid var(--text-main); border-bottom: 1px solid var(--border-main); }
-        .skill-table th { padding: 12px; background: var(--card-bg); border-bottom: 1px solid var(--border-main); font-weight: 700; text-align: center; }
-        .skill-table td { padding: 12px 10px; border-bottom: 1px solid var(--border-main); }
-        .skill-table td:nth-child(1), .skill-table td:nth-child(2) { text-align: center; }
-        .skill-table tr:hover { background: var(--card-hover); }
-        .hl { color: #20c997; font-weight: bold; }
-        [data-theme="dark"] .hl { color: #38d9a9; }
-        
-        .reward-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; margin-top: 20px; }
-        .reward-card { background: var(--card-bg); border: 1px solid var(--border-main); border-radius: 8px; padding: 20px; }
-        .reward-card strong { color: #20c997; display: block; margin-bottom: 10px; font-size: 17px; }
-        .reward-card ul { padding-left: 20px; margin: 0; font-size: 14px; color: var(--text-muted); }
-        .reward-card ul li { margin-bottom: 5px; }
-
-        .discord-link { color: #5865F2; font-weight: 700; text-decoration: underline; text-decoration-color: transparent; }
-        .discord-link:hover { text-decoration-color: #5865F2; }
-        [data-theme="dark"] .discord-link { color: #7289da; }
-        [data-theme="dark"] .discord-link:hover { text-decoration-color: #7289da; }
-        
-        .btn-wrapper { text-align: center; margin-bottom: 30px; }
-        .btn-list { display: inline-block; padding: 12px 30px; background-color: var(--card-bg); border: 1px solid var(--border-main); border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.2s, color 0.2s; }
-        .btn-list:hover { background-color: #20c997; color: white; border-color: #20c997; }
-
-        /* ✅ 스크롤 따라다니도록 absolute, transition 변경 완료 */
+        /* ✅ 스크롤 따라다니도록 absolute 적용 (공식 홈페이지) */
         .left-wing-banner { position: absolute; top: 120px; left: 30px; width: 220px; background: var(--nav-bg); border: 1px solid var(--border-main); border-radius: 12px; padding: 20px; box-shadow: 0 8px 16px rgba(0,0,0,0.05); z-index: 50; backdrop-filter: blur(5px); transition: top 0.4s ease-out; }
         .left-wing-title { font-family: 'NexonMaplestory', sans-serif !important; font-size: 18px; color: #20c997; margin-top: 0; margin-bottom: 15px; text-align: center; border-bottom: 1px dashed var(--border-main); padding-bottom: 10px; }
         .wing-menu { list-style: none; padding: 0; margin: 0; }
@@ -133,35 +85,6 @@
         .wing-menu li:last-child { margin-bottom: 0; }
         .wing-btn { display: block; padding: 12px 10px; background: var(--bg-main); border: 1px solid var(--border-main); border-radius: 8px; text-align: center; font-size: 14px; font-weight: 700; color: var(--text-main); cursor: pointer; transition: all 0.2s ease; }
         .wing-btn:hover { background: #20c997; color: white; border-color: #20c997; transform: translateY(-3px); box-shadow: 0 4px 8px rgba(32, 201, 151, 0.2); }
-
-        .job-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; margin-bottom: 30px; align-items: start; }
-        .job-wrapper { display: flex; flex-direction: column; gap: 10px; }
-        .job-box { background: var(--card-bg); border: 2px solid var(--border-main); border-radius: 16px; padding: 40px 20px; text-align: center; cursor: pointer; transition: all 0.2s ease; }
-        .job-title { font-family: 'NexonMaplestory', sans-serif !important; font-size: 24px; margin: 0; transition: color 0.2s; }
-        
-        .sub-job-list { display: none; flex-direction: column; gap: 8px; animation: fadeIn 0.2s ease-in-out; }
-        .sub-job-list.active { display: flex; }
-        .sub-job-item { background: var(--card-bg); border: 1.5px dashed var(--border-main); border-radius: 10px; padding: 15px; text-align: center; cursor: pointer; transition: all 0.2s ease; font-weight: 700; font-size: 15px; color: var(--text-muted); }
-        
-        .job-warrior .job-title { color: #ff6b6b; }
-        .job-warrior:hover { border-color: #ff6b6b; background: var(--card-hover); transform: translateY(-5px); box-shadow: 0 8px 16px rgba(255, 107, 107, 0.15); }
-        .job-warrior-sub:hover { color: #ff6b6b; border-color: #ff6b6b; background: var(--card-hover); transform: translateX(5px); }
-        
-        .job-mage .job-title { color: #339af0; }
-        .job-mage:hover { border-color: #339af0; background: var(--card-hover); transform: translateY(-5px); box-shadow: 0 8px 16px rgba(51, 154, 240, 0.15); }
-        .job-mage-sub:hover { color: #339af0; border-color: #339af0; background: var(--card-hover); transform: translateX(5px); }
-        
-        .job-archer .job-title { color: #20c997; }
-        .job-archer:hover { border-color: #20c997; background: var(--card-hover); transform: translateY(-5px); box-shadow: 0 8px 16px rgba(32, 201, 151, 0.15); }
-        .job-archer-sub:hover { color: #20c997; border-color: #20c997; background: var(--card-hover); transform: translateX(5px); }
-        
-        .job-thief .job-title { color: #b197fc; }
-        .job-thief:hover { border-color: #b197fc; background: var(--card-hover); transform: translateY(-5px); box-shadow: 0 8px 16px rgba(177, 151, 252, 0.15); }
-        .job-thief-sub:hover { color: #b197fc; border-color: #b197fc; background: var(--card-hover); transform: translateX(5px); }
-        
-        .job-pirate .job-title { color: #fcc419; }
-        .job-pirate:hover { border-color: #fcc419; background: var(--card-hover); transform: translateY(-5px); box-shadow: 0 8px 16px rgba(252, 196, 25, 0.15); }
-        .job-pirate-sub:hover { color: #fcc419; border-color: #fcc419; background: var(--card-hover); transform: translateX(5px); }
 
         .footer { border-top: 1px solid var(--border-main); padding: 40px 20px; text-align: left; background: var(--card-bg); color: var(--text-muted); font-size: 13px; margin-top: 50px; }
         .footer-content { max-width: 1200px; margin: 0 auto; }
@@ -177,17 +100,10 @@
             .top-nav { flex-direction: column; height: auto; gap: 15px; padding: 15px; }
             .nav-links { position: static; transform: none; flex-wrap: wrap; justify-content: center; gap: 20px; }
             .dropdown-content { top: 40px; }
-            .td-num, .td-writer { display: none; }
             .board-box { width: 100%; min-width: auto; }
             .quick-menu-section { flex-wrap: wrap; }
             .quick-box { flex-basis: calc(50% - 10px); }
-            .skill-table th:nth-child(3), .skill-table td:nth-child(3) { display: none; }
         }
-        
-        .patch-list { padding-left: 20px; line-height: 1.8; color: var(--text-main); font-size: 15px; }
-        .patch-list li { margin-bottom: 8px; }
-        .patch-list strong { color: #20c997; margin-right: 5px; }
-        [data-theme="dark"] .patch-list strong { color: #38d9a9; }
     </style>
 </head>
 <body>
@@ -195,22 +111,22 @@
     <div class="left-wing-banner">
         <h3 class="left-wing-title">Quick Menu</h3>
         <ul class="wing-menu">
-            <li><div class="wing-btn" onclick="showPage('skill_job')">미니랜드 직업별 스킬</div></li>
+            <li><div class="wing-btn" onclick="location.href='job.html'">미니랜드 직업별 스킬</div></li>
             <li><div class="wing-btn" onclick="window.open('https://miniland1004.github.io/-/', '_blank')">미니랜드 홍보 사이트</div></li>
             <li><div class="wing-btn" onclick="window.open('https://miniland1004.github.io/avatar-gallery/?no=01', '_blank')">미니랜드 아바타 미리보기</div></li>
             <li><div class="wing-btn" onclick="window.open('https://drive.google.com/file/d/15UVraq9WrkiTKRxIERLXczL_s4liPKRK/view?usp=sharing', '_blank')">미니랜드 다운로드</div></li>
-            <li><div class="wing-btn" onclick="showPage('error_solve')">미니랜드 오류해결</div></li>
+            <li><div class="wing-btn" onclick="location.href='error.html'">미니랜드 오류해결</div></li>
         </ul>
     </div>
 
     <div class="header-wrapper">
         <div class="top-nav">
-            <img src="logo.png" alt="미니랜드 로고" class="logo-img" onclick="showPage('main')">
+            <img src="logo.png" alt="미니랜드 로고" class="logo-img" onclick="location.href='index.html'">
             <div class="nav-links">
-                <a onclick="showPage('notice')" class="main-link">공지사항</a>
-                <a onclick="showPage('event')" class="main-link">이벤트</a>
-                <a onclick="showPage('patch')" class="main-link">패치노트</a>
-                <a onclick="showPage('skill')" class="main-link">스킬패치</a>
+                <a href="notice.html" class="main-link">공지사항</a>
+                <a href="event.html" class="main-link">이벤트</a>
+                <a href="patch.html" class="main-link">패치노트</a>
+                <a href="skill.html" class="main-link">스킬패치</a>
                 
                 <div class="dropdown">
                     <a class="main-link">고객센터</a>
@@ -233,985 +149,44 @@
         </div>
         <div class="content-container">
             <div class="board-box">
-                <div class="board-header"><h3>공지사항</h3><span class="more-btn" onclick="showPage('notice')">더보기 ></span></div>
+                <div class="board-header"><h3>공지사항</h3><span class="more-btn" onclick="location.href='notice.html'">더보기 ></span></div>
                 <ul class="post-list">
-                    <li onclick="showPage('view_kong_info')"><span class="badge badge-notice">공지</span><span class="post-title">콩 관련 안내</span><span class="post-date">06.15</span></li>
-                    <li onclick="showPage('view_nickname')"><span class="badge badge-notice">공지</span><span class="post-title">디스코드 및 인게임 닉네임 동일화 안내</span><span class="post-date">06.15</span></li>
-                    <li onclick="showPage('view_rule')"><span class="badge badge-notice">공지</span><span class="post-title">서버규칙</span><span class="post-date">06.15</span></li>
+                    <li onclick="location.href='notice.html?post=view_kong_info'"><span class="badge badge-notice">공지</span><span class="post-title">콩 관련 안내</span><span class="post-date">06.15</span></li>
+                    <li onclick="location.href='notice.html?post=view_nickname'"><span class="badge badge-notice">공지</span><span class="post-title">디스코드 및 인게임 닉네임 동일화 안내</span><span class="post-date">06.15</span></li>
+                    <li onclick="location.href='notice.html?post=view_rule'"><span class="badge badge-notice">공지</span><span class="post-title">서버규칙</span><span class="post-date">06.15</span></li>
                 </ul>
             </div>
             <div class="board-box">
-                <div class="board-header"><h3>이벤트</h3><span class="more-btn" onclick="showPage('event')">더보기 ></span></div>
+                <div class="board-header"><h3>이벤트</h3><span class="more-btn" onclick="location.href='event.html'">더보기 ></span></div>
                 <ul class="post-list">
-                    <li onclick="showPage('view_event_donate_x2')"><span class="badge badge-event">진행중</span><span class="post-title">콩 X2 이벤트 안내</span><span class="post-date">06.15</span></li>
-                    <li onclick="showPage('view_event_verify')"><span class="badge badge-event">진행중</span><span class="post-title">유저 인증 이벤트 안내</span><span class="post-date">06.15</span></li>
-                    <li onclick="showPage('view_event_newbie')"><span class="badge badge-event">진행중</span><span class="post-title">뉴비 성장 지원 이벤트</span><span class="post-date">06.15</span></li>
+                    <li onclick="location.href='event.html?post=view_event_donate_x2'"><span class="badge badge-event">진행중</span><span class="post-title">콩 X2 이벤트 안내</span><span class="post-date">06.15</span></li>
+                    <li onclick="location.href='event.html?post=view_event_verify'"><span class="badge badge-event">진행중</span><span class="post-title">유저 인증 이벤트 안내</span><span class="post-date">06.15</span></li>
+                    <li onclick="location.href='event.html?post=view_event_newbie'"><span class="badge badge-event">진행중</span><span class="post-title">뉴비 성장 지원 이벤트</span><span class="post-date">06.15</span></li>
                 </ul>
             </div>
             <div class="board-box">
-                <div class="board-header"><h3>패치노트</h3><span class="more-btn" onclick="showPage('patch')">더보기 ></span></div>
+                <div class="board-header"><h3>패치노트</h3><span class="more-btn" onclick="location.href='patch.html'">더보기 ></span></div>
                 <ul class="post-list">
-                    <li onclick="showPage('view_patch_v1_5')"><span class="badge badge-patch">패치</span><span class="post-title">패치노트 v1.5</span><span class="post-date">06.15</span></li>
-                    <li onclick="showPage('view_patch_v1_4')"><span class="badge badge-patch">패치</span><span class="post-title">패치노트 v1.4</span><span class="post-date">06.15</span></li>
-                    <li onclick="showPage('view_patch_v1_3')"><span class="badge badge-patch">패치</span><span class="post-title">패치노트 v1.3</span><span class="post-date">06.15</span></li>
-                    <li onclick="showPage('view_patch_v1_2')"><span class="badge badge-patch">패치</span><span class="post-title">패치노트 v1.2</span><span class="post-date">06.15</span></li>
-                    <li onclick="showPage('view_patch_v1_1')"><span class="badge badge-patch">패치</span><span class="post-title">패치노트 v1.1</span><span class="post-date">06.15</span></li>
-                    <li onclick="showPage('view_patch_v1_0')"><span class="badge badge-patch">패치</span><span class="post-title">패치노트 v1.0</span><span class="post-date">06.15</span></li>
+                    <li onclick="location.href='patch.html?post=view_patch_v1_6'"><span class="badge badge-patch">패치</span><span class="post-title">패치노트 v1.6</span><span class="post-date">06.16</span></li>
+                    <li onclick="location.href='patch.html?post=view_patch_v1_5'"><span class="badge badge-patch">패치</span><span class="post-title">패치노트 v1.5</span><span class="post-date">06.15</span></li>
+                    <li onclick="location.href='patch.html?post=view_patch_v1_4'"><span class="badge badge-patch">패치</span><span class="post-title">패치노트 v1.4</span><span class="post-date">06.15</span></li>
                 </ul>
             </div>
             <div class="board-box">
-                <div class="board-header"><h3>스킬패치</h3><span class="more-btn" onclick="showPage('skill')">더보기 ></span></div>
+                <div class="board-header"><h3>스킬패치</h3><span class="more-btn" onclick="location.href='skill.html'">더보기 ></span></div>
                 <ul class="post-list">
-                    <li onclick="showPage('view_skill_v1_3')"><span class="badge badge-skill">스킬</span><span class="post-title">스킬패치 v1.3</span><span class="post-date">06.15</span></li>
-                    <li onclick="showPage('view_skill_v1_2')"><span class="badge badge-skill">스킬</span><span class="post-title">스킬패치 v1.2</span><span class="post-date">06.15</span></li>
-                    <li onclick="showPage('view_skill_v1_1')"><span class="badge badge-skill">스킬</span><span class="post-title">스킬패치 v1.1</span><span class="post-date">06.15</span></li>
+                    <li onclick="location.href='skill.html?post=view_skill_v1_3'"><span class="badge badge-skill">스킬</span><span class="post-title">스킬패치 v1.3</span><span class="post-date">06.15</span></li>
+                    <li onclick="location.href='skill.html?post=view_skill_v1_2'"><span class="badge badge-skill">스킬</span><span class="post-title">스킬패치 v1.2</span><span class="post-date">06.15</span></li>
+                    <li onclick="location.href='skill.html?post=view_skill_v1_1'"><span class="badge badge-skill">스킬</span><span class="post-title">스킬패치 v1.1</span><span class="post-date">06.15</span></li>
                 </ul>
             </div>
         </div>
         <div class="quick-menu-section">
             <div class="quick-box" onclick="openServerInfo()"><h4>서버 안내</h4><p>배율 및 정보</p></div>
             <div class="quick-box" onclick="window.open('https://discord.gg/YDVcnqE93M', '_blank')"><h4>Discord</h4><p>디스코드 참여</p></div>
-            <div class="quick-box" onclick="showPage('view_kong_info')"><h4>콩 안내</h4><p>서버 콩 안내</p></div>
+            <div class="quick-box" onclick="location.href='notice.html?post=view_kong_info'"><h4>콩 안내</h4><p>서버 콩 안내</p></div>
             <div class="quick-box" onclick="window.open('https://drive.google.com/file/d/15UVraq9WrkiTKRxIERLXczL_s4liPKRK/view?usp=sharing', '_blank')"><h4>다운로드</h4><p>클라이언트 다운로드</p></div>
         </div>
-    </div>
-
-    <div id="page-notice" class="page-section sub-wrapper">
-        <h2 class="page-title">공지사항</h2>
-        <table class="board-table">
-            <thead><tr><th class="td-num">번호</th><th class="td-badge">분류</th><th class="td-title">제목</th><th class="td-writer">작성자</th><th class="td-date">등록일</th></tr></thead>
-            <tbody>
-                <tr class="clickable-row" onclick="showPage('view_kong_info')"><td class="td-num">5</td><td class="td-badge"><span class="badge badge-notice">공지</span></td><td class="td-title">콩 관련 안내</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
-                <tr class="clickable-row" onclick="showPage('view_critical')"><td class="td-num">4</td><td class="td-badge"><span class="badge badge-notice">공지</span></td><td class="td-title">크리티컬 데미지 배율 관련 안내</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
-                <tr class="clickable-row" onclick="showPage('view_nickname')"><td class="td-num">3</td><td class="td-badge"><span class="badge badge-notice">공지</span></td><td class="td-title">디스코드 및 인게임 닉네임 동일화 안내</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
-                <tr class="clickable-row" onclick="showPage('view_macro')"><td class="td-num">2</td><td class="td-badge"><span class="badge badge-notice">공지</span></td><td class="td-title">매크로/동꼽 관련안내</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
-                <tr class="clickable-row" onclick="showPage('view_rule')"><td class="td-num">1</td><td class="td-badge"><span class="badge badge-notice">공지</span></td><td class="td-title">서버규칙</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div id="page-event" class="page-section sub-wrapper">
-        <h2 class="page-title">이벤트</h2>
-        <table class="board-table">
-            <thead><tr><th class="td-num">번호</th><th class="td-badge">분류</th><th class="td-title">제목</th><th class="td-writer">작성자</th><th class="td-date">등록일</th></tr></thead>
-            <tbody>
-                <tr class="clickable-row" onclick="showPage('view_event_donate_x2')"><td class="td-num">3</td><td class="td-badge"><span class="badge badge-event">진행중</span></td><td class="td-title">콩 X2 이벤트 안내</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
-                <tr class="clickable-row" onclick="showPage('view_event_verify')"><td class="td-num">2</td><td class="td-badge"><span class="badge badge-event">진행중</span></td><td class="td-title">유저 인증 이벤트 안내</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
-                <tr class="clickable-row" onclick="showPage('view_event_newbie')"><td class="td-num">1</td><td class="td-badge"><span class="badge badge-event">진행중</span></td><td class="td-title">뉴비 성장 지원 이벤트</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div id="page-patch" class="page-section sub-wrapper">
-        <h2 class="page-title">패치노트</h2>
-        <table class="board-table">
-            <thead><tr><th class="td-num">번호</th><th class="td-badge">분류</th><th class="td-title">제목</th><th class="td-writer">작성자</th><th class="td-date">등록일</th></tr></thead>
-            <tbody>
-                <tr class="clickable-row" onclick="showPage('view_patch_v1_5')"><td class="td-num">6</td><td class="td-badge"><span class="badge badge-patch">패치</span></td><td class="td-title">패치노트 v1.5</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
-                <tr class="clickable-row" onclick="showPage('view_patch_v1_4')"><td class="td-num">5</td><td class="td-badge"><span class="badge badge-patch">패치</span></td><td class="td-title">패치노트 v1.4</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
-                <tr class="clickable-row" onclick="showPage('view_patch_v1_3')"><td class="td-num">4</td><td class="td-badge"><span class="badge badge-patch">패치</span></td><td class="td-title">패치노트 v1.3</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
-                <tr class="clickable-row" onclick="showPage('view_patch_v1_2')"><td class="td-num">3</td><td class="td-badge"><span class="badge badge-patch">패치</span></td><td class="td-title">패치노트 v1.2</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
-                <tr class="clickable-row" onclick="showPage('view_patch_v1_1')"><td class="td-num">2</td><td class="td-badge"><span class="badge badge-patch">패치</span></td><td class="td-title">패치노트 v1.1</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
-                <tr class="clickable-row" onclick="showPage('view_patch_v1_0')"><td class="td-num">1</td><td class="td-badge"><span class="badge badge-patch">패치</span></td><td class="td-title">패치노트 v1.0</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div id="page-skill" class="page-section sub-wrapper">
-        <h2 class="page-title">스킬패치</h2>
-        <table class="board-table">
-            <thead><tr><th class="td-num">번호</th><th class="td-badge">분류</th><th class="td-title">제목</th><th class="td-writer">작성자</th><th class="td-date">등록일</th></tr></thead>
-            <tbody>
-                <tr class="clickable-row" onclick="showPage('view_skill_v1_3')"><td class="td-num">5</td><td class="td-badge"><span class="badge badge-skill">스킬</span></td><td class="td-title">스킬패치 v1.3</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
-                <tr class="clickable-row" onclick="showPage('view_skill_v1_2')"><td class="td-num">4</td><td class="td-badge"><span class="badge badge-skill">스킬</span></td><td class="td-title">스킬패치 v1.2</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
-                <tr class="clickable-row" onclick="showPage('view_skill_v1_1')"><td class="td-num">3</td><td class="td-badge"><span class="badge badge-skill">스킬</span></td><td class="td-title">스킬패치 v1.1</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
-                <tr class="clickable-row" onclick="showPage('view_skill_v1_0')"><td class="td-num">2</td><td class="td-badge"><span class="badge badge-skill">스킬</span></td><td class="td-title">스킬패치 v1.0</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
-                <tr class="clickable-row" onclick="showPage('view_skill_1')"><td class="td-num">1</td><td class="td-badge"><span class="badge badge-skill">스킬</span></td><td class="td-title">모든 직업 스킬패치 관련 안내</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div id="page-view_kong_info" class="page-section sub-wrapper" style="max-width: 1000px;">
-        <div class="post-header">
-            <h1 class="post-title-text"><span class="badge badge-notice" style="font-size:15px; padding:5px 12px; margin-right: 15px;">공지</span>콩 관련 안내</h1>
-            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
-        </div>
-        <div class="post-content">
-            안녕하세요 운영진입니다<br><br>
-            미니랜드 콩 관련 안내 및 누적 보상을 안내해 드립니다<br>
-            하단의 결제 방법 및 누적 보상 목록을 확인해 주시기 바랍니다<br><br>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 콩 기본 안내 및 이벤트</strong>
-                <ul class="patch-list">
-                    <li><strong>1콩</strong> = 10,000원</li>
-                    <li><strong>콩 : 인형 비율</strong> = 1,000 : 1</li>
-                    <li style="color: #ff5252; font-weight: bold;">콩 인형 x2 추가 이벤트 진행 중 !</li>
-                </ul>
-            </div>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 콩 결제 방법 안내</strong>
-                <ul class="patch-list">
-                    <li>배민쿠폰</li>
-                    <li>카드결제</li>
-                    <li>문화상품권</li>
-                    <li>서든어택SP</li>
-                    <li>오픈톡 입금</li>
-                    <li>핸드폰 소액결제</li>
-                </ul>
-                <div style="margin-top: 20px; text-align: left;">
-                    <strong style="color: #ff5252; display: block; margin-bottom: 10px;">• 콩 충전 문의하기</strong>
-                    <a href="discord://-/users/1275321168433254452" class="btn-list" style="display: inline-block; padding: 8px 20px; font-size: 14px;">💬 미니에게 DM 보내기</a>
-                </div>
-            </div>
-            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
-            <h3 style="text-align: center; color: #20c997; font-family: 'NexonMaplestory', sans-serif !important; font-size: 24px; margin-bottom: 5px;">💎 미니랜드 콩 누적 보상 안내 💎</h3>
-            <p style="text-align: center; color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">[ 캐시 아이템 업글은 1가지 캐시 아이템에 업글 가능합니다 ]</p>
-            <div class="reward-grid">
-                <div class="reward-card"><strong>🔸 콩 LV.1 [25콩] 🔸</strong><ul><li>백의 주문서 100% x10</li><li>혼돈의 주문서 60% x5</li><li>미니 블루 코인 100개</li><li>미니 핑크 코인 1000개</li><li>미니의 단풍잎 x10</li><li>원하는 캐시템 올텟+30 / 공+15 / 마+30</li><li>♥미니의 용돈♥ 칭호</li></ul></div>
-                <div class="reward-card"><strong>🔸 콩 LV.2 [50콩] 🔸</strong><ul><li>백의 주문서 100% x10</li><li>혼돈의 주문서 60% x5</li><li>미니 블루 코인 150개</li><li>미니 핑크 코인 1500개</li><li>미니의 단풍잎 x15</li><li>원하는 캐시템 올텟+30 / 공+15 / 마+30</li><li>♥미니의 짝꿍♥ 칭호</li></ul></div>
-                <div class="reward-card"><strong>🔸 콩 LV.3 [75콩] 🔸</strong><ul><li>백의 주문서 100% x10</li><li>혼돈의 주문서 60% x5</li><li>미니 블루 코인 200개</li><li>미니 핑크 코인 2000개</li><li>미니의 단풍잎 x20</li><li>원하는 캐시템 올텟+30 / 공+15 / 마+30</li><li>♥미니의 월급♥ 칭호</li></ul></div>
-                <div class="reward-card"><strong>🔸 콩 LV.4 [100콩] 🔸</strong><ul><li>백의 주문서 100% x20</li><li>혼돈의 주문서 60% x10</li><li>미니 블루 코인 250개</li><li>미니 핑크 코인 2500개</li><li>미니의 단풍잎 x25</li><li>원하는 캐시템 올텟+30 / 공+15 / 마+30</li><li>♥미니의 통장♥ 칭호</li></ul></div>
-                <div class="reward-card"><strong>🔸 콩 LV.5 [125콩] 🔸</strong><ul><li>백의 주문서 100% x20</li><li>혼돈의 주문서 60% x10</li><li>미니 블루 코인 300개</li><li>미니 핑크 코인 3000개</li><li>미니의 단풍잎 x30</li><li>원하는 캐시템 올텟+30 / 공+15 / 마+30</li><li>♥미니의 금고♥ 칭호</li></ul></div>
-                <div class="reward-card"><strong>🔸 콩 LV.6 [150콩] 🔸</strong><ul><li>백의 주문서 100% x20</li><li>혼돈의 주문서 60% x10</li><li>미니 블루 코인 350개</li><li>미니 핑크 코인 3500개</li><li>미니의 단풍잎 x35</li><li>원하는 캐시템 올텟+30 / 공+15 / 마+30</li><li>♥미니의 코인♥ 칭호</li></ul></div>
-                <div class="reward-card"><strong>🔸 콩 LV.7 [175콩] 🔸</strong><ul><li>백의 주문서 100% x30</li><li>혼돈의 주문서 60% x20</li><li>미니 블루 코인 400개</li><li>미니 핑크 코인 4000개</li><li>미니의 단풍잎 x40</li><li>원하는 캐시템 올텟+30 / 공+15 / 마+30</li><li>♥미니의 빌딩♥ 칭호</li></ul></div>
-                <div class="reward-card"><strong>🔸 콩 LV.8 [200콩] 🔸</strong><ul><li>백의 주문서 100% x30</li><li>혼돈의 주문서 60% x20</li><li>미니 블루 코인 450개</li><li>미니 핑크 코인 4500개</li><li>미니의 단풍잎 x45</li><li>원하는 캐시템 올텟+30 / 공+15 / 마+30</li><li>♥미니의 재벌♥ 칭호</li></ul></div>
-                <div class="reward-card"><strong>🔸 콩 LV.9 [225콩] 🔸</strong><ul><li>백의 주문서 100% x40</li><li>혼돈의 주문서 60% x30</li><li>미니 블루 코인 500개</li><li>보스 보따리 세트 2개</li><li>미니의 단풍잎 x50</li><li>원하는 캐시템 올텟+40 / 공+20 / 마+40</li><li>★후니의 시급★ 칭호</li></ul></div>
-                <div class="reward-card"><strong>🔸 콩 LV.10 [250콩] 🔸</strong><ul><li>백의 주문서 100% x40</li><li>혼돈의 주문서 60% x30</li><li>미니 블루 코인 550개</li><li>보스 보따리 세트 2개</li><li>미니의 단풍잎 x55</li><li>원하는 캐시템 올텟+40 / 공+20 / 마+40</li><li>★후니의 월세★ 칭호</li></ul></div>
-                <div class="reward-card"><strong>🔸 콩 LV.11 [275콩] 🔸</strong><ul><li>백의 주문서 100% x50</li><li>혼돈의 주문서 60% x30</li><li>미니 블루 코인 600개</li><li>보스 보따리 세트 2개</li><li>미니의 단풍잎 x60</li><li>원하는 캐시템 올텟+40 / 공+20 / 마+40</li><li>★후니의 전세★ 칭호</li></ul></div>
-                <div class="reward-card"><strong>🔸 콩 LV.12 [300콩] 🔸</strong><ul><li>백의 주문서 100% x50</li><li>혼돈의 주문서 60% x30</li><li>미니 블루 코인 650개</li><li>보스 보따리 세트 2개</li><li>미니의 단풍잎 x65</li><li>원하는 캐시템 올텟+40 / 공+20 / 마+40</li><li>★후니의 주식★ 칭호</li></ul></div>
-                <div class="reward-card"><strong>🔸 콩 LV.13 [325콩] 🔸</strong><ul><li>백의 주문서 100% x60</li><li>긍정의 혼돈의 주문서 100% x5</li><li>미니 블루 코인 700개</li><li>보스 보따리 세트 3개</li><li>미니의 단풍잎 x70</li><li>원하는 캐시템 올텟+60 / 공+30 / 마+60</li><li>개인 칭호 제작 OR 기존 캐시템 업글</li></ul></div>
-                <div class="reward-card"><strong>🔸 콩 LV.14 [350콩] 🔸</strong><ul><li>백의 주문서 100% x60</li><li>긍정의 혼돈의 주문서 100% x5</li><li>미니 블루 코인 750개</li><li>보스 보따리 세트 3개</li><li>미니의 단풍잎 x75</li><li>원하는 캐시템 올텟+60 / 공+30 / 마+60</li><li>개인 칭호 제작 OR 기존 캐시템 업글</li></ul></div>
-                <div class="reward-card"><strong>🔸 콩 LV.15 [375콩] 🔸</strong><ul><li>백의 주문서 100% x60</li><li>긍정의 혼돈의 주문서 100% x5</li><li>미니 블루 코인 800개</li><li>보스 보따리 세트 3개</li><li>미니의 단풍잎 x80</li><li>원하는 캐시템 올텟+60 / 공+30 / 마+60</li><li>개인 칭호 제작 OR 기존 캐시템 업글</li></ul></div>
-                <div class="reward-card"><strong>🔸 콩 LV.16 [400콩] 🔸</strong><ul><li>백의 주문서 100% x60</li><li>긍정의 혼돈의 주문서 100% x5</li><li>미니 블루 코인 850개</li><li>보스 보따리 세트 3개</li><li>미니의 단풍잎 x85</li><li>원하는 캐시템 올텟+60 / 공+30 / 마+60</li><li>개인 칭호 제작 OR 기존 캐시템 업글</li></ul></div>
-                <div class="reward-card" style="border-color: #20c997;">
-                    <strong style="color: #20c997;">🔸 콩 LV.~ ing [400콩 이상] 🔸</strong>
-                    <p style="font-size: 13px; color: #ff5252; margin-top: -5px; margin-bottom: 10px; font-weight: bold;">[ 25콩 누적 간격마다 위 동일 한 보상 지급 ]</p>
-                    <ul>
-                        <li>긍정의 혼돈의 주문서 100% x10</li>
-                        <li>미니 블루 코인 1500개</li>
-                        <li>보스 보따리 세트 5개</li>
-                        <li>미니의 단풍잎 x100</li>
-                        <li>원하는 캐시템 올텟+60 / 공+30 / 마+60</li>
-                        <li>개인 칭호 제작 OR 기존 캐시템 업글</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="post-navigation">
-            <div class="nav-item disabled"><span>▲ 다음글</span>다음 글이 없습니다.</div>
-            <div class="nav-item" onclick="showPage('view_critical')"><span>▼ 이전글</span>크리티컬 데미지 배율 관련 안내</div>
-        </div>
-        <div class="btn-wrapper"><span onclick="showPage('notice')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-
-    <div id="page-view_critical" class="page-section sub-wrapper" style="max-width: 900px;">
-        <div class="post-header">
-            <h1 class="post-title-text"><span class="badge badge-notice" style="font-size:15px; padding:5px 12px; margin-right: 15px;">공지</span>크리티컬 데미지 배율 관련 안내</h1>
-            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
-        </div>
-        <div class="post-content">
-            안녕하세요 운영진입니다<br><br>
-            작일 접수된 일부 직업군의 크리티컬 데미지 배율 차이 제보 건에 대해 상세 조사 결과를 안내해 드립니다<br>
-            결론부터 말씀드리면, 현재 서버의 데미지 공식은 <strong>과거 원작(옛날 메이플) 고증에 맞게 정상적으로 적용</strong>되고 있습니다<br><br>
-            유저분들께서 가장 혼동하기 쉬운 옛날 메이플 고유의 연산 방식을 명확히 정리해 드립니다<br><br>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 핵심 원인 : 크리티컬은 '곱연산'이 아닌 '합연산'</strong>
-                옛날 메이플의 크리티컬은 스킬 데미지에 배율을 곱하는 것(곱적용)이 아니라, 기본 퍼뎀에 크리티컬 상승치(기본값 100%를 제외한 수치)를 더하는 방식(합적용)입니다
-            </div>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 샤프아이즈 미적용 시 (트리플 스로우 기준)</strong>
-                • 트스 기본(150%) + 크리티컬 스로우(+100%) = 250%<br>
-                • 최종 배율: 250% / 150% = <strong>1.6배</strong> (제보해주신 1.6배와 일치)
-            </div>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 샤프아이즈 적용 시 (트리플 스로우 기준)</strong>
-                샤프아이즈의 크뎀 +40% 표기는 실제 원작에서도 +140% 합연산으로 작동했습니다<br>
-                • 트스 기본(150%) + 크리티컬(+100%) + 샤프아이즈(+140%) = 390%<br>
-                • 최종 배율: 390% / 150% = <strong>2.6배</strong> (제보해주신 2.66배는 맥스 데미지 난수에 따른 정상 수치)
-            </div>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 직업별 배율이 다른 이유</strong>
-                궁수 직업군(보마, 신궁)의 배율이 나이트로드와 다르게 측정된 것 또한 정상입니다<br>
-                각 직업의 크리티컬 스킬 수치가 다를 뿐만 아니라, 합연산 공식 특성상 스킬 자체의 기본 퍼뎀(폭시, 스트레이프 등)이 낮을수록 크리티컬 발생 시의 최종 '배율'은 더 높게 측정되기 때문입니다    
-            </div>
-            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
-            현재 서버의 모든 크리티컬 및 샤프아이즈 연산은 과거 철저한 고증을 바탕으로 완벽하게 구현되어 있으니 안심하고 이용해 주시기 바랍니다<br><br>
-            더욱 투명하고 안정적인 환경을 제공하는 서버가 되겠습니다<br>
-            제보해 주신 유저분께 감사드립니다<br><br>
-            감사합니다 ( • ⩊ • )
-        </div>
-        <div class="post-navigation">
-            <div class="nav-item" onclick="showPage('view_kong_info')"><span>▲ 다음글</span>콩 관련 안내</div>
-            <div class="nav-item" onclick="showPage('view_nickname')"><span>▼ 이전글</span>디스코드 및 인게임 닉네임 동일화 안내</div>
-        </div>
-        <div class="btn-wrapper"><span onclick="showPage('notice')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-
-    <div id="page-view_nickname" class="page-section sub-wrapper" style="max-width: 900px;">
-        <div class="post-header">
-            <h1 class="post-title-text"><span class="badge badge-notice" style="font-size:15px; padding:5px 12px; margin-right: 15px;">공지</span>디스코드 및 인게임 닉네임 동일화 안내</h1>
-            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
-        </div>
-        <div class="post-content">
-            안녕하세요 운영진입니다<br><br>
-            원활한 서버 운영과 유저 관리를 위해 <strong>디스코드 닉네임과 인게임(캐릭터) 닉네임을 반드시 동일하게 변경</strong>해 주시기를 바랍니다<br><br>
-            <div class="rule-item"><strong class="rule-title">◆ 적용 대상</strong>디스코드에 참여 중인 모든 유저</div>
-            <div class="rule-item"><strong class="rule-title">◆ 제재 안내</strong>캐릭터 생성일 기준 <strong>3일 이내</strong>에 닉네임 일치화가 확인되지 않을 경우, 사전 경고 없이 <strong>캐릭터 이용 제한(밴) 조치</strong>가 진행될 수 있습니다</div>
-            유저 여러분의 적극적인 협조 부탁드립니다 감사합니다
-        </div>
-        <div class="post-navigation">
-            <div class="nav-item" onclick="showPage('view_critical')"><span>▲ 다음글</span>크리티컬 데미지 배율 관련 안내</div>
-            <div class="nav-item" onclick="showPage('view_macro')"><span>▼ 이전글</span>매크로/동꼽 관련안내</div>
-        </div>
-        <div class="btn-wrapper"><span onclick="showPage('notice')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-
-    <div id="page-view_macro" class="page-section sub-wrapper" style="max-width: 900px;">
-        <div class="post-header">
-            <h1 class="post-title-text"><span class="badge badge-notice" style="font-size:15px; padding:5px 12px; margin-right: 15px;">공지</span>매크로/동꼽 관련안내</h1>
-            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
-        </div>
-        <div class="post-content">
-            <div class="rule-item"><strong class="rule-title">1. 매크로 기본 방침</strong>서버는 매크로 허용 서버가 아닙니다<br>핵, 매크로, 자동화 프로그램 정 등 비인가 프로그램 사용은 원칙적으로 금지됩니다</div>
-            <div class="rule-item"><strong class="rule-title">2. 비활성 동꼽에 대한 기존 운영 방침</strong>과거에는 유저 편의를 고려하여비활성 동꼽 매크로 / 단순 동꼽 행위는 금지입니다</div>
-            <div class="rule-item"><strong class="rule-title">3. 유의 사항</strong>본 규칙은 모든 유저 동일 하게 적용되며,<br>“잠깐 자리 비움”, “몰랐다”, “괜찮은 줄 알았다” 등의 사유는예외로 인정되지 않습니다</div>
-            <div class="rule-item"><strong class="rule-title">4. 최종 판단 권한</strong>모든 판단은 운영진의 로그 및 상황 확인을 기준으로 최종 결정되며,<br>해당 조치에 대한 개별 이의 제기 및 재심 요청은 절대 불가 입니다</div>
-        </div>
-        <div class="post-navigation">
-            <div class="nav-item" onclick="showPage('view_nickname')"><span>▲ 다음글</span>디스코드 및 인게임 닉네임 동일화 안내</div>
-            <div class="nav-item" onclick="showPage('view_rule')"><span>▼ 이전글</span>서버규칙</div>
-        </div>
-        <div class="btn-wrapper"><span onclick="showPage('notice')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-
-    <div id="page-view_rule" class="page-section sub-wrapper" style="max-width: 900px;">
-        <div class="post-header">
-            <h1 class="post-title-text"><span class="badge badge-notice" style="font-size:15px; padding:5px 12px; margin-right: 15px;">공지</span>서버규칙</h1>
-            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
-        </div>
-        <div class="post-content">
-            <div class="rule-item"><strong class="rule-title">1. 1인 1PC/1클라 원칙</strong>1인 2PC/2클라 이상 사용하는 행위는 금지됩니다<br>2인 이상 동거 또는 예외 상황 시 인증이 필요하며, 반드시 티켓 문의를 통해 허가받아야 합니다</div>
-            <div class="rule-item"><strong class="rule-title">2. 불법 프로그램 사용 금지</strong>핵/리패커/매크로/자동화 프로그램 정 등 모든 비인가 프로그램 사용은 금지됩니다<br>적발 시 즉시 영구 정지 조치됩니다<br>동꼽 관련 해서 모니터링X 시에는 1회 경고 2회 정지입니다</div>
-            <div class="rule-item"><strong class="rule-title">3. 현금 거래 및 계정 양도 금지</strong>유저 간 현금 거래/계정 양도/계정 대여 등의 행위는 절대 금지됩니다<br>적발 시 계정 영구 정지 및 관련 계정 모두 제재됩니다</div>
-            <div class="rule-item"><strong class="rule-title">4. 비매너 행위 및 분쟁 유도 금지</strong>욕설/음란 표현/도배/비하/갈등 유도 등은 엄격히 금지됩니다<br>유저 간 분쟁은 운영진이 개입하지 않습니다</div>
-            <div class="rule-item"><strong class="rule-title">5. 버그 악용 및 유포 금지</strong>버그를 발견하더라도 악용하거나 다른 유저에게 공유하는 것은 금지됩니다<br>버그는 아래 채널을 통해 신속히 제보해 주세요<br>
-                <strong>[오류 제보 채널] <a href="discord://-/channels/1474594207229546549/1474594208357548255" class="discord-link">💌┃오류제보</a></strong>
-            </div>
-            <div class="rule-item"><strong class="rule-title">6. 스킬 패치 관련 문의 불가</strong>스킬 밸런스/패치 내용 등은 문의 대상에서 제외됩니다</div>
-            <div class="rule-item"><strong class="rule-title">7. 문의 절차 준수 (티켓 시스템)</strong>모든 문의는 반드시 티켓을 통해서만 접수 가능합니다<br>개인 DM(쪽지) 문의는 금지됩니다<br>
-                <strong>[티켓 문의 채널] <a href="discord://-/channels/1474594207229546549/1474594208026329104" class="discord-link">☎️┃티켓문의</a></strong>
-            </div>
-            <div class="rule-item"><strong class="rule-title">8. 운영 방해 및 시스템 악용 금지</strong>위 규칙 외에도 서버 운영을 방해하거나 시스템을 악용하는 경우, 운영진의 판단에 따라 영구 정지 조치될 수 있습니다</div>
-        </div>
-        <div class="post-navigation">
-            <div class="nav-item" onclick="showPage('view_macro')"><span>▲ 다음글</span>매크로/동꼽 관련안내</div>
-            <div class="nav-item disabled"><span>▼ 이전글</span>이전 글이 없습니다.</div>
-        </div>
-        <div class="btn-wrapper"><span onclick="showPage('notice')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-
-    <div id="page-view_event_donate_x2" class="page-section sub-wrapper" style="max-width: 900px;">
-        <div class="post-header">
-            <h1 class="post-title-text"><span class="badge badge-event" style="font-size:15px; padding:5px 12px; margin-right: 15px;">진행중</span>콩 X2 이벤트 안내</h1>
-            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
-        </div>
-        <div class="post-content">
-            안녕하세요 운영진입니다<br><br>
-            유저 여러분의 성원에 보답하고자 <strong>'콩 코인 X2 이벤트'</strong>를 진행합니다!<br>
-            이벤트 기간 동안 콩 충전 시 코인을 2배로 지급해 드리고 있으니, 많은 관심과 참여 부탁드립니다<br><br>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 콩 안내 및 비율</strong>
-                • <strong>1콩</strong> = 10,000원<br>
-                • <strong>콩 : 인형 비율</strong> = 1,000 : 1<br>
-                • <span style="color: #ff5252; font-weight: bold;">현재 콩 코인 X2 이벤트 진행 중! (코인 2배 지급)</span>
-            </div>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 콩 이용 방법</strong>
-                메인 화면의 <strong>[콩 안내]</strong> 메뉴 또는 디스코드 티켓 문의를 통해 진행해 주시면 감사하겠습니다
-            </div>
-            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
-            보내주신 성원은 서버 유지 및 발전을 위해 소중하게 사용됩니다<br>
-            감사합니다 ( • ⩊ • )
-        </div>
-        <div class="post-navigation">
-            <div class="nav-item disabled"><span>▲ 다음글</span>다음 글이 없습니다.</div>
-            <div class="nav-item" onclick="showPage('view_event_verify')"><span>▼ 이전글</span>유저 인증 이벤트 안내</div>
-        </div>
-        <div class="btn-wrapper"><span onclick="showPage('event')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-
-    <div id="page-view_event_verify" class="page-section sub-wrapper" style="max-width: 900px;">
-        <div class="post-header">
-            <h1 class="post-title-text"><span class="badge badge-event" style="font-size:15px; padding:5px 12px; margin-right: 15px;">진행중</span>유저 인증 이벤트 안내</h1>
-            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
-        </div>
-        <div class="post-content">
-            안녕하세요 운영진입니다<br><br>
-            더욱 쾌적하고 안전한 게임 환경을 조성하기 위해 <strong>'유저 인증 이벤트'</strong>를 진행합니다!<br>
-            유저 인증을 완료하시는 모든 분들께 디스코드 전용 역할과 함께 아주 푸짐한 인게임 보상을 지급해 드리고 있으니 꼭 참여해 주세요<br><br>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 참여 방법 및 보상 안내</strong>
-                아래 공식 디스코드의 '유저 인증' 채널로 이동하여 간단한 인증 절차를 진행해 주시면 됩니다<br>
-                인증이 완료되면 <strong>디스코드 유저 인증 역할 부여</strong>와 함께 <strong>유저 인증 특별 보상</strong>이 즉시 지급됩니다!
-            </div>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 유저 인증 채널 바로가기</strong>
-                <a href="discord://-/channels/1474594207229546549/1504876152886661200" class="discord-link">✅ 여기를 클릭하여 유저 인증 채널로 이동하기</a>
-            </div>
-            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
-            함께해 주시는 모든 유저분들께 진심으로 감사드리며, 꼭 인증하시고 혜택을 챙겨가시길 바랍니다<br>
-            감사합니다 ( • ⩊ • )
-        </div>
-        <div class="post-navigation">
-            <div class="nav-item" onclick="showPage('view_event_donate_x2')"><span>▲ 다음글</span>콩 X2 이벤트 안내</div>
-            <div class="nav-item" onclick="showPage('view_event_newbie')"><span>▼ 이전글</span>뉴비 성장 지원 이벤트</div>
-        </div>
-        <div class="btn-wrapper"><span onclick="showPage('event')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-
-    <div id="page-view_event_newbie" class="page-section sub-wrapper" style="max-width: 900px;">
-        <div class="post-header">
-            <h1 class="post-title-text"><span class="badge badge-event" style="font-size:15px; padding:5px 12px; margin-right: 15px;">진행중</span>뉴비 성장 지원 이벤트</h1>
-            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
-        </div>
-        <div class="post-content">
-            안녕하세요 운영진입니다<br><br>
-            새롭게 찾아오신 신규 유저분들의 빠른 정착과 쾌적한 성장을 돕기 위해 <strong>'뉴비 성장 지원 이벤트'</strong>를 진행합니다!<br>
-            또한 기존에 플레이 중이신 유저분들께서도 동일하게 혜택을 받으실 수 있으니 놓치지 말고 꼭 받아가시길 바랍니다<br><br>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 이벤트 보상 목록</strong>
-                • 초반 육성 아이템 지원<br>
-                • <strong>120LV까지 1+2 버닝 혜택</strong><br>
-                • 미니 블루 / 핑크 코인 지급<br>
-                • 바늘 (1렙 / 2렙 / 3렙) 지급<br>
-                • 단풍잎 100개<br>
-                • 혼돈의 주문서 10개
-            </div>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 수령 방법</strong>
-                신규 유저 및 기존 유저 모두 인게임 내 <strong>[레벨 보상] ➔ [뉴비 지원 목록]</strong> 메뉴를 통해 모든 보상을 즉시 수령하실 수 있습니다
-            </div>
-            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
-            앞으로도 유저 여러분의 즐거운 모험을 위해 다양한 혜택을 준비하겠습니다<br>
-            감사합니다 ( • ⩊ • )
-        </div>
-        <div class="post-navigation">
-            <div class="nav-item" onclick="showPage('view_event_verify')"><span>▲ 다음글</span>유저 인증 이벤트 안내</div>
-            <div class="nav-item disabled"><span>▼ 이전글</span>이전 글이 없습니다.</div>
-        </div>
-        <div class="btn-wrapper"><span onclick="showPage('event')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-
-    <div id="page-view_patch_v1_5" class="page-section sub-wrapper" style="max-width: 900px;">
-        <div class="post-header">
-            <h1 class="post-title-text"><span class="badge badge-patch" style="font-size:15px; padding:5px 12px; margin-right: 15px;">패치</span>패치노트 v1.5</h1>
-            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
-        </div>
-        <div class="post-content">
-            안녕하세요 운영진입니다<br><br>
-            서버의 v1.5 패치노트를 안내해 드립니다<br>
-            수집 시스템 편의성 대폭 개선 및 신규 미니게임이 추가되었습니다<br><br>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 패치노트 v1.5 상세 내역</strong>
-                <ul class="patch-list">
-                    <li style="margin-top: 15px;"><strong>128</strong> <strong>직업별 방어구 수집 추가 완료</strong>
-                        <ul style="list-style-type: circle; margin-top: 5px; color: var(--text-muted); font-size: 14px;">
-                            <li>모든 직업 방어구 등록 시 올스탯 +1 증가</li>
-                            <li>(기존 무기 수집보다 스탯 증가량이 적게 측정된 이유는 방어구 종류가 훨씬 많기 때문입니다!)</li>
-                        </ul>
-                    </li>
-                    <li><strong>129</strong> NPC 스트링 최신화 완료</li>
-                    <li><strong>130</strong> 보스 초기화 추가 (홍코/후코를 통해 초기화 가능하며 <code>@보스</code> 명령어를 이용해 주시면 됩니다)</li>
-                    <li><strong>131</strong> 홍보 상점 경험치 쿠폰 / 드랍률 쿠폰 추가</li>
-                    <li><strong>132</strong> 장비/방어구/표창/기타 수집 시 소지한 아이템을 <strong>소분류 카테고리 내에서 한 번에 일괄 등록</strong> 가능하도록 수정</li>
-                    <li style="margin-top: 15px;"><strong>133</strong> <strong>[신규] 미니의 단풍 슬롯머신 추가</strong>
-                        <ul style="list-style-type: circle; margin-top: 5px; color: var(--text-muted); font-size: 14px;">
-                            <li>최소 100만 ~ 최대 1000만 메소까지 100만 단위로 배팅 금액 설정이 가능합니다</li>
-                            <li>배팅 금액별 7/7/7 잭팟 및 동일 문양 3개 당첨 시 보상이 다르게 지급됩니다 (인게임 캡처 참조)</li>
-                            <li>메소 소모처 추가를 통해 '미니의 단풍잎' 수급량을 증가시켰습니다</li>
-                            <li>만능 NPC 메뉴 내 ➔ 메소 뽑기 항목으로 추가되었습니다</li>
-                        </ul>
-                    </li>
-                    <li style="margin-top: 15px;"><strong>134</strong> 보라색 서핑 보드 '자쿰' 드랍 테이블에 추가</li>
-                    <li><strong>135</strong> 레벨 보상 확장 (LV.200 이후 <strong>LV.300 ~ LV.1000까지 100단위 보상 추가</strong> / 인게임 확인 가능)</li>
-                    <li><strong>136</strong> '나는야 럭키가이' 훈장 강화 추가 완료 (만능 NPC ➔ 럭가강화 메뉴를 통해 확인 후 강화 진행)</li>
-                    <li><strong>137</strong> '미블코 랜덤뽑기' 10회 뽑기 ➔ <strong>100회 뽑기로 상향 수정</strong> (아이템 획득 표기도 합산 표기로 개선)</li>
-                    <li><strong>138</strong> <code>@드랍</code> 몬스터 검색 시 몬스터 레벨(LV) 표기 추가</li>
-                    <li><strong>139</strong> 네오 도쿄 보스 '베르가모트' 1일 1회로 입장 횟수 수정</li>
-                </ul>
-            </div>
-            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
-            앞으로도 지속적인 업데이트를 통해 완성도 높은 서버를 만들어 가겠습니다<br>
-            감사합니다 ( • ⩊ • )
-        </div>
-        <div class="post-navigation">
-            <div class="nav-item disabled"><span>▲ 다음글</span>다음 글이 없습니다.</div>
-            <div class="nav-item" onclick="showPage('view_patch_v1_4')"><span>▼ 이전글</span>패치노트 v1.4</div>
-        </div>
-        <div class="btn-wrapper"><span onclick="showPage('patch')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-
-    <div id="page-view_patch_v1_4" class="page-section sub-wrapper" style="max-width: 900px;">
-        <div class="post-header">
-            <h1 class="post-title-text"><span class="badge badge-patch" style="font-size:15px; padding:5px 12px; margin-right: 15px;">패치</span>패치노트 v1.4</h1>
-            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
-        </div>
-        <div class="post-content">
-            안녕하세요 운영진입니다<br><br>
-            서버의 v1.4 패치노트를 안내해 드립니다<br>
-            시스템 고도화 및 신규 시스템, 일일 퀘스트 등이 대거 추가되었습니다<br><br>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 패치노트 v1.4 상세 내역</strong>
-                <ul class="patch-list">
-                    <li><strong>101</strong> 아이템 공격력 / 마력 제한 해제 및 상향 (1999 ➔ <strong>32767</strong>)</li>
-                    <li style="margin-top: 10px;"><strong>102</strong> <strong>거짓말 탐지기 예외 상황 명령어 추가</strong>
-                        <ul style="list-style-type: circle; margin-top: 5px; color: var(--text-muted); font-size: 14px;">
-                            <li>거짓말 탐지기 진행 중 간혹 NPC가 보이지 않는 경우 사용할 수 있는 <code>@거탐</code> 명령어가 추가되었습니다</li>
-                            <li>거짓말 탐지기 NPC 생성 안내 문구에 해당 명령어 안내가 추가되었습니다</li>
-                        </ul>
-                    </li>
-                    <li style="margin-top: 10px;"><strong>103</strong> 카오스 혼테일의 견장이 '반지' 탭으로 장착되던 오류 수정 (견장으로 정상 변경)</li>
-                    <li><strong>104</strong> 캐릭터 생성 시 1레벨부터 <strong>1+2 레벨업 버닝 추가</strong> (120LV까지 적용, 모든 캐릭터 동일)</li>
-                    <li style="margin-top: 15px;"><strong>105</strong> <strong>인벤토리 페이지 방식 분리 도입</strong>
-                        <ul style="list-style-type: circle; margin-top: 5px; color: var(--text-muted); font-size: 14px;">
-                            <li><code>@인벤1</code> / <code>@인벤2</code> 명령어로 인벤토리 페이지를 전환하여 사용할 수 있습니다</li>
-                            <li><strong>1번 페이지:</strong> 메인 아이템 / <strong>2번 페이지:</strong> 예외 아이템</li>
-                            <li>[소비 2페이지] 마스터리북, 스킬북</li>
-                            <li>[기타 2페이지] 단풍잎, 미니의 단풍잎, 각종 코인, 원석류, 보석류, 낚시터 미끼</li>
-                            <li style="color: #ff5252; font-weight: bold; margin-top: 5px;">※ 상점 및 유저 간 거래 이용 시 거래를 원하는 인벤토리 창을 미리 <code>@인벤1</code> 또는 <code>@인벤2</code> 로 지정해 주셔야 합니다</li>
-                        </ul>
-                    </li>
-                    <li style="margin-top: 15px;"><strong>106</strong> 미니의 단풍잎 예외 강화 가능 아이템 추가 (나는야 럭키가이 / 미니의 반지 / 후니의 반지)</li>
-                    <li><strong>107</strong> 무기고 몬스터 마법 데미지 관련 오류 해결 및 파티원 보너스 경험치 정상 적용</li>
-                    <li><strong>108</strong> 무기고 몬스터 '절대음감' 드랍 아이템 추가 (파밍량 확인 후 단풍잎 등 강화 재료 교환에 사용 예정)</li>
-                    <li style="margin-top: 15px;"><strong>109</strong> <strong>보스 개인 보상 누락 개선</strong>
-                        <ul style="list-style-type: circle; margin-top: 5px; color: var(--text-muted); font-size: 14px;">
-                            <li>파티/원정대 상태에서 보스 처치 시 직접 공격자와 같은 맵에 있는 파티원/원정대원이 개인 보상 대상에 정상 포함되도록 보정했습니다</li>
-                            <li>기사단 등 일반 몬스터의 보스 처리 제외 조건은 그대로 유지됩니다</li>
-                        </ul>
-                    </li>
-                    <li style="margin-top: 15px;"><strong>110</strong> <strong>원정대 중간 합류 버그 수정</strong>
-                        <ul style="list-style-type: circle; margin-top: 5px; color: var(--text-muted); font-size: 14px;">
-                            <li>보스전이 이미 시작된 원정대에는 신규 가입 및 추방/해제가 불가능하도록 차단했습니다</li>
-                            <li>혼테일 등 내부 전투맵을 이동하는 과정에서 원정대 명단이 잘못 제거되지 않도록 수정했습니다</li>
-                        </ul>
-                    </li>
-                    <li style="margin-top: 15px;"><strong>111</strong> <strong>몬스터북 장비 복구 기능 추가</strong>
-                        <ul style="list-style-type: circle; margin-top: 5px; color: var(--text-muted); font-size: 14px;">
-                            <li>컬렉션 패스 NPC에 '몬스터북 장비 복구 메뉴'를 추가했습니다</li>
-                            <li>장비창(E)의 몬스터북을 선택하면 현재 카드 5개 완성 수에 맞춰 올스탯/공/마 옵션을 다시 맞춰줍니다</li>
-                            <li>복구는 누적 증가가 아니며, [기본 옵션 + 완성 카드 수]로 재설정되므로 여러 번 눌러도 중복 상승하지 않습니다</li>
-                        </ul>
-                    </li>
-                    <li style="margin-top: 15px;"><strong>112</strong> 설치 탭 정렬 튕김 현상 수정 [정상화]</li>
-                    <li><strong>113</strong> 배틀쉽 탑승 상태에서 사용 가능한 스킬 추가 (영웅의 메아리, 윙즈, 호밍, 에어 스트라이크)</li>
-                    <li><strong>114</strong> 일반 장비 아이템의 스킬 레벨 +1 부여 능력 제거</li>
-                    <li><strong>115</strong> <code>@판매</code> 명령어 사용 시 '카오스 혼테일의 목걸이' 판매 예외 처리 적용</li>
-                    <li><strong>116</strong> 게임 런처 파일 체크 속도 대폭 개선 (기존 유저는 최초 1회만 파일 다운로드로 인해 시간이 소요됩니다)</li>
-                    <li><strong>117</strong> 홍보 누적 보상 추가 (300회 ➔ <strong>500회 구간 추가</strong>)</li>
-                    <li><strong>118</strong> 백간랑하 스킵 티켓 추가 (<code>@묘묘</code> 상점 이용 가능)</li>
-                    <li style="margin-top: 15px;"><strong>119</strong> 장비 수집 컬렉션 추가 완료 (수집 시 장비/표창/기타 재료 등 모든 항목 올스탯 +3)</li>
-                    <li><strong>120</strong> 미니의 단풍잎 강화 한도 상향 (기존 10강 ➔ <strong>최대 25강</strong> / 필요 재화는 NPC 통해 확인 가능)</li>
-                    <li><strong>121</strong> 낚시터 추가 완료 (<code>@이동</code> - 특별 이동 메뉴 또는 <code>@낚시</code>, <code>@낚시터</code> 명령어로 입장 가능)</li>
-                    <li><strong>122</strong> 무기고 사냥터 '절대음감' 드랍 제거 및 '미니의 단풍잎' 직접 드랍으로 변경 (기존 소지 중인 절대음감은 미단으로 교환해 드립니다)</li>
-                    <li style="margin-top: 15px;"><strong>123</strong> <strong>몬스터 컬렉션(기타템 수집) 관련 요구량 대폭 수정</strong>
-                        <ul style="list-style-type: circle; margin-top: 5px; color: var(--text-muted); font-size: 14px;">
-                            <li>선인인형 (수련의 증표): 300개 ➔ <strong>1개</strong></li>
-                            <li>머신 MT-09 (MT-09의 연료): 300개 ➔ <strong>1개</strong></li>
-                            <li>모래거인 (금모래 가루): 300개 ➔ <strong>50개</strong></li>
-                            <li>롬바드 (롬바드의 메모리카드): 300개 ➔ <strong>50개</strong></li>
-                            <li>게이트키퍼 (게이트키퍼의 완장): 300개 ➔ <strong>100개</strong></li>
-                            <li>타나토스 (타나토스의 견장): 300개 ➔ <strong>100개</strong></li>
-                            <li>주니어 부기 (주니어 부기의 뿔): 200개 ➔ <strong>100개</strong></li>
-                            <li>원로그레이 (원로 그레이의 표식): 300개 ➔ <strong>100개</strong></li>
-                            <li>웨어울프 (웨어울프의 발톱): 300개 ➔ <strong>100개</strong></li>
-                            <li>라이칸스로프 (라이칸스로프의 발톱): 300개 ➔ <strong>100개</strong></li>
-                        </ul>
-                    </li>
-                    <li style="margin-top: 15px;"><strong>124</strong> 아바타 110번대 이후 번호 검색 누락 현상 수정</li>
-                    <li><strong>125</strong> <code>@보너스</code> 명령어 출력 강화 (몬스터 수집 / 장비 수집 / 몬스터북 달성 상황 분리 출력)</li>
-                    <li><strong>126</strong> 용사의 의지 마스터 레벨 확장 (5 ➔ <strong>10</strong> / 쿨타임 감소 컨텐츠 연계)</li>
-                    <li><strong>127</strong> 윈드 부스터 심볼 추가 (콩상점 추가 예정)</li>
-                </ul>
-            </div>
-            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
-            앞으로도 지속적인 업데이트를 통해 완성도 높은 서버를 만들어 가겠습니다<br>
-            감사합니다 ( • ⩊ • )
-        </div>
-        <div class="post-navigation">
-            <div class="nav-item" onclick="showPage('view_patch_v1_5')"><span>▲ 다음글</span>패치노트 v1.5</div>
-            <div class="nav-item" onclick="showPage('view_patch_v1_3')"><span>▼ 이전글</span>패치노트 v1.3</div>
-        </div>
-        <div class="btn-wrapper"><span onclick="showPage('patch')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-
-    <div id="page-view_patch_v1_3" class="page-section sub-wrapper" style="max-width: 900px;">
-        <div class="post-header">
-            <h1 class="post-title-text"><span class="badge badge-patch" style="font-size:15px; padding:5px 12px; margin-right: 15px;">패치</span>패치노트 v1.3</h1>
-            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
-        </div>
-        <div class="post-content">
-            안녕하세요 운영진입니다<br><br>
-            서버의 v1.3 패치노트를 안내해 드립니다<br>
-            각종 신규 콘텐츠 추가 및 편의성 개선이 진행되었습니다<br><br>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 패치노트 v1.3 상세 내역</strong>
-                <ul class="patch-list">
-                    <li><strong>074</strong> 표창/불릿 교환 추가</li>
-                    <li><strong>075</strong> 주문서 교환 상점 단풍잎 요구량 조정 (10% 주문서: 2,000개 ➔ <strong>1,500개</strong>)</li>
-                    <li><strong>076</strong> [여름 이벤트] 아이스크림 교환 NPC 만능 메뉴에 추가 완료</li>
-                    <li><strong>077</strong> 딜 미터기 기능 추가 완료</li>
-                    <li><strong>078</strong> <code>@도감</code> 명령어 추가 (수집 NPC 이용)</li>
-                    <li><strong>079</strong> 필드보스/보스 드랍 테이블 수정 완료</li>
-                    <li><strong>080</strong> '미니의 단풍잎' 장비 강화 시스템 추가 (만능 NPC를 통해 상세 확인 가능)</li>
-                    <li><strong>081</strong> 응가 상점 추가 완료 (큰 똥/작은 똥 ➔ 혼돈의 주문서/미니의 단풍잎 교환 가능)</li>
-                    <li style="margin-top: 15px;"><strong>082</strong> <strong>디스코드 확성기(아이템 링크) 기능 개선</strong>
-                        <ul style="list-style-type: circle; margin-top: 5px; color: var(--text-muted); font-size: 14px;">
-                            <li>아이템 확성기 사용 시 디스코드 채널에도 아이템 정보가 함께 표시되도록 변경되었습니다 (관련 번호 089)</li>
-                            <li>기존의 단순 아이템 코드 노출 방식에서 벗어나, 아이템 이름과 주요 옵션이 게임 내 툴팁 느낌으로 표시됩니다</li>
-                            <li>장비 아이템: 힘/덱/인/럭, HP/MP, 공격력/마력, 명중/회피, 이동속도/점프, 방어력 등 표기</li>
-                            <li>소비/기타 아이템: 아이템명 및 수량 표기</li>
-                        </ul>
-                    </li>
-                    <li style="margin-top: 15px;"><strong>083</strong> <strong>보스 개인 드랍 보상 시스템 개편 (원정대 확장)</strong>
-                        <ul style="list-style-type: circle; margin-top: 5px; color: var(--text-muted); font-size: 14px;">
-                            <li>보스 개인 드랍 보상 대상이 기존 '파티' 기준에서 <strong>'원정대'</strong> 기준으로 확장되었습니다</li>
-                            <li>원정대로 입장한 보스맵에서는 파티를 하지 않아도 같은 원정대 소속 유저가 개인 보상 대상에 포함됩니다</li>
-                            <li>보상은 원정대원 중 <strong>현재 같은 보스맵에 있는 캐릭터에게만</strong> 지급됩니다</li>
-                            <li>원정대 정보가 없거나 대상자가 없을 경우 기존처럼 파티원 기준 ➔ 개인 기준으로 처리됩니다</li>
-                            <li>각 유저는 기존 드랍 테이블 확률에 따라 개별적으로 보상 판정을 받습니다</li>
-                        </ul>
-                    </li>
-                    <li style="margin-top: 15px;"><strong>084</strong> 전체 NPC 스트링 수정 완료</li>
-                    <li><strong>085</strong> 콩 상점 물품 추가 및 수정</li>
-                    <li><strong>086</strong> 카오스 혼테일 맵 및 콘텐츠 추가</li>
-                    <li><strong>087</strong> 캐릭터 최대 HP/MP 상한 확장 (기존 30,000 ➔ <strong>80,000</strong>)</li>
-                    <li><strong>088</strong> 인벤토리 설치 탭 정렬 시 발생하던 튕김 현상 수정</li>
-                    <li><strong>089</strong> 아이템 확성기 사용 시 디스코드 확성기 채널에 툴팁 표기 적용 완료</li>
-                    <li><strong>090</strong> 카오스 자쿰의 투구 [고유 아이템] 속성 제거</li>
-                    <li><strong>091</strong> 에피네아의 반지 [고유 속성 유지 / 교환 가능]으로 변경</li>
-                    <li><strong>092</strong> 홍보 / 낚시 / 콩 등 레벨(LV) 단계별 심볼 추가</li>
-                    <li><strong>093</strong> 몬스터북 콘텐츠 몬스터 카드 구매 시스템 추가 예정 (홍보/콩 인형으로 구매 가능)</li>
-                    <li><strong>094</strong> 카오스 혼테일 드랍 테이블 추가 완료</li>
-                    <li><strong>095</strong> 카오스 혼테일 및 핑크빈 <strong>타임리스 장비/방어구 드랍률 상승</strong> (0.1% ➔ 0.3%)</li>
-                    <li><strong>096</strong> 최대 HP/MP 80,000 확장분 정상 적용 수정 완료</li>
-                    <li><strong>097</strong> HP/MP 증가 주문서 작 전용 NPC 추가</li>
-                    <li><strong>098</strong> 응가 교환 상점 비용 조정 (큰 똥/작은 똥 교환 시 미니의 단풍잎 1개 ➔ 2개 획득)</li>
-                    <li><strong>099</strong> 무지개 펭귄 문방구 뽑기 보상 중 HP/MP 증가량 상승</li>
-                    <li style="margin-top: 15px; padding: 12px; background: var(--card-bg); border-radius: 6px; border: 1px dashed var(--border-main);">
-                        <strong>100</strong> <strong>[신규 일일 퀘스트] 미니와 가위 바위 보!</strong><br>
-                        <span style="font-size: 14px; color: var(--text-muted);">계정당 1일 5판 플레이 가능하며, 승패에 따라 '미니의 단풍잎'을 5개에서 최대 20개까지 획득할 수 있습니다</span>
-                    </li>
-                </ul>
-            </div>
-            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
-            앞으로도 지속적인 업데이트를 통해 완성도 높은 서버를 만들어 가겠습니다<br>
-            감사합니다 ( • ⩊ • )
-        </div>
-        <div class="post-navigation">
-            <div class="nav-item" onclick="showPage('view_patch_v1_4')"><span>▲ 다음글</span>패치노트 v1.4</div>
-            <div class="nav-item" onclick="showPage('view_patch_v1_2')"><span>▼ 이전글</span>패치노트 v1.2</div>
-        </div>
-        <div class="btn-wrapper"><span onclick="showPage('patch')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-
-    <div id="page-view_patch_v1_2" class="page-section sub-wrapper" style="max-width: 900px;">
-        <div class="post-header">
-            <h1 class="post-title-text"><span class="badge badge-patch" style="font-size:15px; padding:5px 12px; margin-right: 15px;">패치</span>패치노트 v1.2</h1>
-            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
-        </div>
-        <div class="post-content">
-            안녕하세요 운영진입니다<br><br>
-            서버의 v1.2 패치노트를 안내해 드립니다<br>
-            서버 환경 개선 및 신규 콘텐츠가 추가되었습니다<br><br>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 패치노트 v1.2 상세 내역</strong>
-                <ul class="patch-list">
-                    <li><strong>060</strong> 거탐 적발 감옥 탈출 정답 NPC 추가 (받아쓰기 444회 OR 5천만 메소 지급 시 광장 탈출 가능)</li>
-                    <li><strong>061</strong> 낚시터 추가 (<code>@낚시터</code> 명령어 이용 부탁드립니다)</li>
-                    <li><strong>062</strong> 뉴비 지원 물약 500개 ➔ <strong>1000개 증가</strong></li>
-                    <li><strong>063</strong> 서버 DROP 배율 3배 ➔ <strong>5배 증가</strong></li>
-                    <li><strong>064</strong> 스노우보드 일정 확률 획득 드랍 추가 및 슈퍼 스노우보드 교환 NPC 추가 완료</li>
-                    <li><strong>065</strong> 낚시왕 심볼, 홍보왕 심볼, 콩 심볼 등 추가 완료</li>
-                    <li><strong>066</strong> 다마고치 육성 NPC 수정 완료 (테스트 후 추가 예정)</li>
-                    <li><strong>067</strong> [여름 이벤트] 미니/후니의 아이스크림 제작 컨텐츠 추가 (월드 드랍 재료를 이용해 단계별 6가지 아이스크림 개별 획득/적용 가능)</li>
-                    <li><strong>068</strong> 딜 미터기 추가</li>
-                    <li><strong>069</strong> 모험가 법사 스킬 겉뎀 오류 해결</li>
-                    <li><strong>070</strong> 수하 A/B/C/D 체력/경험치/마공 정상화</li>
-                    <li><strong>071</strong> 시그너스 자동전직 + 스킬마스터 추가 (여축 및 심볼 획득을 통한 뉴비 성장 가속 목적)</li>
-                    <li style="margin-top: 15px;"><strong>072</strong> <strong>젠 관련 패치 안내</strong>
-                        <ul style="list-style-type: circle; margin-top: 5px; color: var(--text-muted); font-size: 14px;">
-                            <li>전체 몬스터 젠 기준이 일반 스폰 포인트 기준 <strong>3배</strong>로 정리되었습니다</li>
-                            <li>특정 맵 하드코딩 보정 때문에 커스텀 몹젠 설정이 무시되던 문제가 수정되었습니다</li>
-                            <li>직접 추가한 스폰 포인트가 몬스터 젠 수에 정상 반영됩니다</li>
-                            <li>보스 및 필드 보스는 일반 몬스터 젠 계산에서 제외됩니다</li>
-                            <li>일반 몬스터는 한 스폰 지점에서 최대 3마리까지 유지될 수 있습니다</li>
-                            <li style="list-style-type: none; margin-top: 8px; padding: 12px; background: var(--card-bg); border-radius: 6px; border: 1px dashed var(--border-main);">
-                                <strong>[안내]</strong> 일부 사냥터의 몬스터 수 체감이 이전과 달라질 수 있습니다. 이상이 느껴지는 맵이 있다면 제보 부탁드립니다
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
-            앞으로도 지속적인 업데이트를 통해 완성도 높은 서버를 만들어 가겠습니다<br>
-            감사합니다 ( • ⩊ • )
-        </div>
-        <div class="post-navigation">
-            <div class="nav-item" onclick="showPage('view_patch_v1_3')"><span>▲ 다음글</span>패치노트 v1.3</div>
-            <div class="nav-item" onclick="showPage('view_patch_v1_1')"><span>▼ 이전글</span>패치노트 v1.1</div>
-        </div>
-        <div class="btn-wrapper"><span onclick="showPage('patch')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-
-    <div id="page-view_patch_v1_1" class="page-section sub-wrapper" style="max-width: 900px;">
-        <div class="post-header">
-            <h1 class="post-title-text"><span class="badge badge-patch" style="font-size:15px; padding:5px 12px; margin-right: 15px;">패치</span>패치노트 v1.1</h1>
-            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
-        </div>
-        <div class="post-content">
-            안녕하세요 운영진입니다<br><br>
-            서버의 v1.1 패치노트를 안내해 드립니다<br>
-            게임 내 편의성 개선 및 시스템 안정화 작업이 진행되었습니다<br><br>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 패치노트 v1.1 상세 내역</strong>
-                <ul class="patch-list">
-                    <li><strong>043</strong> 모루 시스템 추가</li>
-                    <li><strong>044</strong> 데미지 스킨 변경 기능 추가</li>
-                    <li><strong>045</strong> 시그너스 직업 버프 지속시간 1800초 상향 작업 완료</li>
-                    <li><strong>046</strong> 시그너스 스킬 스트링 표기 작업 완료</li>
-                    <li><strong>047</strong> 월드 드랍 '미니의 비밀 쪽지' 아이템 추가</li>
-                    <li><strong>048</strong> 홍보/콩 포인트 ➔ 코인 시스템으로 전면 변경</li>
-                    <li><strong>049</strong> 뉴비 초기 지원 아이템 및 물약 추가 완료</li>
-                    <li style="margin-top: 15px;"><strong>050</strong> <strong>버프 세이브 개선 안내</strong>
-                        <ul style="list-style-type: circle; margin-top: 5px; color: var(--text-muted); font-size: 14px;">
-                            <li>사망 전 사용 중이던 저장 대상 버프가 부활 후 남은 시간 기준으로 복구되도록 개선되었습니다</li>
-                            <li>재접속, 튕김, 서버 정상 재시작 상황에서도 저장 대상 버프의 남은 시간이 유지되도록 수정되었습니다</li>
-                            <li>이미 종료된 버프가 이전 저장 기록 때문에 다시 적용되던 문제를 수정했습니다</li>
-                            <li>저장된 버프가 한 번 복구된 뒤 반복해서 다시 적용되지 않도록 처리했습니다</li>
-                            <li>버프 복구 시 스킬이나 아이템을 새로 사용한 것처럼 처리되지 않도록 시스템을 개선했습니다</li>
-                            <li style="list-style-type: none; margin-top: 8px; padding: 12px; background: var(--card-bg); border-radius: 6px; border: 1px dashed var(--border-main);">
-                                <strong>[안내]</strong> 버프 세이브는 버프를 새로 지급하는 기능이 아니라, 예기치 않은 종료나 사망 상황에서 사용 중이던 버프의 남은 시간을 복구하는 기능입니다. 서버 강제 종료처럼 저장 과정이 실행되지 못하는 상황은 예외일 수 있으며, 정상 종료 및 일반적인 접속 종료/튕김/사망 상황을 기준으로 적용됩니다
-                            </li>
-                        </ul>
-                    </li>
-                    <li style="margin-top: 15px;"><strong>051</strong> <strong>거짓말 탐지기 시스템 개선</strong>
-                        <ul style="list-style-type: circle; margin-top: 5px; color: var(--text-muted); font-size: 14px;">
-                            <li>기존 검사 발생 시 대화창이 즉시 열리던 방식에서 ➔ <strong>캐릭터 앞에 전용 NPC가 생성되어 클릭 후 검사를 진행</strong>하도록 변경되었습니다</li>
-                            <li>대화창을 실수로 닫아도 제한시간 안에는 다시 NPC를 클릭해 검사를 이어갈 수 있습니다 (다만 다시 클릭해도 제한시간은 초기화되지 않습니다)</li>
-                            <li>검사 통과 보상은 1회만 지급되도록 개선되었습니다 (이미 처리된 검사 NPC로 보상 중복 수령 불가)</li>
-                            <li>검사 통과, 실패, 예외 처리 완료 시 생성된 거짓말 탐지기 NPC는 자동으로 제거됩니다</li>
-                        </ul>
-                    </li>
-                    <li style="margin-top: 15px;"><strong>052</strong> <strong>장비 아이템 몬스터 드롭 시 상옵 수치 변경</strong>
-                        <ul style="list-style-type: circle; margin-top: 5px; color: var(--text-muted); font-size: 14px;">
-                            <li>일반 장비/방어구: 정옵 ±5 ➔ <strong>+10 ~ -5</strong> 로 상향 변경</li>
-                            <li>아대류 아이템: 정옵 ±5 ➔ <strong>+7 ~ -5</strong> 로 상향 변경</li>
-                        </ul>
-                    </li>
-                    <li style="margin-top: 10px;"><strong>053</strong> 데미지 스킨 가격 조정 (스킨 개당 1,000만 메소 ➔ <strong>100만 메소</strong> 하향)</li>
-                    <li><strong>054</strong> 거짓말 탐지기 진행 방식 재변경 및 고도화</li>
-                    <li><strong>055</strong> 심볼 스탯 적용 오류 수정</li>
-                    <li><strong>056</strong> 부활 시 무반응 현상 파악을 위한 로그 강화 적용</li>
-                    <li><strong>057</strong> 홍보 사이트 누적 횟수 기재 기능 추가 및 홍보 누적 보상 안내 추가</li>
-                    <li><strong>058</strong> '미니 핑크 코인' 월드 드랍 추가 (사용처: 마을 내 백수 NPC)</li>
-                    <li><strong>059</strong> 마스터리북 상점 추가 (단풍잎을 통해 교환 가능)</li>
-                </ul>
-            </div>
-            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
-            앞으로도 지속적인 업데이트를 통해 완성도 높은 서버를 만들어 가겠습니다<br>
-            감사합니다 ( • ⩊ • )
-        </div>
-        <div class="post-navigation">
-            <div class="nav-item" onclick="showPage('view_patch_v1_2')"><span>▲ 다음글</span>패치노트 v1.2</div>
-            <div class="nav-item" onclick="showPage('view_patch_v1_0')"><span>▼ 이전글</span>패치노트 v1.0</div>
-        </div>
-        <div class="btn-wrapper"><span onclick="showPage('patch')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-
-    <div id="page-view_patch_v1_0" class="page-section sub-wrapper" style="max-width: 900px;">
-        <div class="post-header">
-            <h1 class="post-title-text"><span class="badge badge-patch" style="font-size:15px; padding:5px 12px; margin-right: 15px;">패치</span>패치노트 v1.0</h1>
-            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
-        </div>
-        <div class="post-content">
-            안녕하세요 운영진입니다<br><br>
-            서버의 첫 번째 정식 패치노트(v1.0)를 안내해 드립니다<br>
-            쾌적한 플레이 환경을 제공하기 위해 다양한 편의성 개선과 고증 작업을 진행했습니다<br><br>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 패치노트 v1.0 상세 내역</strong>
-                <ul class="patch-list">
-                    <li><strong>001</strong> 모든 스킬 퍼뎀 순정화</li>
-                    <li><strong>002</strong> 모든 스킬 표기 순정화</li>
-                    <li><strong>003</strong> 모든 버프 스킬 지속시간 1800초로 변경</li>
-                    <li><strong>004</strong> 해상도 다중 지원 추가 (800 / 1024 / 1360 / 1600 / 1920)</li>
-                    <li><strong>005</strong> 맥스 데미지(맥뎀) 제한 해제</li>
-                    <li><strong>006</strong> 화면 가속 기능 적용</li>
-                    <li><strong>007</strong> <code>@묘묘</code> 명령어 추가</li>
-                    <li><strong>008</strong> 툴팁 색상 변경 (블랙)</li>
-                    <li><strong>009</strong> 펫 먹이 소모 X 패치 완료</li>
-                    <li><strong>010</strong> 캐릭터 8레벨 달성 시 인벤토리 풀칸 확장</li>
-                    <li><strong>011</strong> 고성능 확성기 = 디스코드 연동 적용</li>
-                    <li><strong>012</strong> 사다리 / 줄타기 이동 속도 상향</li>
-                    <li><strong>013</strong> 채팅 도배 방지 시스템 제거</li>
-                    <li><strong>015</strong> 스킬 / 스탯 찍기 딜레이 제거</li>
-                    <li><strong>016</strong> <code>@택배</code> 명령어 추가</li>
-                    <li><strong>017</strong> 성형 / 헤어 / 피부 관련 <code>@뷰티</code> 명령어 추가</li>
-                    <li><strong>018</strong> 아이템 최대 소지 개수 30,000개로 증가</li>
-                    <li><strong>019</strong> 주스탯 분배 명령어 추가 (<code>@힘</code>, <code>@덱</code>, <code>@인</code>, <code>@럭</code>)</li>
-                    <li><strong>020</strong> <code>@이동</code> 명령어 추가</li>
-                    <li><strong>021</strong> 캐시 아이템 마우스 드래그를 통해 버리기 가능하도록 수정</li>
-                    <li><strong>022</strong> <code>@드랍</code> 명령어 추가</li>
-                    <li><strong>023</strong> 하향 점프 범위 대폭 증가</li>
-                    <li><strong>024</strong> 해적 배틀쉽 탑승 중 사다리 및 줄타기 가능 / 체력 무한 수정</li>
-                    <li><strong>025</strong> 초보자 직업 길드 생성 기능 추가</li>
-                    <li><strong>026</strong> 전체 드랍 테이블 순정화 완료</li>
-                    <li><strong>027</strong> 초기 물약 지원 시스템 추가</li>
-                    <li><strong>028</strong> 오토루팅 추가 (<code>@오토루팅</code> 명령어로 ON / OFF 설정 가능)</li>
-                    <li><strong>029</strong> 점프키 + 방향키 입력으로 더블점프 및 윗점프 가능하도록 수정</li>
-                    <li><strong>030</strong> 길드마크 74종 추가</li>
-                    <li><strong>031</strong> 부화기 시스템 제거</li>
-                    <li><strong>032</strong> 메이커 시스템 제거</li>
-                    <li><strong>033</strong> 퀘스트 훈장 요구 횟수 하향 조정 (800회 ➔ 300회)</li>
-                    <li><strong>034</strong> 자동포션 기능 추가 (<code>@포션</code> 명령어로 설정)</li>
-                    <li><strong>035</strong> 계정창고 기능 추가</li>
-                    <li><strong>036</strong> 장비/방어구 상옵 수치 증가 (정옵 ±5 ➔ <strong>+10 ~ -5</strong> / 아대류 아이템 ±5 ➔ <strong>+7 ~ -5</strong>)</li>
-                    <li><strong>037</strong> 콩 상점 추가</li>
-                    <li><strong>038</strong> 몬스터 컬렉션 추가</li>
-                    <li><strong>039</strong> 장비 컬렉션 추가</li>
-                    <li><strong>040</strong> 무지개 펭귄 문방구 뽑기 추가 (만능 NPC 펭귄 뽑기를 통해 이용 가능)</li>
-                    <li><strong>041</strong> 스탯창 크기 UI 변경</li>
-                    <li><strong>042</strong> 버프 심볼 추가 (헤이스트 / 블레스 / 하이퍼바디 / 스탠스 / 메소업 / 샤프아이즈 / 홀리심볼)</li>
-                </ul>
-            </div>
-            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
-            앞으로도 지속적인 업데이트를 통해 완성도 높은 서버를 만들어 가겠습니다<br>
-            감사합니다 ( • ⩊ • )
-        </div>
-        <div class="post-navigation">
-            <div class="nav-item" onclick="showPage('view_patch_v1_1')"><span>▲ 다음글</span>패치노트 v1.1</div>
-            <div class="nav-item disabled"><span>▼ 이전글</span>이전 글이 없습니다.</div>
-        </div>
-        <div class="btn-wrapper"><span onclick="showPage('patch')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-
-    <div id="page-view_skill_v1_3" class="page-section sub-wrapper" style="max-width: 1000px;">
-        <div class="post-header">
-            <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px;">스킬</span>스킬패치 v1.3</h1>
-            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
-        </div>
-        <div class="post-content">
-            안녕하세요 운영진입니다<br><br>
-            스킬 밸런스 패치 3차 진행 안내입니다<br>
-            이전 밸런스 패치 데이터를 바탕으로, 추가적인 화력 조정이 필요한 직업군에 대해 퍼뎀(%) 상향을 적용했습니다<br>
-            마찬가지로 자버프 + 샤프아이즈 심볼이 포함된 측정입니다 (윈드부스터 심볼 제외)<br><br>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 스킬 밸런스 패치 3차 내역 (v1.3)</strong>
-                <table class="skill-table">
-                    <thead><tr><th>직업</th><th>스킬명</th><th>2차 변경 퍼뎀</th><th style="color: #20c997;">v1.3 퍼뎀 (%)</th></tr></thead>
-                    <tbody>
-                        <tr><td>보우마스터</td><td>폭풍의 시</td><td>190%</td><td><span class="hl">210%</span></td></tr>
-                        <tr><td>보우마스터</td><td>에로우 레인</td><td>500%</td><td><span class="hl">550%</span></td></tr>
-                        <tr><td>신궁</td><td>스트레이프</td><td>155%</td><td><span class="hl">200%</span></td></tr>
-                        <tr><td>나이트로드</td><td>트리플 스로우</td><td>225%</td><td><span class="hl">260%</span></td></tr>
-                        <tr><td>나이트로드</td><td>어벤져</td><td>200%</td><td><span class="hl">240%</span></td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
-            앞으로도 쾌적한 게임 환경을 위해 노력하겠습니다<br>
-            감사합니다 ( • ⩊ • )
-        </div>
-        <div class="post-navigation">
-            <div class="nav-item disabled"><span>▲ 다음글</span>다음 글이 없습니다.</div>
-            <div class="nav-item" onclick="showPage('view_skill_v1_2')"><span>▼ 이전글</span>스킬패치 v1.2</div>
-        </div>
-        <div class="btn-wrapper"><span onclick="showPage('skill')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-
-    <div id="page-view_skill_v1_2" class="page-section sub-wrapper" style="max-width: 1000px;">
-        <div class="post-header">
-            <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px;">스킬</span>스킬패치 v1.2</h1>
-            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
-        </div>
-        <div class="post-content">
-            안녕하세요 운영진입니다<br><br>
-            미니랜드 스킬 밸런스 패치 2차 진행 안내입니다<br>
-            1차 측정 및 적용 이후, 더 나은 밸런스를 위해 일부 직업군의 퍼뎀(%)을 추가로 상향 조정했습니다<br>
-            자버프 + 샤프아이즈 심볼이 포함된 측정입니다 (윈드부스터 심볼 제외)<br><br>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 스킬 밸런스 패치 2차 내역 (v1.2)</strong>
-                <table class="skill-table">
-                    <thead><tr><th>직업</th><th>스킬명</th><th>1차 변경 퍼뎀</th><th style="color: #20c997;">v1.2 퍼뎀 (%)</th></tr></thead>
-                    <tbody>
-                        <tr><td>히어로</td><td>브랜디쉬</td><td>420%</td><td><span class="hl">480%</span></td></tr>
-                        <tr><td>팔라딘</td><td>블래스트</td><td>550%</td><td><span class="hl">600%</span></td></tr>
-                        <tr><td>다크나이트</td><td>스피어 버스터(창)</td><td>270%</td><td><span class="hl">315%</span></td></tr>
-                        <tr><td>다크나이트</td><td>스피어 버스터(폴암)</td><td>390%</td><td><span class="hl">480%</span></td></tr>
-                        <tr><td>보우마스터</td><td>폭풍의 시</td><td>150%</td><td><span class="hl">190%</span></td></tr>
-                        <tr><td>보우마스터</td><td>에로우 레인</td><td>400%</td><td><span class="hl">500%</span></td></tr>
-                        <tr><td>신궁</td><td>스트레이프</td><td>130%</td><td><span class="hl">155%</span></td></tr>
-                        <tr><td>나이트로드</td><td>트리플 스로우</td><td>180%</td><td><span class="hl">225%</span></td></tr>
-                        <tr><td>나이트로드</td><td>어벤져</td><td>190%</td><td><span class="hl">200%</span></td></tr>
-                        <tr><td>섀도어</td><td>새비지 블로우</td><td>210%</td><td><span class="hl">270%</span></td></tr>
-                        <tr><td>바이퍼</td><td>데몰리션</td><td>600%</td><td><span class="hl">620%</span></td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
-            앞으로도 쾌적한 게임 환경을 위해 노력하겠습니다<br>
-            감사합니다 ( • ⩊ • )
-        </div>
-        <div class="post-navigation">
-            <div class="nav-item" onclick="showPage('view_skill_v1_3')"><span>▲ 다음글</span>스킬패치 v1.3</div>
-            <div class="nav-item" onclick="showPage('view_skill_v1_1')"><span>▼ 이전글</span>스킬패치 v1.1</div>
-        </div>
-        <div class="btn-wrapper"><span onclick="showPage('skill')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-
-    <div id="page-view_skill_v1_1" class="page-section sub-wrapper" style="max-width: 1000px;">
-        <div class="post-header">
-            <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px;">스킬</span>스킬패치 v1.1</h1>
-            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
-        </div>
-        <div class="post-content">
-            안녕하세요 운영진입니다<br><br>
-            미니랜드 스킬 밸런스 패치 1차 상세 표 안내입니다<br>
-            타수, 몹카, 퍼뎀이 전반적으로 조정되었으며, 이는 자버프 + 샤프아이즈 심볼이 포함된 측정 기준입니다<br><br>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 스킬 밸런스 패치 1차 내역 (v1.1)</strong>
-                <table class="skill-table">
-                    <thead><tr><th>직업</th><th>스킬명</th><th>기존 (타수 / 몹카 / 퍼뎀)</th><th style="color: #20c997;">변경 (타수 / 몹카 / 퍼뎀)</th></tr></thead>
-                    <tbody>
-                        <tr><td>히어로</td><td>브랜디쉬</td><td>2 / 3 / 300%</td><td>2 / <span class="hl">4</span> / <span class="hl">420%</span></td></tr>
-                        <tr><td>팔라딘</td><td>블래스트</td><td>2 / 2 / 550%</td><td>2 / <span class="hl">4</span> / 550%</td></tr>
-                        <tr><td>다크나이트</td><td>스피어 버스터(창)</td><td>3 / 3 / 170%</td><td>3 / 3 / <span class="hl">270%</span></td></tr>
-                        <tr><td>다크나이트</td><td>드래곤 쓰레셔(창)</td><td>1 / 6 / 250%</td><td>1 / 6 / <span class="hl">400%</span></td></tr>
-                        <tr><td>다크나이트</td><td>스피어 버스터(폴암)</td><td>3 / 3 / 170%</td><td>3 / 3 / <span class="hl">390%</span></td></tr>
-                        <tr><td>다크나이트</td><td>드래곤 쓰레셔(폴암)</td><td>1 / 6 / 250%</td><td>1 / 6 / <span class="hl">260%</span></td></tr>
-                        <tr><td>다크나이트</td><td>드래곤 로어</td><td>1 / 15 / 240%</td><td>1 / 15 / 240%</td></tr>
-                        <tr><td>아크메이지(불,독)</td><td>페럴라이즈</td><td>2 / 1 / 210%</td><td><span class="hl">4</span> / 1 / 210%</td></tr>
-                        <tr><td>아크메이지(불,독)</td><td>메테오</td><td>1 / 15 / 570%</td><td>1 / 15 / 570%</td></tr>
-                        <tr><td>아크메이지(썬,콜)</td><td>체인 라이트닝</td><td>2 / 1 / 180%</td><td><span class="hl">4</span> / 1 / 180%</td></tr>
-                        <tr><td>아크메이지(썬,콜)</td><td>블리자드</td><td>1 / 15 / 570%</td><td>1 / 15 / 570%</td></tr>
-                        <tr><td>비숍</td><td>엔젤레이</td><td>2 / 1 / 240%</td><td><span class="hl">4</span> / 1 / 240%</td></tr>
-                        <tr><td>비숍</td><td>제네시스</td><td>1 / 15 / 670%</td><td>1 / 15 / 670%</td></tr>
-                        <tr><td>보우마스터</td><td>폭풍의 시</td><td>1 / 1 / 120%</td><td>1 / 1 / <span class="hl">150%</span></td></tr>
-                        <tr><td>보우마스터</td><td>에로우 레인</td><td>1 / 6 / 160%</td><td>1 / 6 / <span class="hl">400%</span></td></tr>
-                        <tr><td>신궁</td><td>스트레이프</td><td>6 / 1 / 100%</td><td>6 / 1 / <span class="hl">130%</span></td></tr>
-                        <tr><td>신궁</td><td>피어싱</td><td>1 / 6 / 850%</td><td>1 / 6 / 850%</td></tr>
-                        <tr><td>나이트로드</td><td>트리플 스로우</td><td>3 / 1 / 150%</td><td>3 / 1 / <span class="hl">180%</span></td></tr>
-                        <tr><td>나이트로드</td><td>어벤져</td><td>1 / 6 / 180%</td><td>1 / 6 / <span class="hl">190%</span></td></tr>
-                        <tr><td>섀도어</td><td>부메랑스탭</td><td>2 / 6 / 500%</td><td>2 / 6 / 500%</td></tr>
-                        <tr><td>섀도어</td><td>새비지 블로우</td><td>6 / 1 / 80%</td><td>6 / 1 / <span class="hl">210%</span></td></tr>
-                        <tr><td>캡틴</td><td>배틀쉽 캐논</td><td>4 / 1 / 380%</td><td>4 / 1 / 380%</td></tr>
-                        <tr><td>캡틴</td><td>배틀쉽 토르페도</td><td>1 / 6 / 780%</td><td>1 / 6 / 780%</td></tr>
-                        <tr><td>바이퍼</td><td>드래곤 스트라이크</td><td>1 / 6 / 810%</td><td>1 / 6 / 810%</td></tr>
-                        <tr><td>바이퍼</td><td>데몰리션</td><td>8 / 1 / 400%</td><td>8 / 1 / <span class="hl">600%</span></td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
-            앞으로도 쾌적한 게임 환경을 위해 노력하겠습니다<br>
-            감사합니다 ( • ⩊ • )
-        </div>
-        <div class="post-navigation">
-            <div class="nav-item" onclick="showPage('view_skill_v1_2')"><span>▲ 다음글</span>스킬패치 v1.2</div>
-            <div class="nav-item" onclick="showPage('view_skill_v1_0')"><span>▼ 이전글</span>스킬패치 v1.0</div>
-        </div>
-        <div class="btn-wrapper"><span onclick="showPage('skill')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-
-    <div id="page-view_skill_v1_0" class="page-section sub-wrapper" style="max-width: 900px;">
-        <div class="post-header">
-            <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px;">스킬</span>스킬패치 v1.0</h1>
-            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
-        </div>
-        <div class="post-content">
-            안녕하세요 운영진입니다<br><br>
-            서버의 스킬패치 v1.0 내역을 안내해 드립니다<br>
-            안내해 드린 바와 같이 직업 다양성을 위한 밸런스 조정이 포함되어 있습니다<br><br>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 전사</strong>
-                <ul class="patch-list">
-                    <li><strong>모험가 전사 공통:</strong> 사냥기 범위 동일화 및 증가</li>
-                    <li><strong>다크나이트:</strong> '버서크' 항시 유지</li>
-                </ul>
-            </div>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 마법사 / 비숍</strong>
-                <ul class="patch-list">
-                    <li><strong>불독 2차:</strong> '파이어 에로우' 몹 카운트 증가 (1 ➔ <strong>2</strong> / LV1~30 모두 적용)</li>
-                    <li><strong>공통 (불독/비숍/썬콜):</strong> '페럴라이즈' / '엔젤레이' / '체인 라이트닝' 타수 증가 (1타 ➔ <strong>2타</strong>)</li>
-                </ul>
-            </div>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 궁수</strong>
-                <ul class="patch-list">
-                    <li><strong>신궁:</strong> '피어싱' 차징 삭제</li>
-                    <li><strong>신궁 3차:</strong> '스트레이프' 어택 카운트 증가 (기존 4 ➔ <strong>6</strong>)</li>
-                    <li><strong>보우마스터:</strong> '폭풍의 시' 피격 시에도 끊기지 않고 계속 발동되도록 수정</li>
-                </ul>
-            </div>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 도적</strong>
-                <ul class="patch-list">
-                    <li><strong>시프 2차:</strong> '새비지 블로우' 몹 카운트 증가 (1 ➔ <strong>2</strong> / LV1~30 모두 적용)</li>
-                    <li><strong>섀도어:</strong> '부메랑 스텝' 후딜레이 제거 및 점프샷 가능하도록 수정</li>
-                    <li><strong>섀도어:</strong> '부메랑 스텝' 무적 판정 제거</li>
-                    <li><strong>섀도어:</strong> '암살' 다크사이트 조건부 삭제 (다크사이트 없이 바로 발동 가능)</li>
-                </ul>
-            </div>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 해적</strong>
-                <ul class="patch-list">
-                    <li><strong>바이퍼:</strong> '드래곤 스트라이크' 후딜레이 제거 및 점프샷 가능하도록 수정</li>
-                    <li><strong>바이퍼:</strong> '트랜스폼' 스킬 제거</li>
-                    <li><strong>바이퍼:</strong> '데몰리션' 전체 무적 상태 제거</li>
-                </ul>
-            </div>
-            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
-            앞으로도 쾌적한 게임 환경을 위해 노력하겠습니다<br>
-            감사합니다 ( • ⩊ • )
-        </div>
-        <div class="post-navigation">
-            <div class="nav-item" onclick="showPage('view_skill_v1_1')"><span>▲ 다음글</span>스킬패치 v1.1</div>
-            <div class="nav-item" onclick="showPage('view_skill_1')"><span>▼ 이전글</span>모든 직업 스킬패치 관련 안내</div>
-        </div>
-        <div class="btn-wrapper"><span onclick="showPage('skill')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-
-    <div id="page-view_skill_1" class="page-section sub-wrapper" style="max-width: 900px;">
-        <div class="post-header">
-            <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px;">스킬</span>모든 직업 스킬패치 관련 안내</h1>
-            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
-        </div>
-        <div class="post-content">
-            안녕하세요 운영진입니다<br><br>
-            서버의 모든 직업 스킬패치 관련 안내사항입니다<br><br>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 스킬 건의 및 오류 제보</strong>
-                • 전 직업 스킬 관련 <strong>건의는 절대 받지 않습니다</strong><br>
-                • 단, 스킬 관련 건의와는 별개로 스킬에 대한 <strong>오류 및 수정이 필요한 부분</strong>은 언제든 티켓으로 문의해 주세요
-            </div>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 스킬 밸런스 조정 방향</strong>
-                • 모든 직업의 퍼뎀은 <strong>순정 기반</strong>에서 +-% 조정됩니다<br>
-                • 비인기 및 폐사 직업과 관련하여 전직 차수별 <strong>몹카(타겟 수)</strong> 정도의 수정이 있습니다<br>
-                <span style="color: var(--text-muted); font-size: 14px;">└ 이는 직업 다양성을 위해 진행됩니다</span>
-            </div>
-            <div class="rule-item">
-                <strong class="rule-title">◆ 후딜레이 패치</strong>
-                • 스킬 후딜레이 제거 관련 패치는 정상적으로 이루어집니다
-            </div>
-            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
-            감사합니다 ( • ⩊ • )
-        </div>
-        <div class="post-navigation">
-            <div class="nav-item" onclick="showPage('view_skill_v1_0')"><span>▲ 다음글</span>스킬패치 v1.0</div>
-            <div class="nav-item disabled"><span>▼ 이전글</span>이전 글이 없습니다.</div>
-        </div>
-        <div class="btn-wrapper"><span onclick="showPage('skill')" class="btn-list">목록으로 돌아가기</span></div>
     </div>
 
     <div class="footer">
@@ -1235,25 +210,6 @@
     </div>
 
     <script>
-        /* 싱글 페이지 화면 전환 기능 */
-        function showPage(pageId) {
-            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
-            document.getElementById('page-' + pageId).classList.add('active');
-            window.scrollTo(0, 0); // 화면 맨 위로 부드럽게 끌어올려줌
-        }
-
-        /* ✅ 직업별 세부 직업 아코디언 토글 기능 */
-        function toggleSubJob(jobId) {
-            const el = document.getElementById('sub-' + jobId);
-            if (el.classList.contains('active')) {
-                el.classList.remove('active');
-            } else {
-                // 열려있던 다른 직업군 리스트 모두 닫기
-                document.querySelectorAll('.sub-job-list').forEach(list => list.classList.remove('active'));
-                el.classList.add('active');
-            }
-        }
-
         /* 모달 및 테마 스크립트 */
         function openServerInfo() { document.getElementById('serverInfoModal').style.display = 'block'; }
         function closeServerInfo() { document.getElementById('serverInfoModal').style.display = 'none'; }

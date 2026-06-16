@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미니랜드 직업별 스킬</title>
+    <link rel="icon" href="homepagelogo.jpg">
+    <style>
+        :root { --bg-main: #ffffff; --text-main: #333333; --text-muted: #888888; --nav-bg: rgba(255, 255, 255, 0.95); --border-main: #eaeaea; --card-bg: #fafafa; --card-hover: #f4fdf9; --card-border: #eeeeee; --modal-bg: #ffffff; --modal-inner: #f9fdfb; }
+        [data-theme="dark"] { --bg-main: #121212; --text-main: #e0e0e0; --text-muted: #999999; --nav-bg: rgba(24, 24, 24, 0.95); --border-main: #333333; --card-bg: #1e1e1e; --card-hover: #2a2a2a; --card-border: #333333; --modal-bg: #1e1e1e; --modal-inner: #252525; }
+        @font-face { font-family: 'Pretendard-Regular'; src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff'); font-weight: 400; }
+        @font-face { font-family: 'NexonMaplestory'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFLight.woff') format('woff'); font-weight: 300; }
+        @font-face { font-family: 'NexonMaplestory'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff'); font-weight: 700; }
+        * { font-family: 'Pretendard-Regular', sans-serif !important; -webkit-font-smoothing: antialiased; box-sizing: border-box; }
+        body { background: var(--bg-main); color: var(--text-main); margin: 0; padding: 0; transition: background 0.3s, color 0.3s; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        
+        .page-section { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .page-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .header-wrapper { position: sticky; top: 0; z-index: 100; }
+        .top-nav { position: relative; background: var(--nav-bg); padding: 0 50px; display: flex; align-items: center; justify-content: space-between; height: 80px; border-bottom: 1px solid var(--border-main); z-index: 101; backdrop-filter: blur(5px); }
+        .logo-img { height: 70px; object-fit: contain; cursor: pointer; z-index: 102; transition: transform 0.2s; }
+        .logo-img:hover { transform: scale(1.08); }
+        .nav-links { display: flex; gap: 50px; position: absolute; left: 50%; transform: translateX(-50%); height: 100%; z-index: 102; }
+        
+        .main-link { display: flex; align-items: center; height: 80px; font-size: 17px; font-weight: 700; color: var(--text-main); position: relative; transition: color 0.2s; cursor: pointer; }
+        .main-link:hover { color: #20c997; }
+        
+        .dropdown { position: relative; display: inline-block; height: 80px; }
+        .dropdown-content { display: none; position: absolute; top: 75px; left: 50%; transform: translateX(-50%); background-color: var(--nav-bg); min-width: 150px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); border-radius: 8px; border: 1px solid var(--border-main); z-index: 200; overflow: hidden; backdrop-filter: blur(5px); }
+        .dropdown:hover .dropdown-content { display: block; animation: fadeIn 0.2s ease-in-out; }
+        .dropdown-content a { color: var(--text-main); padding: 12px 16px; text-decoration: none; display: block; font-size: 15px; font-weight: 600; text-align: center; transition: background 0.2s, color 0.2s; }
+        .dropdown-content a:hover { background-color: var(--card-hover); color: #20c997; }
+
+        .theme-toggle { cursor: pointer; font-size: 22px; user-select: none; transition: transform 0.2s; padding: 10px; }
+        .theme-toggle:hover { transform: scale(1.15); }
+        .sub-wrapper { max-width: 1000px; margin: 30px auto; padding: 0 20px; min-height: 60vh; }
+        
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; margin-right: 12px; min-width: 45px; text-align: center; }
+        .badge-skill { background: #f3e5f5; color: #8e24aa; }
+        [data-theme="dark"] .badge-skill { background: #2a1a33; color: #ba68c8; }
+        
+        .post-header { border-bottom: 2px solid var(--text-main); padding-bottom: 20px; margin-bottom: 30px; }
+        .post-title-text { font-size: 28px; font-weight: 700; margin: 0 0 15px 0; display: flex; align-items: center; }
+        .post-meta { display: flex; gap: 20px; font-size: 14px; color: var(--text-muted); }
+        .post-content { font-size: 16px; padding-bottom: 20px; min-height: 200px; line-height: 1.8; }
+        .rule-title { font-size: 18px; color: #20c997; margin-bottom: 8px; display: block; font-family: 'NexonMaplestory', sans-serif !important; }
+        
+        .btn-wrapper { text-align: center; margin-bottom: 30px; }
+        .btn-list { display: inline-block; padding: 12px 30px; background-color: var(--card-bg); border: 1px solid var(--border-main); border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.2s, color 0.2s; }
+        .btn-list:hover { background-color: #20c997; color: white; border-color: #20c997; }
+
+        /* ✅ 스크롤 따라다니는 퀵 메뉴 */
+        .left-wing-banner { position: absolute; top: 120px; left: 30px; width: 220px; background: var(--nav-bg); border: 1px solid var(--border-main); border-radius: 12px; padding: 20px; box-shadow: 0 8px 16px rgba(0,0,0,0.05); z-index: 50; backdrop-filter: blur(5px); transition: top 0.4s ease-out; }
+        .left-wing-title { font-family: 'NexonMaplestory', sans-serif !important; font-size: 18px; color: #20c997; margin-top: 0; margin-bottom: 15px; text-align: center; border-bottom: 1px dashed var(--border-main); padding-bottom: 10px; }
+        .wing-menu { list-style: none; padding: 0; margin: 0; }
+        .wing-menu li { margin-bottom: 10px; }
+        .wing-menu li:last-child { margin-bottom: 0; }
+        .wing-btn { display: block; padding: 12px 10px; background: var(--bg-main); border: 1px solid var(--border-main); border-radius: 8px; text-align: center; font-size: 14px; font-weight: 700; color: var(--text-main); cursor: pointer; transition: all 0.2s ease; }
+        .wing-btn:hover { background: #20c997; color: white; border-color: #20c997; transform: translateY(-3px); box-shadow: 0 4px 8px rgba(32, 201, 151, 0.2); }
+
+        .job-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; margin-bottom: 30px; align-items: start; }
+        .job-wrapper { display: flex; flex-direction: column; gap: 10px; }
+        .job-box { background: var(--card-bg); border: 2px solid var(--border-main); border-radius: 16px; padding: 40px 20px; text-align: center; cursor: pointer; transition: all 0.2s ease; }
+        .job-title { font-family: 'NexonMaplestory', sans-serif !important; font-size: 24px; margin: 0; transition: color 0.2s; }
+        
+        .sub-job-list { display: none; flex-direction: column; gap: 8px; animation: fadeIn 0.2s ease-in-out; }
+        .sub-job-list.active { display: flex; }
+        .sub-job-item { background: var(--card-bg); border: 1.5px dashed var(--border-main); border-radius: 10px; padding: 15px; text-align: center; cursor: pointer; transition: all 0.2s ease; font-weight: 700; font-size: 15px; color: var(--text-muted); }
+        
+        .job-warrior .job-title { color: #ff6b6b; }
+        .job-warrior:hover { border-color: #ff6b6b; background: var(--card-hover); transform: translateY(-5px); box-shadow: 0 8px 16px rgba(255, 107, 107, 0.15); }
+        .job-warrior-sub:hover { color: #ff6b6b; border-color: #ff6b6b; background: var(--card-hover); transform: translateX(5px); }
+        
+        .job-mage .job-title { color: #339af0; }
+        .job-mage:hover { border-color: #339af0; background: var(--card-hover); transform: translateY(-5px); box-shadow: 0 8px 16px rgba(51, 154, 240, 0.15); }
+        .job-mage-sub:hover { color: #339af0; border-color: #339af0; background: var(--card-hover); transform: translateX(5px); }
+        
+        .job-archer .job-title { color: #20c997; }
+        .job-archer:hover { border-color: #20c997; background: var(--card-hover); transform: translateY(-5px); box-shadow: 0 8px 16px rgba(32, 201, 151, 0.15); }
+        .job-archer-sub:hover { color: #20c997; border-color: #20c997; background: var(--card-hover); transform: translateX(5px); }
+        
+        .job-thief .job-title { color: #b197fc; }
+        .job-thief:hover { border-color: #b197fc; background: var(--card-hover); transform: translateY(-5px); box-shadow: 0 8px 16px rgba(177, 151, 252, 0.15); }
+        .job-thief-sub:hover { color: #b197fc; border-color: #b197fc; background: var(--card-hover); transform: translateX(5px); }
+        
+        .job-pirate .job-title { color: #fcc419; }
+        .job-pirate:hover { border-color: #fcc419; background: var(--card-hover); transform: translateY(-5px); box-shadow: 0 8px 16px rgba(252, 196, 25, 0.15); }
+        .job-pirate-sub:hover { color: #fcc419; border-color: #fcc419; background: var(--card-hover); transform: translateX(5px); }
+
+        .skill-table { width: 100%; border-collapse: collapse; text-align: left; margin-top: 15px; font-size: 14px; border-top: 2px solid var(--text-main); border-bottom: 1px solid var(--border-main); }
+        .skill-table th { padding: 12px; background: var(--card-bg); border-bottom: 1px solid var(--border-main); font-weight: 700; text-align: center; }
+        .skill-table td { padding: 12px 10px; border-bottom: 1px solid var(--border-main); }
+        .skill-table td:nth-child(1), .skill-table td:nth-child(2) { text-align: center; }
+        .skill-table tr:hover { background: var(--card-hover); }
+        .hl { color: #20c997; font-weight: bold; }
+        [data-theme="dark"] .hl { color: #38d9a9; }
+
+        .footer { border-top: 1px solid var(--border-main); padding: 40px 20px; text-align: left; background: var(--card-bg); color: var(--text-muted); font-size: 13px; margin-top: 50px; }
+        .footer-content { max-width: 1200px; margin: 0 auto; }
+        
+        @media (max-width: 1550px) { .left-wing-banner { display: none; } }
+        @media (max-width: 768px) {
+            .top-nav { flex-direction: column; height: auto; gap: 15px; padding: 15px; }
+            .nav-links { position: static; transform: none; flex-wrap: wrap; justify-content: center; gap: 20px; }
+            .skill-table th:nth-child(3), .skill-table td:nth-child(3) { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="left-wing-banner">
+        <h3 class="left-wing-title">Quick Menu</h3>
+        <ul class="wing-menu">
+            <li><div class="wing-btn" onclick="location.href='job.html'">미니랜드 직업별 스킬</div></li>
+            <li><div class="wing-btn" onclick="window.open('https://miniland1004.github.io/-/', '_blank')">미니랜드 홍보 사이트</div></li>
+            <li><div class="wing-btn" onclick="window.open('https://miniland1004.github.io/avatar-gallery/?no=01', '_blank')">미니랜드 아바타 미리보기</div></li>
+            <li><div class="wing-btn" onclick="window.open('https://drive.google.com/file/d/15UVraq9WrkiTKRxIERLXczL_s4liPKRK/view?usp=sharing', '_blank')">미니랜드 다운로드</div></li>
+            <li><div class="wing-btn" onclick="location.href='error.html'">미니랜드 오류해결</div></li>
+        </ul>
+    </div>
+
+    <div class="header-wrapper">
+        <div class="top-nav">
+            <img src="logo.png" alt="미니랜드 로고" class="logo-img" onclick="location.href='index.html'">
+            <div class="nav-links">
+                <a href="notice.html" class="main-link">공지사항</a>
+                <a href="event.html" class="main-link">이벤트</a>
+                <a href="patch.html" class="main-link">패치노트</a>
+                <a href="skill.html" class="main-link">스킬패치</a>
+                <div class="dropdown">
+                    <a class="main-link">고객센터</a>
+                    <div class="dropdown-content">
+                        <a href="discord://-/channels/1474594207229546549/1474594208026329104">티켓문의</a>
+                        <a href="discord://-/channels/1474594207229546549/1474594208357548255">오류제보</a>
+                        <a href="discord://-/channels/1474594207229546549/1474594208357548254">건의사항</a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-right"><div class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()">🌙</div></div>
+        </div>
+    </div>
+
+    <div id="page-skill_job" class="page-section active sub-wrapper">
+        <div class="post-header">
+            <h1 class="post-title-text">
+                <span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px;">스킬</span>
+                미니랜드 직업별 스킬
+            </h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span></div>
+        </div>
+        <div class="post-content">
+            <div style="text-align: center; margin-bottom: 40px; color: var(--text-muted); font-size: 16px;">
+                확인하고 싶은 직업군을 선택하시면 세부 직업이 나타납니다
+            </div>
+            <div class="job-grid">
+                <div class="job-wrapper">
+                    <div class="job-box job-warrior" onclick="toggleSubJob('warrior')">
+                        <h3 class="job-title">전사</h3>
+                    </div>
+                    <div id="sub-warrior" class="sub-job-list">
+                        <div class="sub-job-item job-warrior-sub" onclick="showPage('skill_hero')">히어로</div>
+                        <div class="sub-job-item job-warrior-sub" onclick="showPage('skill_paladin')">팔라딘</div>
+                        <div class="sub-job-item job-warrior-sub" onclick="showPage('skill_darkknight')">다크나이트</div>
+                    </div>
+                </div>
+
+                <div class="job-wrapper">
+                    <div class="job-box job-mage" onclick="toggleSubJob('mage')">
+                        <h3 class="job-title">마법사</h3>
+                    </div>
+                    <div id="sub-mage" class="sub-job-list">
+                        <div class="sub-job-item job-mage-sub" onclick="showPage('skill_bishop')">비숍</div>
+                        <div class="sub-job-item job-mage-sub" onclick="showPage('skill_firepoison')">불독</div>
+                        <div class="sub-job-item job-mage-sub" onclick="showPage('skill_icelightning')">썬콜</div>
+                    </div>
+                </div>
+
+                <div class="job-wrapper">
+                    <div class="job-box job-archer" onclick="toggleSubJob('archer')">
+                        <h3 class="job-title">궁수</h3>
+                    </div>
+                    <div id="sub-archer" class="sub-job-list">
+                        <div class="sub-job-item job-archer-sub" onclick="showPage('skill_bowmaster')">보우마스터</div>
+                        <div class="sub-job-item job-archer-sub" onclick="showPage('skill_marksman')">신궁</div>
+                    </div>
+                </div>
+
+                <div class="job-wrapper">
+                    <div class="job-box job-thief" onclick="toggleSubJob('thief')">
+                        <h3 class="job-title">도적</h3>
+                    </div>
+                    <div id="sub-thief" class="sub-job-list">
+                        <div class="sub-job-item job-thief-sub" onclick="showPage('skill_nightlord')">나이트로드</div>
+                        <div class="sub-job-item job-thief-sub" onclick="showPage('skill_shadower')">섀도어</div>
+                    </div>
+                </div>
+
+                <div class="job-wrapper">
+                    <div class="job-box job-pirate" onclick="toggleSubJob('pirate')">
+                        <h3 class="job-title">해적</h3>
+                    </div>
+                    <div id="sub-pirate" class="sub-job-list">
+                        <div class="sub-job-item job-pirate-sub" onclick="showPage('skill_viper')">바이퍼</div>
+                        <div class="sub-job-item job-pirate-sub" onclick="showPage('skill_captain')">캡틴</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btn-wrapper"><span onclick="location.href='index.html'" class="btn-list">메인으로 돌아가기</span></div>
+    </div>
+
+    <div id="page-skill_hero" class="page-section sub-wrapper">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px;">전사</span>히어로 스킬 정보</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span></div>
+        </div>
+        <div class="post-content">
+            <h3 class="rule-title" style="margin-top: 10px;">◆ 1차: 검사 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>HP 회복량 향상</strong></td><td>16</td><td>추가 회복량 +50 HP</td></tr>
+                    <tr><td><strong>HP 증가량 향상</strong></td><td>10</td><td>레벨업 시 +40 더 증가 / AP 투자시 +30 더 증가</td></tr>
+                    <tr><td><strong>인듀어</strong></td><td>8</td><td>10초 간격으로 HP를 회복</td></tr>
+                    <tr><td><strong>아이언 바디</strong></td><td>20</td><td>물리방어력 +40 (1800초 지속)</td></tr>
+                    <tr><td><strong>파워 스트라이크</strong></td><td>20</td><td>데미지 260%</td></tr>
+                    <tr><td><strong>슬래시 블러스트</strong></td><td>20</td><td>데미지 130% / 몹카운트 6 <span style="color: #20c997; font-size: 13px;">(※ v1.0 사냥기 범위 증가 패치 적용)</span></td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px;">◆ 2차: 파이터 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>소드 마스터리</strong></td><td>20</td><td>검 숙련도 60%, 명중률 +20</td></tr>
+                    <tr><td><strong>도끼 마스터리</strong></td><td>20</td><td>도끼 숙련도 60%, 명중률 +20</td></tr>
+                    <tr><td><strong>파이널 어택 (검)</strong></td><td>30</td><td>60% 성공 확률로 파이널 어택 발동 (데미지 250%)</td></tr>
+                    <tr><td><strong>파이널 어택 (도끼)</strong></td><td>30</td><td>60% 성공 확률로 파이널 어택 발동 (도끼 데미지 250%)</td></tr>
+                    <tr><td><strong>검 부스터</strong></td><td>20</td><td>검의 공격속도 향상 (1800초 지속)</td></tr>
+                    <tr><td><strong>도끼 부스터</strong></td><td>20</td><td>도끼의 공격속도 향상 (1800초 지속)</td></tr>
+                    <tr><td><strong>분노</strong></td><td>20</td><td>물리공격력 +10, 물리방어력 -10 (1800초 지속)</td></tr>
+                    <tr><td><strong>파워가드</strong></td><td>30</td><td>40%의 받은 데미지 반사 (1800초 지속)</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px;">◆ 3차: 크루세이더 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>MP 증가량 향상</strong></td><td>20</td><td>추가 회복량 +30 MP</td></tr>
+                    <tr><td><strong>쉴드 마스터리</strong></td><td>20</td><td>방패 방어력 +100%</td></tr>
+                    <tr><td><strong>콤보어택</strong></td><td>30</td><td>물리공격력 +220%, 최대 콤보 카운터 5 (1800초 지속)</td></tr>
+                    <tr><td><strong>패닉 (검)</strong></td><td>30</td><td>데미지 350%, 암흑 공격 확률 90%</td></tr>
+                    <tr><td><strong>패닉 (도끼)</strong></td><td>30</td><td>데미지 350%, 암흑 공격 확률 90%</td></tr>
+                    <tr><td><strong>코마 (검)</strong></td><td>30</td><td>데미지 +200%, 90% 확률로 기절공격</td></tr>
+                    <tr><td><strong>코마 (도끼)</strong></td><td>30</td><td>데미지 +200%, 90% 확률로 기절공격</td></tr>
+                    <tr><td><strong>아머 크래쉬</strong></td><td>30</td><td>100% 확률로 적에게 걸린 물리 방어력 증가 해제</td></tr>
+                    <tr><td><strong>샤우트</strong></td><td>30</td><td>데미지 +30%, 공격범위 +200%, 95% 확률로 10초간 스턴</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px;">◆ 4차: 히어로 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>메이플 용사</strong></td><td>30</td><td>모든 스탯 +15% (1800초 지속)</td></tr>
+                    <tr><td><strong>용사의 의지</strong></td><td><span class="hl">10</span></td><td>재사용 대기시간 360초 <span style="color: #20c997; font-size: 13px;">(※ v1.4 패치 적용)</span></td></tr>
+                    <tr><td><strong>몬스터 마그넷</strong></td><td>30</td><td>공격범위 200%, 성공 확률 95%</td></tr>
+                    <tr><td><strong>스탠스</strong></td><td>30</td><td>적의 공격에도 넉백되지 않을 확률 100% (1800초 지속)</td></tr>
+                    <tr><td><strong>어드밴스드 콤보 어택</strong></td><td>30</td><td>데미지 +30%, 최대 콤보 카운터 5 증가, 2개의 콤보 충전 확률 60%</td></tr>
+                    <tr><td><strong>아킬레스</strong></td><td>30</td><td>적에게 입는 데미지 감소율 15%</td></tr>
+                    <tr><td><strong>블로킹</strong></td><td>30</td><td>적의 공격을 막을 확률 15%</td></tr>
+                    <tr><td><strong>돌진</strong></td><td>30</td><td>데미지 130%, 공격범위 125%, 몹카운트 10</td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl">브랜디쉬</strong></td><td>30</td><td><span class="hl">데미지 480% / 4명의 적을 2번 공격</span> <span style="color: #20c997; font-size: 13px;">(※ v1.1 / v1.2 패치 적용)</span></td></tr>
+                    <tr><td><strong>인레이지</strong></td><td>30</td><td>물리공격력 +26 (1800초 지속)</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('skill_job')" class="btn-list">직업 목록으로 돌아가기</span></div>
+    </div>
+
+    <div id="page-skill_paladin" class="page-section sub-wrapper">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px;">전사</span>팔라딘 스킬 정보</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span></div>
+        </div>
+        <div class="post-content">
+            <h3 class="rule-title" style="margin-top: 10px;">◆ 1차: 검사 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>HP 회복량 향상</strong></td><td>16</td><td>추가 회복량 +50 HP</td></tr>
+                    <tr><td><strong>HP 증가량 향상</strong></td><td>10</td><td>레벨업 시 +40 더 증가 / AP 투자시 +30 더 증가</td></tr>
+                    <tr><td><strong>인듀어</strong></td><td>8</td><td>10초 간격으로 HP를 회복</td></tr>
+                    <tr><td><strong>아이언 바디</strong></td><td>20</td><td>물리방어력 +40 (1800초 지속)</td></tr>
+                    <tr><td><strong>파워 스트라이크</strong></td><td>20</td><td>데미지 260%</td></tr>
+                    <tr><td><strong>슬래시 블러스트</strong></td><td>20</td><td>데미지 130% / 몹카운트 6 <span style="color: #20c997; font-size: 13px;">(※ v1.0 사냥기 범위 증가 패치 적용)</span></td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px;">◆ 2차: 페이지 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>소드 마스터리</strong></td><td>20</td><td>검 숙련도 60%, 명중률 +20</td></tr>
+                    <tr><td><strong>메이스 마스터리</strong></td><td>20</td><td>둔기 숙련도 60%, 명중률 +20</td></tr>
+                    <tr><td><strong>파이널 어택 (검)</strong></td><td>30</td><td>60% 성공 확률로 파이널 어택 발동 (데미지 250%)</td></tr>
+                    <tr><td><strong>파이널 어택 (둔기)</strong></td><td>30</td><td>60% 성공 확률로 파이널 어택 발동 (둔기 데미지 250%)</td></tr>
+                    <tr><td><strong>소드 부스터</strong></td><td>20</td><td>검의 공격속도 향상 (1800초 지속)</td></tr>
+                    <tr><td><strong>메이스 부스터</strong></td><td>20</td><td>둔기의 공격속도 향상 (1800초 지속)</td></tr>
+                    <tr><td><strong>위협</strong></td><td>20</td><td>60초간 적의 물리 공격력, 물리 방어력 20 감소</td></tr>
+                    <tr><td><strong>파워가드</strong></td><td>30</td><td>40%의 받은 데미지 반사 (1800초 지속)</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px;">◆ 3차: 나이트 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>MP 증가량 향상</strong></td><td>20</td><td>추가 회복량 +30 MP</td></tr>
+                    <tr><td><strong>쉴드 마스터리</strong></td><td>20</td><td>방패 방어력 +100%</td></tr>
+                    <tr><td><strong>차지 블로우</strong></td><td>30</td><td>물리공격력 +250%, 90% 확률로 기절공격 / 몹카운트 6</td></tr>
+                    <tr><td><strong>플레임 차지 (검)</strong></td><td>30</td><td>데미지 +120% (1800초 지속)</td></tr>
+                    <tr><td><strong>파이어 차지 (둔기)</strong></td><td>30</td><td>데미지 +120% (1800초 지속)</td></tr>
+                    <tr><td><strong>블리자드 차지 (검)</strong></td><td>30</td><td>데미지 +105% (1800초 지속)</td></tr>
+                    <tr><td><strong>아이스 차지 (둔기)</strong></td><td>30</td><td>데미지 +105% (1800초 지속)</td></tr>
+                    <tr><td><strong>선더 차지 (검)</strong></td><td>30</td><td>데미지 +125% (1800초 지속)</td></tr>
+                    <tr><td><strong>라이트닝 차지 (둔기)</strong></td><td>30</td><td>데미지 +125% (1800초 지속)</td></tr>
+                    <tr><td><strong>매직 크래쉬</strong></td><td>20</td><td>100% 확률로 매직가드 업 무효화</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px;">◆ 4차: 팔라딘 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>메이플 용사</strong></td><td>30</td><td>모든 스탯 +15% (1800초 지속)</td></tr>
+                    <tr><td><strong>용사의 의지</strong></td><td><span class="hl">10</span></td><td>재사용 대기시간 360초 <span style="color: #20c997; font-size: 13px;">(※ v1.4 패치 적용)</span></td></tr>
+                    <tr><td><strong>몬스터 마그넷</strong></td><td>30</td><td>공격범위 200%, 성공 확률 95%</td></tr>
+                    <tr><td><strong>스탠스</strong></td><td>30</td><td>적의 공격에도 넉백되지 않을 확률 100% (1800초 지속)</td></tr>
+                    <tr><td><strong>돌진</strong></td><td>30</td><td>데미지 130%, 공격범위 125%, 몹카운트 10</td></tr>
+                    <tr><td><strong>아킬레스</strong></td><td>30</td><td>적에게 입는 데미지 감소율 15%</td></tr>
+                    <tr><td><strong>블로킹</strong></td><td>30</td><td>적의 공격을 막을 확률 15%</td></tr>
+                    <tr><td><strong>홀리 차지 (검)</strong></td><td>20</td><td>데미지 140% (1800초 지속)</td></tr>
+                    <tr><td><strong>디바인 차지 (둔기)</strong></td><td>20</td><td>데미지 140% (1800초 지속)</td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl">블래스트</strong></td><td>30</td><td><span class="hl">데미지 600% / 몹카운트 4 / 타수 2</span> <span style="color: #20c997; font-size: 13px;">(※ v1.1 / v1.2 패치 적용)</span></td></tr>
+                    <tr><td><strong>생츄어리</strong></td><td>30</td><td>데미지 900%, 재사용 대기시간 70초</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('skill_job')" class="btn-list">직업 목록으로 돌아가기</span></div>
+    </div>
+
+    <div id="page-skill_darkknight" class="page-section sub-wrapper">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px;">전사</span>다크나이트 스킬 정보</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span></div>
+        </div>
+        <div class="post-content">
+            <h3 class="rule-title" style="margin-top: 10px;">◆ 1차: 검사 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>HP 회복량 향상</strong></td><td>16</td><td>추가 회복량 +50 HP</td></tr>
+                    <tr><td><strong>HP 증가량 향상</strong></td><td>10</td><td>레벨업 시 +40 더 증가 / AP 투자시 +30 더 증가</td></tr>
+                    <tr><td><strong>인듀어</strong></td><td>8</td><td>10초 간격으로 HP를 회복</td></tr>
+                    <tr><td><strong>아이언 바디</strong></td><td>20</td><td>물리방어력 +40 (1800초 지속)</td></tr>
+                    <tr><td><strong>파워 스트라이크</strong></td><td>20</td><td>데미지 260%</td></tr>
+                    <tr><td><strong>슬래시 블러스트</strong></td><td>20</td><td>데미지 130% / 몹카운트 6 <span style="color: #20c997; font-size: 13px;">(※ v1.0 사냥기 범위 증가 패치 적용)</span></td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px;">◆ 2차: 스피어맨 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>스피어 마스터리</strong></td><td>20</td><td>창 숙련도 60%, 명중률 +20</td></tr>
+                    <tr><td><strong>폴암 마스터리</strong></td><td>20</td><td>폴암 숙련도 60%, 명중률 +20</td></tr>
+                    <tr><td><strong>파이널 어택 (창)</strong></td><td>30</td><td>60% 성공 확률로 파이널 어택 발동 (창 데미지 250%)</td></tr>
+                    <tr><td><strong>파이널 어택 (폴암)</strong></td><td>30</td><td>60% 성공 확률로 파이널 어택 발동 (폴암 데미지 250%)</td></tr>
+                    <tr><td><strong>스피어 부스터</strong></td><td>20</td><td>창의 공격속도 향상 (1800초 지속)</td></tr>
+                    <tr><td><strong>폴암 부스터</strong></td><td>20</td><td>폴암의 공격속도 향상 (1800초 지속)</td></tr>
+                    <tr><td><strong>아이언 월</strong></td><td>20</td><td>물리방어력 +20, 마법방어력 +20 (1800초 지속)</td></tr>
+                    <tr><td><strong>하이퍼 바디</strong></td><td>30</td><td>MaxHP +60%, MaxMP +60% (1800초 지속)</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px;">◆ 3차: 용기사 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>엘리먼트 레지스턴스</strong></td><td>20</td><td>40%의 모든 속성에 대한 내성 증가</td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl">스피어 버스터 (창)</strong></td><td>30</td><td><span class="hl">데미지 315%</span> / 몹카운트 3 / 타수 3 <span style="color: #20c997; font-size: 13px;">(※ v1.1 / v1.2 패치 적용)</span></td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl">폴암 버스터 (폴암)</strong></td><td>30</td><td><span class="hl">데미지 480%</span> / 몹카운트 3 / 타수 3 <span style="color: #20c997; font-size: 13px;">(※ v1.1 / v1.2 패치 적용)</span></td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl">드래곤 쓰레셔 (창)</strong></td><td>30</td><td><span class="hl">데미지 400%</span> / 몹카운트 6 <span style="color: #20c997; font-size: 13px;">(※ v1.1 상향 패치 적용)</span></td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl">드래곤 쓰레셔 (폴암)</strong></td><td>30</td><td><span class="hl">데미지 260%</span> / 몹카운트 6 <span style="color: #20c997; font-size: 13px;">(※ v1.1 상향 패치 적용)</span></td></tr>
+                    <tr><td><strong>새크리파이스</strong></td><td>30</td><td>데미지 350%, 5% 데미지만큼 HP 감소</td></tr>
+                    <tr><td><strong>드래곤 로어</strong></td><td>30</td><td>데미지 240%, 공격범위 400%, 스턴 2초 지속 / 몹카운트 15</td></tr>
+                    <tr><td><strong>파워 크래쉬</strong></td><td>20</td><td>100% 확률로 파워 업 무효화</td></tr>
+                    <tr><td><strong>드래곤 블러드</strong></td><td>20</td><td>HP -20 (4초마다), 공격력 +12 (1800초 지속)</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px;">◆ 4차: 다크나이트 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>메이플 용사</strong></td><td>30</td><td>모든 스탯 +15% (1800초 지속)</td></tr>
+                    <tr><td><strong>용사의 의지</strong></td><td><span class="hl">10</span></td><td>재사용 대기시간 360초 <span style="color: #20c997; font-size: 13px;">(※ v1.4 패치 적용)</span></td></tr>
+                    <tr><td><strong>몬스터 마그넷</strong></td><td>30</td><td>공격범위 200%, 성공 확률 95%</td></tr>
+                    <tr><td><strong>스탠스</strong></td><td>30</td><td>적의 공격에도 넉백되지 않을 확률 100% (1800초 지속)</td></tr>
+                    <tr><td><strong>돌진</strong></td><td>30</td><td>데미지 130%, 공격범위 125%, 몹카운트 10</td></tr>
+                    <tr><td><strong>아킬레스</strong></td><td>30</td><td>적에게 입는 데미지 감소율 15%</td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl">버서크</strong></td><td>30</td><td><span class="hl">항시 유지</span>, 데미지 200% <span style="color: #20c997; font-size: 13px;">(※ v1.0 패치 적용)</span></td></tr>
+                    <tr><td><strong>비홀더</strong></td><td>10</td><td>30분 동안 검은 영혼 소환, 무기 숙련도 +20%</td></tr>
+                    <tr><td><strong>비홀더스 힐링</strong></td><td>25</td><td>4초마다 HP +500</td></tr>
+                    <tr><td><strong>비홀더스 버프</strong></td><td>25</td><td>4초마다 능력치 상승 버프 (+100 물방, +100 마방, +25 명중률, +50 회피율, +15 공격력) 1800초 지속</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('skill_job')" class="btn-list">직업 목록으로 돌아가기</span></div>
+    </div>
+
+    <div id="page-skill_bishop" class="page-section sub-wrapper">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px; background: #e3f2fd; color: #1976d2;">마법사</span>비숍 스킬 정보</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span></div>
+        </div>
+        <div class="post-content">
+            <h3 class="rule-title" style="margin-top: 10px; color:#339af0;">◆ 1차: 마법사 공통 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>MP 회복량 향상</strong></td><td>16</td><td>추가 회복량 +16 MP</td></tr>
+                    <tr><td><strong>MP 증가량 향상</strong></td><td>10</td><td>레벨업 시 +20 더 증가 / AP 투자시 +10 더 증가</td></tr>
+                    <tr><td><strong>매직 가드</strong></td><td>20</td><td>80% 만큼의 HP 감소량을 MP로 대신한다 (1800초 지속)</td></tr>
+                    <tr><td><strong>매직 아머</strong></td><td>20</td><td>물리방어력 +40 (1800초 지속)</td></tr>
+                    <tr><td><strong>에너지 볼트</strong></td><td>20</td><td>기본 데미지 55, 숙련도 60%</td></tr>
+                    <tr><td><strong>매직 클로</strong></td><td>20</td><td>기본 데미지 40 x 2회, 숙련도 60%</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px; color:#339af0;">◆ 2차: 클레릭 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>MP 이터</strong></td><td>20</td><td>30% 확률로 적의 최대 MP 40% 흡수</td></tr>
+                    <tr><td><strong>텔레포트</strong></td><td>20</td><td>150 만큼 이동, MP -12%</td></tr>
+                    <tr><td><strong>힐</strong></td><td>30</td><td>회복율 300% / 몹카운트 6</td></tr>
+                    <tr><td><strong>인빈서블</strong></td><td>20</td><td>받는 데미지 감소율 -30% (1800초 지속)</td></tr>
+                    <tr><td><strong>블레스</strong></td><td>20</td><td>+20 만큼 능력치 증가 (1800초 지속)</td></tr>
+                    <tr><td><strong>홀리 에로우</strong></td><td>30</td><td>기본 데미지 80, 숙련도 60%</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px; color:#339af0;">◆ 3차: 프리스트 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>엘리멘탈 레지스턴스</strong></td><td>20</td><td>50% 만큼 저항 증가</td></tr>
+                    <tr><td><strong>디스펠</strong></td><td>20</td><td>적용 범위 300%, 해독률 100%</td></tr>
+                    <tr><td><strong>미스틱 도어</strong></td><td>20</td><td>지속시간 180초 / 마법의 돌 1개 소비</td></tr>
+                    <tr><td><strong>홀리 심볼</strong></td><td>30</td><td>모든 파티원이 얻는 경험치 150% 증가 (1800초 지속)</td></tr>
+                    <tr><td><strong>샤이닝 레이</strong></td><td>30</td><td>기본 데미지 105, 숙련도 60%</td></tr>
+                    <tr><td><strong>둠</strong></td><td>30</td><td>지속시간 20초, 90% 확률로 달팽이로 만든다</td></tr>
+                    <tr><td><strong>서먼 드래곤</strong></td><td>30</td><td>소환된 드래곤의 기본 공격력 150 (1800초 지속)</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px; color:#339af0;">◆ 4차: 비숍 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>메이플 용사</strong></td><td>30</td><td>모든 스탯 +15% (1800초 지속)</td></tr>
+                    <tr><td><strong>용사의 의지</strong></td><td><span class="hl" style="color:#339af0;">10</span></td><td>재사용 대기시간 360초 <span style="color: #20c997; font-size: 13px;">(※ v1.4 패치 적용)</span></td></tr>
+                    <tr><td><strong>빅뱅</strong></td><td>30</td><td>최대 공격력 450, 숙련도 80%</td></tr>
+                    <tr><td><strong>마나 리플렉션</strong></td><td>30</td><td>60% 확률로 성공, 200% 만큼의 마법 데미지 반사 (250초 지속)</td></tr>
+                    <tr><td><strong>인피니티</strong></td><td>30</td><td>지속시간 40초</td></tr>
+                    <tr><td><strong>바하뮤트</strong></td><td>30</td><td>기본 데미지 230 (1800초 지속)</td></tr>
+                    <tr><td><strong>홀리 실드</strong></td><td>30</td><td>상태 이상을 막아주는 버프 사용 (40초 지속)</td></tr>
+                    <tr><td><strong>리저렉션</strong></td><td>10</td><td>파티원 부활, 재사용 대기시간 30분</td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl" style="color:#339af0;">엔젤레이</strong></td><td>30</td><td>기본 데미지 240 / 숙련도 60% / <span class="hl" style="color:#339af0;">타수 4</span> <span style="color: #20c997; font-size: 13px;">(※ v1.1 상향 패치 적용)</span></td></tr>
+                    <tr><td><strong>제네시스</strong></td><td>30</td><td>MP -3500, 기본 데미지 670</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('skill_job')" class="btn-list">직업 목록으로 돌아가기</span></div>
+    </div>
+
+    <div id="page-skill_firepoison" class="page-section sub-wrapper">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px; background: #e3f2fd; color: #1976d2;">마법사</span>불독 스킬 정보</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span></div>
+        </div>
+        <div class="post-content">
+            <h3 class="rule-title" style="margin-top: 10px; color:#339af0;">◆ 1차: 마법사 공통 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>MP 회복량 향상</strong></td><td>16</td><td>추가 회복량 +16 MP</td></tr>
+                    <tr><td><strong>MP 증가량 향상</strong></td><td>10</td><td>레벨업 시 +20 더 증가 / AP 투자시 +10 더 증가</td></tr>
+                    <tr><td><strong>매직 가드</strong></td><td>20</td><td>80% 만큼의 HP 감소량을 MP로 대신한다 (1800초 지속)</td></tr>
+                    <tr><td><strong>매직 아머</strong></td><td>20</td><td>물리방어력 +40 (1800초 지속)</td></tr>
+                    <tr><td><strong>에너지 볼트</strong></td><td>20</td><td>기본 데미지 55, 숙련도 60%</td></tr>
+                    <tr><td><strong>매직 클로</strong></td><td>20</td><td>기본 데미지 40 x 2회, 숙련도 60%</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px; color:#339af0;">◆ 2차: 위자드 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>MP 이터</strong></td><td>20</td><td>30% 확률로 적의 최대 MP 40% 흡수</td></tr>
+                    <tr><td><strong>메디테이션</strong></td><td>20</td><td>마력 +20 (1800초 지속)</td></tr>
+                    <tr><td><strong>텔레포트</strong></td><td>20</td><td>150 만큼 이동, MP -12</td></tr>
+                    <tr><td><strong>슬로우</strong></td><td>20</td><td>적들의 이동속도 -40 (40초 지속)</td></tr>
+                    <tr><td><strong>포이즌 브레스</strong></td><td>30</td><td>기본 데미지 70 / 60% 확률로 적이 독에 중독 (40초 지속)</td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl" style="color:#339af0;">파이어 에로우</strong></td><td>30</td><td>기본 데미지 120 / 숙련도 60% / <span class="hl" style="color:#339af0;">몹카운트 2</span> <span style="color: #20c997; font-size: 13px;">(※ v1.0 상향 패치 적용)</span></td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px; color:#339af0;">◆ 3차: 메이지 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>파셜 레지스턴스</strong></td><td>20</td><td>70% 만큼 불/독에 대한 추가적인 저항 증가</td></tr>
+                    <tr><td><strong>엘리먼트 엠플리피케이션</strong></td><td>30</td><td>MP 소모 -200%, 마력 +135%</td></tr>
+                    <tr><td><strong>매직 부스터</strong></td><td>20</td><td>공격 속도 +2 (1800초 지속)</td></tr>
+                    <tr><td><strong>씰</strong></td><td>20</td><td>95% 확률로 침묵 (20초 지속)</td></tr>
+                    <tr><td><strong>매직 컴포지션</strong></td><td>30</td><td>기본 데미지 150 / 70% 확률로 독 중독 (40초 지속)</td></tr>
+                    <tr><td><strong>익스플로전</strong></td><td>30</td><td>기본 데미지 120 / 공격범위 200%</td></tr>
+                    <tr><td><strong>포이즌 미스트</strong></td><td>30</td><td>기본 데미지 90 / 공격범위 200% / 70% 확률로 중독 (안개 40초 지속)</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px; color:#339af0;">◆ 4차: 불독 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>메이플 용사</strong></td><td>30</td><td>모든 스탯 +15% (1800초 지속)</td></tr>
+                    <tr><td><strong>용사의 의지</strong></td><td><span class="hl" style="color:#339af0;">10</span></td><td>재사용 대기시간 360초 <span style="color: #20c997; font-size: 13px;">(※ v1.4 패치 적용)</span></td></tr>
+                    <tr><td><strong>빅뱅</strong></td><td>30</td><td>최대 공격력 450, 숙련도 80%</td></tr>
+                    <tr><td><strong>마나 리플렉션</strong></td><td>30</td><td>60% 확률로 성공, 200% 만큼의 마법 데미지 반사 (250초 지속)</td></tr>
+                    <tr><td><strong>인피니티</strong></td><td>30</td><td>지속시간 40초</td></tr>
+                    <tr><td><strong>파이어 데몬</strong></td><td>30</td><td>기본 데미지 120 / 최대 6명의 적 공격 (15초 지속)</td></tr>
+                    <tr><td><strong>엘퀴네스</strong></td><td>30</td><td>기본 데미지 270 (1800초 지속)</td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl" style="color:#339af0;">페럴라이즈</strong></td><td>30</td><td>기본 데미지 210 / 마비 지속시간 15초 / <span class="hl" style="color:#339af0;">타수 4</span> <span style="color: #20c997; font-size: 13px;">(※ v1.1 상향 패치 적용)</span></td></tr>
+                    <tr><td><strong>메테오</strong></td><td>30</td><td>MP -3500, 기본 데미지 570</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('skill_job')" class="btn-list">직업 목록으로 돌아가기</span></div>
+    </div>
+
+    <div id="page-skill_icelightning" class="page-section sub-wrapper">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px; background: #e3f2fd; color: #1976d2;">마법사</span>썬콜 스킬 정보</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span></div>
+        </div>
+        <div class="post-content">
+            <h3 class="rule-title" style="margin-top: 10px; color:#339af0;">◆ 1차: 마법사 공통 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>MP 회복량 향상</strong></td><td>16</td><td>추가 회복량 +16 MP</td></tr>
+                    <tr><td><strong>MP 증가량 향상</strong></td><td>10</td><td>레벨업 시 +20 더 증가 / AP 투자시 +10 더 증가</td></tr>
+                    <tr><td><strong>매직 가드</strong></td><td>20</td><td>80% 만큼의 HP 감소량을 MP로 대신한다 (1800초 지속)</td></tr>
+                    <tr><td><strong>매직 아머</strong></td><td>20</td><td>물리방어력 +40 (1800초 지속)</td></tr>
+                    <tr><td><strong>에너지 볼트</strong></td><td>20</td><td>기본 데미지 55, 숙련도 60%</td></tr>
+                    <tr><td><strong>매직 클로</strong></td><td>20</td><td>기본 데미지 40 x 2회, 숙련도 60%</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px; color:#339af0;">◆ 2차: 위자드 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>MP 이터</strong></td><td>20</td><td>30% 확률로 적의 최대 MP 40% 흡수</td></tr>
+                    <tr><td><strong>메디테이션</strong></td><td>20</td><td>마력 +20 (1800초 지속)</td></tr>
+                    <tr><td><strong>텔레포트</strong></td><td>20</td><td>150 만큼 이동, MP -12</td></tr>
+                    <tr><td><strong>슬로우</strong></td><td>20</td><td>적들의 이동속도 -40 (40초 지속)</td></tr>
+                    <tr><td><strong>콜드 빔</strong></td><td>30</td><td>기본 데미지 100 / 2초간 몬스터 얼림</td></tr>
+                    <tr><td><strong>썬더 볼트</strong></td><td>30</td><td>기본 데미지 60 / 몹카운트 6</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px; color:#339af0;">◆ 3차: 메이지 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>파셜 레지스턴스</strong></td><td>20</td><td>70% 만큼 얼음/번개에 대한 추가적인 저항 증가</td></tr>
+                    <tr><td><strong>엘리먼트 엠플리피케이션</strong></td><td>30</td><td>MP 소모 -200%, 마력 +135%</td></tr>
+                    <tr><td><strong>매직 부스터</strong></td><td>20</td><td>공격 속도 +2 (1800초 지속)</td></tr>
+                    <tr><td><strong>씰</strong></td><td>20</td><td>95% 확률로 침묵 (20초 지속)</td></tr>
+                    <tr><td><strong>매직 컴포지션</strong></td><td>30</td><td>기본 데미지 140 / 지속시간 2초</td></tr>
+                    <tr><td><strong>아이스 스트라이크</strong></td><td>30</td><td>기본 데미지 90 / 공격범위 200% / 몹카운트 6</td></tr>
+                    <tr><td><strong>썬더 스피어</strong></td><td>30</td><td>기본 데미지 170 / 숙련도 60%</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px; color:#339af0;">◆ 4차: 썬콜 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>메이플 용사</strong></td><td>30</td><td>모든 스탯 +15% (1800초 지속)</td></tr>
+                    <tr><td><strong>용사의 의지</strong></td><td><span class="hl" style="color:#339af0;">10</span></td><td>재사용 대기시간 360초 <span style="color: #20c997; font-size: 13px;">(※ v1.4 패치 적용)</span></td></tr>
+                    <tr><td><strong>빅뱅</strong></td><td>30</td><td>최대 공격력 450, 숙련도 80%</td></tr>
+                    <tr><td><strong>마나 리플렉션</strong></td><td>30</td><td>60% 확률로 성공, 200% 만큼의 마법 데미지 반사 (250초 지속)</td></tr>
+                    <tr><td><strong>인피니티</strong></td><td>30</td><td>지속시간 40초</td></tr>
+                    <tr><td><strong>아이스 데몬</strong></td><td>30</td><td>기본 데미지 100 / 최대 6명의 적 공격 (15초 지속)</td></tr>
+                    <tr><td><strong>이프리트</strong></td><td>30</td><td>기본 데미지 300 (1800초 지속)</td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl" style="color:#339af0;">체인 라이트닝</strong></td><td>30</td><td>기본 데미지 180 / 최대 6명 공격 / <span class="hl" style="color:#339af0;">타수 4</span> <span style="color: #20c997; font-size: 13px;">(※ v1.1 상향 패치 적용)</span></td></tr>
+                    <tr><td><strong>블리자드</strong></td><td>30</td><td>MP -3500, 기본 데미지 570</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('skill_job')" class="btn-list">직업 목록으로 돌아가기</span></div>
+    </div>
+
+    <div id="page-skill_bowmaster" class="page-section sub-wrapper">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px; background: #e8f5e9; color: #388e3c;">궁수</span>보우마스터 스킬 정보</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span></div>
+        </div>
+        <div class="post-content">
+            <h3 class="rule-title" style="margin-top: 10px;">◆ 1차: 궁수 공통 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>아마존의 축복</strong></td><td>16</td><td>명중률 +16</td></tr>
+                    <tr><td><strong>아마존의 눈</strong></td><td>8</td><td>활과 석궁의 사정 거리 +120</td></tr>
+                    <tr><td><strong>크리티컬 샷</strong></td><td>20</td><td>40% 의 확률, 크리티컬 데미지 200%</td></tr>
+                    <tr><td><strong>포커스</strong></td><td>20</td><td>명중률 +20, 회피율 +20 (1800초 지속)</td></tr>
+                    <tr><td><strong>더블샷</strong></td><td>20</td><td>데미지 130% x 2</td></tr>
+                    <tr><td><strong>에로우 블로우</strong></td><td>20</td><td>데미지 260%</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px;">◆ 2차: 헌터 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>보우 마스터리</strong></td><td>20</td><td>활 계열 무기 숙련도 60%, 명중률 +20</td></tr>
+                    <tr><td><strong>파이널 어택 (활)</strong></td><td>30</td><td>60% 확률로 파이널 어택 발동, 데미지 250%</td></tr>
+                    <tr><td><strong>보우 부스터</strong></td><td>20</td><td>공격속도 향상 (1800초 지속)</td></tr>
+                    <tr><td><strong>파워 넉백</strong></td><td>20</td><td>넉백 확률 +70%, 데미지 200%, 6명 넉백</td></tr>
+                    <tr><td><strong>소울 에로우</strong></td><td>20</td><td>화살 소모 없이 공격 (1800초 지속)</td></tr>
+                    <tr><td><strong>에로우 봄 (활)</strong></td><td>30</td><td>스턴 확률 60%, 데미지 130%, 몹카운트 6</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px;">◆ 3차: 레인저 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>쓰러스트</strong></td><td>20</td><td>이동속도 +30</td></tr>
+                    <tr><td><strong>모탈 블로우</strong></td><td>20</td><td>70% 확률로 발동, 데미지 250% / 적 HP 50% 이하일 때 10% 확률로 즉사</td></tr>
+                    <tr><td><strong>퍼펫</strong></td><td>20</td><td>체력 6000인 분신 소환 (60초 지속)</td></tr>
+                    <tr><td><strong>파이어 샷</strong></td><td>30</td><td>데미지 150% / 몹카운트 6</td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl">에로우 레인</strong></td><td>30</td><td><span class="hl">데미지 550%</span> / 몹카운트 6 <span style="color: #20c997; font-size: 13px;">(※ v1.3 패치 적용)</span></td></tr>
+                    <tr><td><strong>실버 호크</strong></td><td>30</td><td>100 공격력을 가진 매 소환, 99% 확률 스턴 (1800초 지속)</td></tr>
+                    <tr><td><strong>스트레이프</strong></td><td>30</td><td>데미지 100%, 4회 공격</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px;">◆ 4차: 보우마스터 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>메이플 용사</strong></td><td>30</td><td>모든 스탯 +15% (1800초 지속)</td></tr>
+                    <tr><td><strong>용사의 의지</strong></td><td><span class="hl">10</span></td><td>재사용 대기시간 360초 <span style="color: #20c997; font-size: 13px;">(※ v1.4 패치 적용)</span></td></tr>
+                    <tr><td><strong>보우 엑스퍼트</strong></td><td>30</td><td>숙련도 90%, 물리 공격력 +10</td></tr>
+                    <tr><td><strong>샤프 아이즈</strong></td><td>30</td><td>크리티컬 확률 15%, 데미지 +40% (1800초 지속)</td></tr>
+                    <tr><td><strong>드래곤 펄스</strong></td><td>30</td><td>100% 데미지, 최대 6마리 공격</td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl">폭풍의 시</strong></td><td>30</td><td><span class="hl">데미지 210% / 피격 시 끊기지 않음</span> <span style="color: #20c997; font-size: 13px;">(※ v1.0 / v1.3 패치 적용)</span></td></tr>
+                    <tr><td><strong>피닉스</strong></td><td>30</td><td>데미지 550 (1800초 지속)</td></tr>
+                    <tr><td><strong>햄스트링</strong></td><td>30</td><td>40% 확률로 적의 이동속도 -60, 지속 15초 (1800초 지속)</td></tr>
+                    <tr><td><strong>집중</strong></td><td>30</td><td>물리 공격력 +26, 소모 마나 -50% (1800초 지속)</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('skill_job')" class="btn-list">직업 목록으로 돌아가기</span></div>
+    </div>
+
+    <div id="page-skill_marksman" class="page-section sub-wrapper">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px; background: #e8f5e9; color: #388e3c;">궁수</span>신궁 스킬 정보</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span></div>
+        </div>
+        <div class="post-content">
+            <h3 class="rule-title" style="margin-top: 10px;">◆ 1차: 궁수 공통 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>아마존의 축복</strong></td><td>16</td><td>명중률 +16</td></tr>
+                    <tr><td><strong>아마존의 눈</strong></td><td>8</td><td>활과 석궁의 사정 거리 +120</td></tr>
+                    <tr><td><strong>크리티컬 샷</strong></td><td>20</td><td>40% 의 확률, 크리티컬 데미지 200%</td></tr>
+                    <tr><td><strong>포커스</strong></td><td>20</td><td>명중률 +20, 회피율 +20 (1800초 지속)</td></tr>
+                    <tr><td><strong>더블샷</strong></td><td>20</td><td>데미지 130% x 2</td></tr>
+                    <tr><td><strong>에로우 블로우</strong></td><td>20</td><td>데미지 260%</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px;">◆ 2차: 사수 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>크로스보우 마스터리</strong></td><td>20</td><td>석궁 계열 무기 숙련도 60%, 명중률 +20</td></tr>
+                    <tr><td><strong>파이널 어택 (석궁)</strong></td><td>30</td><td>60% 확률로 파이널 어택 발동, 데미지 250%</td></tr>
+                    <tr><td><strong>크로스보우 부스터</strong></td><td>20</td><td>공격속도 향상 (1800초 지속)</td></tr>
+                    <tr><td><strong>파워 넉백</strong></td><td>20</td><td>넉백 확률 +70%, 데미지 200%, 6명 넉백</td></tr>
+                    <tr><td><strong>소울 에로우 (활/석궁)</strong></td><td>20</td><td>화살 소모 없이 공격 (1800초 지속)</td></tr>
+                    <tr><td><strong>아이언 에로우 (석궁)</strong></td><td>30</td><td>데미지 180% / 몹카운트 6</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px;">◆ 3차: 저격수 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>쓰러스트</strong></td><td>20</td><td>이동속도 +30</td></tr>
+                    <tr><td><strong>모탈 블로우</strong></td><td>20</td><td>70% 확률로 발동, 데미지 250% / 적 HP 50% 이하일 때 10% 확률로 즉사</td></tr>
+                    <tr><td><strong>퍼펫</strong></td><td>20</td><td>체력 6000인 분신 소환 (60초 지속)</td></tr>
+                    <tr><td><strong>아이스 샷</strong></td><td>30</td><td>데미지 140%, 적을 3초간 얼림 / 몹카운트 6</td></tr>
+                    <tr><td><strong>에로우 이럽션</strong></td><td>30</td><td>데미지 160% / 몹카운트 6</td></tr>
+                    <tr><td><strong>골든 이글</strong></td><td>30</td><td>70 공격력을 가진 매 소환, 99% 확률 스턴 (1800초 지속)</td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl">스트레이프</strong></td><td>30</td><td><span class="hl">데미지 200% / 6회 공격</span> <span style="color: #20c997; font-size: 13px;">(※ v1.0 / v1.3 패치 적용)</span></td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px;">◆ 4차: 신궁 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>메이플 용사</strong></td><td>30</td><td>모든 스탯 +15% (1800초 지속)</td></tr>
+                    <tr><td><strong>용사의 의지</strong></td><td><span class="hl">10</span></td><td>재사용 대기시간 360초 <span style="color: #20c997; font-size: 13px;">(※ v1.4 패치 적용)</span></td></tr>
+                    <tr><td><strong>크로스보우 엑스퍼트</strong></td><td>30</td><td>숙련도 90%, 물리 공격력 +10</td></tr>
+                    <tr><td><strong>샤프 아이즈</strong></td><td>30</td><td>크리티컬 확률 15%, 데미지 +40% (1800초 지속)</td></tr>
+                    <tr><td><strong>드래곤 펄스</strong></td><td>30</td><td>100% 데미지, 최대 6마리 공격</td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl">피어싱</strong></td><td>30</td><td>최대 데미지 850%, 최대 6마리 공격 / <span class="hl">차징 삭제</span> <span style="color: #20c997; font-size: 13px;">(※ v1.0 패치 적용)</span></td></tr>
+                    <tr><td><strong>프리져</strong></td><td>30</td><td>데미지 500% (1800초 지속)</td></tr>
+                    <tr><td><strong>블라인드</strong></td><td>30</td><td>40% 확률로 적의 명중률 -30%, 지속 15초 (1800초 지속)</td></tr>
+                    <tr><td><strong>스나이핑</strong></td><td>30</td><td>재사용 대기시간 10초</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('skill_job')" class="btn-list">직업 목록으로 돌아가기</span></div>
+    </div>
+
+    <div id="page-skill_nightlord" class="page-section sub-wrapper">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px; background: #f3e5f5; color: #8e24aa;">도적</span>나이트로드 스킬 정보</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span></div>
+        </div>
+        <div class="post-content">
+            <h3 class="rule-title" style="margin-top: 10px; color:#b197fc;">◆ 1차: 도적 공통 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>님블 바디</strong></td><td>20</td><td>명중률 +20, 회피율 +20</td></tr>
+                    <tr><td><strong>킨 아이즈</strong></td><td>8</td><td>투척 무기의 사정거리 증가 +200</td></tr>
+                    <tr><td><strong>디스오더</strong></td><td>20</td><td>적의 공격력 -20, 방어력 -20 (60초 지속)</td></tr>
+                    <tr><td><strong>다크 사이트</strong></td><td>20</td><td>1800초 지속, 이동속도 정상</td></tr>
+                    <tr><td><strong>더블 스탭</strong></td><td>20</td><td>데미지 140% x 2</td></tr>
+                    <tr><td><strong>럭키 세븐</strong></td><td>20</td><td>데미지 150% x 2</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px; color:#b197fc;">◆ 2차: 어쌔신 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>자벨린 마스터리</strong></td><td>20</td><td>아대 계열 무기 숙련도 60%, 명중률 +20, 최대 표창수 +200</td></tr>
+                    <tr><td><strong>크리티컬 스로우</strong></td><td>30</td><td>크리티컬 확률 50%, 크리티컬 데미지 200%</td></tr>
+                    <tr><td><strong>인듀어</strong></td><td>20</td><td>HP +100, MP +40, 10초마다 추가회복</td></tr>
+                    <tr><td><strong>자벨린 부스터</strong></td><td>20</td><td>아대의 공격속도 향상 (1800초 지속)</td></tr>
+                    <tr><td><strong>헤이스트</strong></td><td>20</td><td>이동속도 +40, 점프력 +20 (1800초 지속)</td></tr>
+                    <tr><td><strong>드레인</strong></td><td>30</td><td>데미지 160%, 입힌 데미지의 45% 흡수</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px; color:#b197fc;">◆ 3차: 허밋 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>알케미스트</strong></td><td>20</td><td>회복량 150%, 적용시간 150%</td></tr>
+                    <tr><td><strong>메소 업</strong></td><td>20</td><td>메소 드롭양 +50% (1800초 지속)</td></tr>
+                    <tr><td><strong>쉐도우 파트너</strong></td><td>30</td><td>통상 데미지 80%, 스킬 데미지 50% (1800초 지속 / 소환의 돌 1개 소비)</td></tr>
+                    <tr><td><strong>쉐도우 웹</strong></td><td>20</td><td>80% 확률로 포박 (8초 지속)</td></tr>
+                    <tr><td><strong>쉐도우 메소</strong></td><td>30</td><td>최소 340~최대 800 메소 소비 공격, 10% 확률로 데미지 50% 증가</td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl" style="color:#b197fc;">어벤져</strong></td><td>30</td><td><span class="hl" style="color:#b197fc;">데미지 240%</span> / 표창 3개 소비하여 최대 6명 공격 <span style="color: #20c997; font-size: 13px;">(※ v1.3 패치 적용)</span></td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px; color:#b197fc;">◆ 4차: 나이트로드 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>메이플 용사</strong></td><td>30</td><td>모든 스탯 +15% (1800초 지속)</td></tr>
+                    <tr><td><strong>용사의 의지</strong></td><td><span class="hl" style="color:#b197fc;">10</span></td><td>재사용 대기시간 360초 <span style="color: #20c997; font-size: 13px;">(※ v1.4 패치 적용)</span></td></tr>
+                    <tr><td><strong>페이크</strong></td><td>30</td><td>적의 공격을 회피할 확률 30%</td></tr>
+                    <tr><td><strong>베놈</strong></td><td>30</td><td>공격력 60, 4초 지속, 성공률 30%</td></tr>
+                    <tr><td><strong>쇼다운</strong></td><td>30</td><td>적 방어력, 획득 경험치, 아이템 드롭률 40% 상승</td></tr>
+                    <tr><td><strong>닌자 앰부쉬</strong></td><td>30</td><td>데미지 100%, 12초 지속, 공격범위 200%</td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl" style="color:#b197fc;">트리플 스로우</strong></td><td>30</td><td><span class="hl" style="color:#b197fc;">데미지 260%</span> / 타수 3 <span style="color: #20c997; font-size: 13px;">(※ v1.3 패치 적용)</span></td></tr>
+                    <tr><td><strong>스피릿 자벨린</strong></td><td>30</td><td>일정시간 표창을 소모하지 않는다 (300초 지속)</td></tr>
+                    <tr><td><strong>닌자 스톰</strong></td><td>30</td><td>데미지 80%, 100% 확률로 적을 300 밀어냄</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('skill_job')" class="btn-list">직업 목록으로 돌아가기</span></div>
+    </div>
+
+    <div id="page-skill_shadower" class="page-section sub-wrapper">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px; background: #f3e5f5; color: #8e24aa;">도적</span>섀도어 스킬 정보</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span></div>
+        </div>
+        <div class="post-content">
+            <h3 class="rule-title" style="margin-top: 10px; color:#b197fc;">◆ 1차: 도적 공통 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>님블 바디</strong></td><td>20</td><td>명중률 +20, 회피율 +20</td></tr>
+                    <tr><td><strong>킨 아이즈</strong></td><td>8</td><td>투척 무기의 사정거리 증가 +200</td></tr>
+                    <tr><td><strong>디스오더</strong></td><td>20</td><td>적의 공격력 -20, 방어력 -20 (60초 지속)</td></tr>
+                    <tr><td><strong>다크 사이트</strong></td><td>20</td><td>1800초 지속, 이동속도 정상</td></tr>
+                    <tr><td><strong>더블 스탭</strong></td><td>20</td><td>데미지 140% x 2</td></tr>
+                    <tr><td><strong>럭키 세븐</strong></td><td>20</td><td>데미지 150% x 2</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px; color:#b197fc;">◆ 2차: 시프 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>대거 마스터리</strong></td><td>20</td><td>단검 계열 무기 숙련도 60%, 명중률 +20</td></tr>
+                    <tr><td><strong>인듀어</strong></td><td>20</td><td>HP +100, MP +40, 10초마다 추가회복</td></tr>
+                    <tr><td><strong>대거 부스터</strong></td><td>20</td><td>단검 공격속도 향상 (1800초 지속)</td></tr>
+                    <tr><td><strong>헤이스트</strong></td><td>20</td><td>이동속도 +40, 점프력 +20 (1800초 지속)</td></tr>
+                    <tr><td><strong>스틸</strong></td><td>30</td><td>40% 확률로 스틸, 데미지 100%</td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl" style="color:#b197fc;">새비지 블로우</strong></td><td>30</td><td><span class="hl" style="color:#b197fc;">데미지 270% / 몹카운트 2</span> / 타수 6 <span style="color: #20c997; font-size: 13px;">(※ v1.0 몹카 증가 및 v1.2 패치 적용)</span></td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px; color:#b197fc;">◆ 3차: 시프마스터 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>쉴드 마스터리</strong></td><td>20</td><td>장비하고 있는 방패의 방어력 +100%</td></tr>
+                    <tr><td><strong>챠크라</strong></td><td>30</td><td>회복량 300%, 회복중 적에게 받는 데미지 70%</td></tr>
+                    <tr><td><strong>어썰터</strong></td><td>30</td><td>데미지 450%, 적이 기절할 확률 80%</td></tr>
+                    <tr><td><strong>픽파킷</strong></td><td>20</td><td>공격 시 60% 확률로 메소 드롭 (1800초 지속)</td></tr>
+                    <tr><td><strong>시브즈</strong></td><td>30</td><td>데미지 210%, 5명의 분신이 적을 공격 / 몹카운트 6</td></tr>
+                    <tr><td><strong>메소 가드</strong></td><td>20</td><td>가드한 데미지의 78%를 메소로 방어 (1800초 지속)</td></tr>
+                    <tr><td><strong>메소 익스플로전</strong></td><td>30</td><td>숙련도 100%, 20개 폭발 가능</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px; color:#b197fc;">◆ 4차: 섀도어 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>메이플 용사</strong></td><td>30</td><td>모든 스탯 +15% (1800초 지속)</td></tr>
+                    <tr><td><strong>용사의 의지</strong></td><td><span class="hl" style="color:#b197fc;">10</span></td><td>재사용 대기시간 360초 <span style="color: #20c997; font-size: 13px;">(※ v1.4 패치 적용)</span></td></tr>
+                    <tr><td><strong>페이크</strong></td><td>30</td><td>적의 공격을 회피할 확률 30%</td></tr>
+                    <tr><td><strong>베놈</strong></td><td>30</td><td>공격력 60, 8초 지속, 성공률 30%</td></tr>
+                    <tr><td><strong>쇼다운</strong></td><td>30</td><td>적 방어력, 획득 경험치, 아이템 드롭률 40% 상승</td></tr>
+                    <tr><td><strong>닌자 앰부쉬</strong></td><td>30</td><td>데미지 100%, 12초 지속, 공격범위 200%</td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl" style="color:#b197fc;">암살</strong></td><td>30</td><td>공격력 120%, 8초간 데미지 누적, 크리티컬 데미지 250%, 확률 90% / <span class="hl" style="color:#b197fc;">다크사이트 조건부 삭제</span> <span style="color: #20c997; font-size: 13px;">(※ v1.0 패치 적용)</span></td></tr>
+                    <tr><td><strong>연막탄</strong></td><td>30</td><td>60초 지속, 범위 200%</td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl" style="color:#b197fc;">부메랑 스텝</strong></td><td>30</td><td>4명에게 데미지 500%, 기절 확률 90% / <span class="hl" style="color:#b197fc;">후딜 제거, 무적 판정 제거, 점프샷 가능</span> <span style="color: #20c997; font-size: 13px;">(※ v1.0 패치 적용)</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('skill_job')" class="btn-list">직업 목록으로 돌아가기</span></div>
+    </div>
+
+    <div id="page-skill_viper" class="page-section sub-wrapper">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px; background: #fff3e0; color: #f57c00;">해적</span>바이퍼 스킬 정보</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span></div>
+        </div>
+        <div class="post-content">
+            <h3 class="rule-title" style="margin-top: 10px; color:#fcc419;">◆ 1차: 해적 공통 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>퀵모션</strong></td><td>20</td><td>명중률과 회피율 +20</td></tr>
+                    <tr><td><strong>스트레이트</strong></td><td>20</td><td>데미지 270%</td></tr>
+                    <tr><td><strong>써머솔트 킥</strong></td><td>20</td><td>데미지 190%, 최대 6마리 공격</td></tr>
+                    <tr><td><strong>더블 파이어</strong></td><td>20</td><td>데미지 80% x 2</td></tr>
+                    <tr><td><strong>대쉬</strong></td><td>10</td><td>이동속도 +30, 점프력 +10 (20초 지속)</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px; color:#fcc419;">◆ 2차: 인파이터 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>HP 증가량 향상</strong></td><td>10</td><td>레벨업 시 +30, AP 부여 시 +20 추가 향상</td></tr>
+                    <tr><td><strong>너클 마스터리</strong></td><td>20</td><td>너클 계열 무기 숙련도 60%, 명중률 +20</td></tr>
+                    <tr><td><strong>너클 부스터</strong></td><td>20</td><td>너클 공격속도 향상 (1800초 지속)</td></tr>
+                    <tr><td><strong>백스핀 블로우</strong></td><td>20</td><td>데미지 240%, 최대 3마리 공격</td></tr>
+                    <tr><td><strong>더블 어퍼</strong></td><td>20</td><td>데미지 290%</td></tr>
+                    <tr><td><strong>스크류 펀치</strong></td><td>20</td><td>데미지 420%, 최대 3마리 공격</td></tr>
+                    <tr><td><strong>MP 리커버리</strong></td><td>10</td><td>MaxHP 10% 소모, 100% MP 회복 (재사용 25초)</td></tr>
+                    <tr><td><strong>오크통</strong></td><td>10</td><td>30초간 오크통 위장, 10% 확률로 발각 (재사용 10초)</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px; color:#fcc419;">◆ 3차: 버커니어 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>스턴 마스터리</strong></td><td>20</td><td>60% 확률로 60%의 추가 데미지</td></tr>
+                    <tr><td><strong>에너지 차지</strong></td><td>40</td><td>명중률/회피율 +20, 물리공격력 +20 (50초 지속)</td></tr>
+                    <tr><td><strong>에너지 버스터</strong></td><td>30</td><td>데미지 420%, 최대 4마리 공격</td></tr>
+                    <tr><td><strong>에너지 드레인</strong></td><td>20</td><td>데미지 360%, 데미지의 20% 체력 회복</td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl" style="color:#fcc419;">트랜스 폼</strong></td><td>20</td><td><span class="hl" style="color:#fcc419;">스킬 사용 불가 처리 됨</span> <span style="color: #20c997; font-size: 13px;">(※ v1.0 스킬 삭제 패치 적용)</span></td></tr>
+                    <tr><td><strong>쇼크웨이브</strong></td><td>30</td><td>데미지 700%, 최대 6마리 공격</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px; color:#fcc419;">◆ 4차: 바이퍼 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>메이플 용사</strong></td><td>30</td><td>모든 스탯 +15% (1800초 지속)</td></tr>
+                    <tr><td><strong>용사의 의지</strong></td><td><span class="hl" style="color:#fcc419;">10</span></td><td>재사용 대기시간 360초 <span style="color: #20c997; font-size: 13px;">(※ v1.4 패치 적용)</span></td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl" style="color:#fcc419;">드래곤 스트라이크</strong></td><td>30</td><td>데미지 810%, 최대 6명 공격 / <span class="hl" style="color:#fcc419;">후딜 제거, 점프샷 가능</span> <span style="color: #20c997; font-size: 13px;">(※ v1.0 패치 적용)</span></td></tr>
+                    <tr><td><strong>피스트</strong></td><td>30</td><td>데미지 230%, 타수 6</td></tr>
+                    <tr><td><strong>에너지 오브</strong></td><td>30</td><td>데미지 900%, 최대 6마리 공격</td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl" style="color:#fcc419;">슈퍼 트랜스폼</strong></td><td>20</td><td><span class="hl" style="color:#fcc419;">스킬 사용 불가 처리 됨</span> <span style="color: #20c997; font-size: 13px;">(※ v1.0 스킬 삭제 패치 적용)</span></td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl" style="color:#fcc419;">데몰리션</strong></td><td>30</td><td><span class="hl" style="color:#fcc419;">데미지 620%</span>로 적 8번 공격 / <span class="hl" style="color:#fcc419;">무적 삭제</span> <span style="color: #20c997; font-size: 13px;">(※ v1.0 / v1.2 패치 적용)</span></td></tr>
+                    <tr><td><strong>스내치</strong></td><td>30</td><td>데미지 600%, 최대 6마리 공격</td></tr>
+                    <tr><td><strong>윈드 부스터</strong></td><td>20</td><td>무기의 공격속도 향상 (1800초 지속)</td></tr>
+                    <tr><td><strong>타임 리프</strong></td><td>30</td><td>스킬 재사용 초기화 (재사용 대기 20분)</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('skill_job')" class="btn-list">직업 목록으로 돌아가기</span></div>
+    </div>
+
+    <div id="page-skill_captain" class="page-section sub-wrapper">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px; background: #fff3e0; color: #f57c00;">해적</span>캡틴 스킬 정보</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span></div>
+        </div>
+        <div class="post-content">
+            <h3 class="rule-title" style="margin-top: 10px; color:#fcc419;">◆ 1차: 해적 공통 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>퀵모션</strong></td><td>20</td><td>명중률과 회피율 +20</td></tr>
+                    <tr><td><strong>스트레이트</strong></td><td>20</td><td>데미지 270%</td></tr>
+                    <tr><td><strong>써머솔트 킥</strong></td><td>20</td><td>데미지 190%, 최대 6마리 공격</td></tr>
+                    <tr><td><strong>더블 파이어</strong></td><td>20</td><td>데미지 80% x 2</td></tr>
+                    <tr><td><strong>대쉬</strong></td><td>10</td><td>이동속도 +30, 점프력 +10 (20초 지속)</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px; color:#fcc419;">◆ 2차: 건슬링거 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>건 마스터리</strong></td><td>20</td><td>건 계열 무기 숙련도 60%, 명중률 +20, 최대 불릿 수 +200</td></tr>
+                    <tr><td><strong>건 부스터</strong></td><td>20</td><td>건 공격속도 향상 (1800초 지속)</td></tr>
+                    <tr><td><strong>인비지블 샷</strong></td><td>20</td><td>데미지 170%, 최대 3마리 공격</td></tr>
+                    <tr><td><strong>스로잉 봄</strong></td><td>20</td><td>데미지 140%, 최대 6마리 공격</td></tr>
+                    <tr><td><strong>페이크 샷</strong></td><td>20</td><td>데미지 120%, 100% 확률 기절 (4초 지속)</td></tr>
+                    <tr><td><strong>윙즈</strong></td><td>10</td><td>체공 비행, 낙하속도 100</td></tr>
+                    <tr><td><strong>백스텝 샷</strong></td><td>20</td><td>데미지 260%</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px; color:#fcc419;">◆ 3차: 발키리 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>트리플 파이어</strong></td><td>20</td><td>데미지 210%, 타수 3</td></tr>
+                    <tr><td><strong>옥토퍼스</strong></td><td>30</td><td>공격력 200 (30초 지속)</td></tr>
+                    <tr><td><strong>가비오타</strong></td><td>30</td><td>공격력 450 (30초 지속)</td></tr>
+                    <tr><td><strong>파이어 버너</strong></td><td>30</td><td>데미지 160%, 최대 6마리 공격</td></tr>
+                    <tr><td><strong>쿨링 이펙트</strong></td><td>30</td><td>데미지 130%, 최대 6마리 공격</td></tr>
+                    <tr><td><strong>호밍</strong></td><td>30</td><td>데미지 380%</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="rule-title" style="margin-top: 40px; color:#fcc419;">◆ 4차: 캡틴 (마스터 기준)</h3>
+            <table class="skill-table">
+                <thead><tr><th style="width: 20%;">스킬명</th><th style="width: 15%;">마스터 레벨</th><th>스킬 설명</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>메이플 용사</strong></td><td>30</td><td>모든 스탯 +15% (1800초 지속)</td></tr>
+                    <tr><td><strong>용사의 의지</strong></td><td><span class="hl" style="color:#fcc419;">10</span></td><td>재사용 대기시간 360초 <span style="color: #20c997; font-size: 13px;">(※ v1.4 패치 적용)</span></td></tr>
+                    <tr><td><strong>속성강화</strong></td><td>30</td><td>데미지 200%, 도트 5%, 결빙시간 +2초</td></tr>
+                    <tr><td><strong>어드밴스드 호밍</strong></td><td>20</td><td>데미지 580%, 데미지 증가 20%</td></tr>
+                    <tr><td><strong>서포트 옥토퍼스</strong></td><td>20</td><td>공격력 500 (40초 지속 / 재사용 10초)</td></tr>
+                    <tr><td><strong>에어 스트라이크</strong></td><td>30</td><td>데미지 1200% (재사용 대기시간 5초)</td></tr>
+                    <tr><td><strong>래피드 파이어</strong></td><td>30</td><td>데미지 160%</td></tr>
+                    <tr><td><strong>마인드 컨트롤</strong></td><td>20</td><td>지속 40초, 성공확률 100%</td></tr>
+                    <tr style="background-color: var(--card-hover);"><td><strong class="hl" style="color:#fcc419;">배틀쉽</strong></td><td>10</td><td>물/마방 +100 / <span class="hl" style="color:#fcc419;">쿨타임 X, 체력 무한, 탑승 중 사다리/줄타기 가능</span> <span style="color: #20c997; font-size: 13px;">(※ v1.0 편의성 패치 적용)</span></td></tr>
+                    <tr><td><strong>배틀쉽 캐논</strong></td><td>30</td><td>데미지 380% 데미지로 4번 공격</td></tr>
+                    <tr><td><strong>배틀쉽 토르페도</strong></td><td>30</td><td>데미지 780%, 최대 6마리 공격</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('skill_job')" class="btn-list">직업 목록으로 돌아가기</span></div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-links">운영정책 | 개인정보처리방침</div>
+            <p>운영진 미니 | 서버<br>© 2026 MINI. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+            const target = document.getElementById('page-' + pageId);
+            if(target) { target.classList.add('active'); }
+            window.scrollTo(0, 0); 
+        }
+
+        function toggleSubJob(jobId) {
+            const el = document.getElementById('sub-' + jobId);
+            if (el.classList.contains('active')) {
+                el.classList.remove('active');
+            } else {
+                document.querySelectorAll('.sub-job-list').forEach(list => list.classList.remove('active'));
+                el.classList.add('active');
+            }
+        }
+
+        const themeBtn = document.getElementById('themeToggleBtn');
+        if (localStorage.getItem('theme') === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); themeBtn.textContent = '☀️'; }
+        function toggleTheme() { if (document.documentElement.getAttribute('data-theme') === 'dark') { document.documentElement.removeAttribute('data-theme'); themeBtn.textContent = '🌙'; localStorage.setItem('theme', 'light'); } else { document.documentElement.setAttribute('data-theme', 'dark'); themeBtn.textContent = '☀️'; localStorage.setItem('theme', 'dark'); } }
+
+        window.addEventListener('scroll', function() {
+            const banner = document.querySelector('.left-wing-banner');
+            if(window.innerWidth > 1550) { banner.style.top = (window.scrollY + 120) + 'px'; }
+        });
+    </script>
+</body>
+</html>

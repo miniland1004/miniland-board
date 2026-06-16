@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미니랜드 스킬패치</title>
+    <link rel="icon" href="homepagelogo.jpg">
+    <style>
+        :root { --bg-main: #ffffff; --text-main: #333333; --text-muted: #888888; --nav-bg: rgba(255, 255, 255, 0.95); --border-main: #eaeaea; --card-bg: #fafafa; --card-hover: #f4fdf9; --card-border: #eeeeee; --modal-bg: #ffffff; --modal-inner: #f9fdfb; }
+        [data-theme="dark"] { --bg-main: #121212; --text-main: #e0e0e0; --text-muted: #999999; --nav-bg: rgba(24, 24, 24, 0.95); --border-main: #333333; --card-bg: #1e1e1e; --card-hover: #2a2a2a; --card-border: #333333; --modal-bg: #1e1e1e; --modal-inner: #252525; }
+        @font-face { font-family: 'Pretendard-Regular'; src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff'); font-weight: 400; }
+        @font-face { font-family: 'NexonMaplestory'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFLight.woff') format('woff'); font-weight: 300; }
+        @font-face { font-family: 'NexonMaplestory'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff'); font-weight: 700; }
+        * { font-family: 'Pretendard-Regular', sans-serif !important; -webkit-font-smoothing: antialiased; box-sizing: border-box; }
+        body { background: var(--bg-main); color: var(--text-main); margin: 0; padding: 0; transition: background 0.3s, color 0.3s; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        .page-section { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .page-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .header-wrapper { position: sticky; top: 0; z-index: 100; }
+        .top-nav { position: relative; background: var(--nav-bg); padding: 0 50px; display: flex; align-items: center; justify-content: space-between; height: 80px; border-bottom: 1px solid var(--border-main); z-index: 101; backdrop-filter: blur(5px); }
+        .logo-img { height: 70px; object-fit: contain; cursor: pointer; z-index: 102; transition: transform 0.2s; }
+        .logo-img:hover { transform: scale(1.08); }
+        .nav-links { display: flex; gap: 50px; position: absolute; left: 50%; transform: translateX(-50%); height: 100%; z-index: 102; }
+        .main-link { display: flex; align-items: center; height: 80px; font-size: 17px; font-weight: 700; color: var(--text-main); position: relative; transition: color 0.2s; cursor: pointer; }
+        .main-link:hover { color: #20c997; }
+        .dropdown { position: relative; display: inline-block; height: 80px; }
+        .dropdown-content { display: none; position: absolute; top: 75px; left: 50%; transform: translateX(-50%); background-color: var(--nav-bg); min-width: 150px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); border-radius: 8px; border: 1px solid var(--border-main); z-index: 200; overflow: hidden; backdrop-filter: blur(5px); }
+        .dropdown:hover .dropdown-content { display: block; animation: fadeIn 0.2s ease-in-out; }
+        .dropdown-content a { color: var(--text-main); padding: 12px 16px; text-decoration: none; display: block; font-size: 15px; font-weight: 600; text-align: center; transition: background 0.2s, color 0.2s; }
+        .dropdown-content a:hover { background-color: var(--card-hover); color: #20c997; }
+        .theme-toggle { cursor: pointer; font-size: 22px; user-select: none; transition: transform 0.2s; padding: 10px; }
+        .theme-toggle:hover { transform: scale(1.15); }
+        .sub-wrapper { max-width: 1000px; margin: 30px auto; padding: 0 20px; min-height: 60vh; }
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; margin-right: 12px; min-width: 45px; text-align: center; }
+        .badge-skill { background: #f3e5f5; color: #8e24aa; }
+        [data-theme="dark"] .badge-skill { background: #2a1a33; color: #ba68c8; }
+        .page-title { font-family: 'NexonMaplestory', sans-serif !important; font-size: 32px; margin-bottom: 30px; border-bottom: 3px solid var(--text-main); padding-bottom: 15px; }
+        .board-table { width: 100%; border-collapse: collapse; text-align: center; }
+        .board-table th { padding: 15px 10px; border-bottom: 1px solid var(--text-muted); font-size: 15px; }
+        .board-table td { padding: 18px 10px; border-bottom: 1px solid var(--border-main); font-size: 15px; }
+        .board-table tr.clickable-row:hover td { background: var(--card-hover); cursor: pointer; }
+        .td-num { width: 80px; color: var(--text-muted); }
+        .td-badge { width: 100px; }
+        .td-title { text-align: left; font-weight: 600; }
+        .td-writer { width: 120px; color: var(--text-muted); }
+        .td-date { width: 120px; color: var(--text-muted); }
+        .post-header { border-bottom: 2px solid var(--text-main); padding-bottom: 20px; margin-bottom: 30px; }
+        .post-title-text { font-size: 28px; font-weight: 700; margin: 0 0 15px 0; display: flex; align-items: center; }
+        .post-meta { display: flex; gap: 20px; font-size: 14px; color: var(--text-muted); }
+        .post-content { font-size: 16px; padding-bottom: 20px; min-height: 200px; line-height: 1.8; }
+        .rule-title { font-size: 18px; color: #20c997; margin-bottom: 8px; display: block; font-family: 'NexonMaplestory', sans-serif !important; }
+        .post-navigation { border-top: 2px solid var(--text-main); border-bottom: 1px solid var(--border-main); margin-top: 40px; margin-bottom: 30px; }
+        .post-navigation .nav-item { padding: 15px 10px; border-bottom: 1px solid var(--border-main); cursor: pointer; display: flex; align-items: center; font-size: 15px; transition: background 0.2s; }
+        .post-navigation .nav-item:last-child { border-bottom: none; }
+        .post-navigation .nav-item:hover:not(.disabled) { background: var(--card-hover); color: #20c997; }
+        .post-navigation .nav-item span { font-weight: 700; width: 80px; color: var(--text-muted); }
+        .post-navigation .nav-item.disabled { color: var(--text-muted); cursor: default; }
+        .btn-wrapper { text-align: center; margin-bottom: 30px; }
+        .btn-list { display: inline-block; padding: 12px 30px; background-color: var(--card-bg); border: 1px solid var(--border-main); border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.2s, color 0.2s; }
+        .btn-list:hover { background-color: #20c997; color: white; border-color: #20c997; }
+        .left-wing-banner { position: absolute; top: 120px; left: 30px; width: 220px; background: var(--nav-bg); border: 1px solid var(--border-main); border-radius: 12px; padding: 20px; box-shadow: 0 8px 16px rgba(0,0,0,0.05); z-index: 50; backdrop-filter: blur(5px); transition: top 0.4s ease-out; }
+        .left-wing-title { font-family: 'NexonMaplestory', sans-serif !important; font-size: 18px; color: #20c997; margin-top: 0; margin-bottom: 15px; text-align: center; border-bottom: 1px dashed var(--border-main); padding-bottom: 10px; }
+        .wing-menu { list-style: none; padding: 0; margin: 0; }
+        .wing-menu li { margin-bottom: 10px; }
+        .wing-menu li:last-child { margin-bottom: 0; }
+        .wing-btn { display: block; padding: 12px 10px; background: var(--bg-main); border: 1px solid var(--border-main); border-radius: 8px; text-align: center; font-size: 14px; font-weight: 700; color: var(--text-main); cursor: pointer; transition: all 0.2s ease; }
+        .wing-btn:hover { background: #20c997; color: white; border-color: #20c997; transform: translateY(-3px); box-shadow: 0 4px 8px rgba(32, 201, 151, 0.2); }
+        .footer { border-top: 1px solid var(--border-main); padding: 40px 20px; text-align: left; background: var(--card-bg); color: var(--text-muted); font-size: 13px; margin-top: 50px; }
+        .footer-content { max-width: 1200px; margin: 0 auto; }
+        
+        .skill-table { width: 100%; border-collapse: collapse; text-align: left; margin-top: 15px; font-size: 14px; border-top: 2px solid var(--text-main); border-bottom: 1px solid var(--border-main); }
+        .skill-table th { padding: 12px; background: var(--card-bg); border-bottom: 1px solid var(--border-main); font-weight: 700; text-align: center; }
+        .skill-table td { padding: 12px 10px; border-bottom: 1px solid var(--border-main); }
+        .skill-table td:nth-child(1), .skill-table td:nth-child(2) { text-align: center; }
+        .skill-table tr:hover { background: var(--card-hover); }
+        .hl { color: #20c997; font-weight: bold; }
+        [data-theme="dark"] .hl { color: #38d9a9; }
+        .patch-list { padding-left: 20px; line-height: 1.8; color: var(--text-main); font-size: 15px; }
+        .patch-list li { margin-bottom: 8px; }
+
+        @media (max-width: 1550px) { .left-wing-banner { display: none; } }
+        @media (max-width: 768px) {
+            .top-nav { flex-direction: column; height: auto; gap: 15px; padding: 15px; }
+            .nav-links { position: static; transform: none; flex-wrap: wrap; justify-content: center; gap: 20px; }
+            .td-num, .td-writer { display: none; }
+            .skill-table th:nth-child(3), .skill-table td:nth-child(3) { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="left-wing-banner">
+        <h3 class="left-wing-title">Quick Menu</h3>
+        <ul class="wing-menu">
+            <li><div class="wing-btn" onclick="location.href='job.html'">미니랜드 직업별 스킬</div></li>
+            <li><div class="wing-btn" onclick="window.open('https://miniland1004.github.io/-/', '_blank')">미니랜드 홍보 사이트</div></li>
+            <li><div class="wing-btn" onclick="window.open('https://miniland1004.github.io/avatar-gallery/?no=01', '_blank')">미니랜드 아바타 미리보기</div></li>
+            <li><div class="wing-btn" onclick="window.open('https://drive.google.com/file/d/15UVraq9WrkiTKRxIERLXczL_s4liPKRK/view?usp=sharing', '_blank')">미니랜드 다운로드</div></li>
+            <li><div class="wing-btn" onclick="location.href='error.html'">미니랜드 오류해결</div></li>
+        </ul>
+    </div>
+
+    <div class="header-wrapper">
+        <div class="top-nav">
+            <img src="logo.png" alt="미니랜드 로고" class="logo-img" onclick="location.href='index.html'">
+            <div class="nav-links">
+                <a href="notice.html" class="main-link">공지사항</a>
+                <a href="event.html" class="main-link">이벤트</a>
+                <a href="patch.html" class="main-link">패치노트</a>
+                <a href="skill.html" class="main-link" style="color: #20c997;">스킬패치</a>
+                <div class="dropdown">
+                    <a class="main-link">고객센터</a>
+                    <div class="dropdown-content">
+                        <a href="discord://-/channels/1474594207229546549/1474594208026329104">티켓문의</a>
+                        <a href="discord://-/channels/1474594207229546549/1474594208357548255">오류제보</a>
+                        <a href="discord://-/channels/1474594207229546549/1474594208357548254">건의사항</a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-right"><div class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()">🌙</div></div>
+        </div>
+    </div>
+
+    <!-- 스킬패치 목록 -->
+    <div id="page-skill" class="page-section active sub-wrapper">
+        <h2 class="page-title">스킬패치</h2>
+        <table class="board-table">
+            <thead><tr><th class="td-num">번호</th><th class="td-badge">분류</th><th class="td-title">제목</th><th class="td-writer">작성자</th><th class="td-date">등록일</th></tr></thead>
+            <tbody>
+                <tr class="clickable-row" onclick="showPage('view_skill_v1_3')"><td class="td-num">5</td><td class="td-badge"><span class="badge badge-skill">스킬</span></td><td class="td-title">스킬패치 v1.3</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
+                <tr class="clickable-row" onclick="showPage('view_skill_v1_2')"><td class="td-num">4</td><td class="td-badge"><span class="badge badge-skill">스킬</span></td><td class="td-title">스킬패치 v1.2</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
+                <tr class="clickable-row" onclick="showPage('view_skill_v1_1')"><td class="td-num">3</td><td class="td-badge"><span class="badge badge-skill">스킬</span></td><td class="td-title">스킬패치 v1.1</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
+                <tr class="clickable-row" onclick="showPage('view_skill_v1_0')"><td class="td-num">2</td><td class="td-badge"><span class="badge badge-skill">스킬</span></td><td class="td-title">스킬패치 v1.0</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
+                <tr class="clickable-row" onclick="showPage('view_skill_1')"><td class="td-num">1</td><td class="td-badge"><span class="badge badge-skill">스킬</span></td><td class="td-title">모든 직업 스킬패치 관련 안내</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 스킬패치 1.3 -->
+    <div id="page-view_skill_v1_3" class="page-section sub-wrapper" style="max-width: 1000px;">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px;">스킬</span>스킬패치 v1.3</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
+        </div>
+        <div class="post-content">
+            안녕하세요 운영진입니다<br><br>
+            스킬 밸런스 패치 3차 진행 안내입니다<br>
+            이전 밸런스 패치 데이터를 바탕으로, 추가적인 화력 조정이 필요한 직업군에 대해 퍼뎀(%) 상향을 적용했습니다<br>
+            마찬가지로 자버프 + 샤프아이즈 심볼이 포함된 측정입니다 (윈드부스터 심볼 제외)<br><br>
+            <div class="rule-item">
+                <strong class="rule-title">◆ 스킬 밸런스 패치 3차 내역 (v1.3)</strong>
+                <table class="skill-table">
+                    <thead><tr><th>직업</th><th>스킬명</th><th>2차 변경 퍼뎀</th><th style="color: #20c997;">v1.3 퍼뎀 (%)</th></tr></thead>
+                    <tbody>
+                        <tr><td>보우마스터</td><td>폭풍의 시</td><td>190%</td><td><span class="hl">210%</span></td></tr>
+                        <tr><td>보우마스터</td><td>에로우 레인</td><td>500%</td><td><span class="hl">550%</span></td></tr>
+                        <tr><td>신궁</td><td>스트레이프</td><td>155%</td><td><span class="hl">200%</span></td></tr>
+                        <tr><td>나이트로드</td><td>트리플 스로우</td><td>225%</td><td><span class="hl">260%</span></td></tr>
+                        <tr><td>나이트로드</td><td>어벤져</td><td>200%</td><td><span class="hl">240%</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
+            감사합니다 ( • ⩊ • )
+        </div>
+        <div class="post-navigation">
+            <div class="nav-item disabled"><span>▲ 다음글</span>다음 글이 없습니다.</div>
+            <div class="nav-item" onclick="showPage('view_skill_v1_2')"><span>▼ 이전글</span>스킬패치 v1.2</div>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('skill')" class="btn-list">목록으로 돌아가기</span></div>
+    </div>
+
+    <!-- 스킬패치 1.2 -->
+    <div id="page-view_skill_v1_2" class="page-section sub-wrapper" style="max-width: 1000px;">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px;">스킬</span>스킬패치 v1.2</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
+        </div>
+        <div class="post-content">
+            안녕하세요 운영진입니다<br><br>
+            미니랜드 스킬 밸런스 패치 2차 진행 안내입니다<br>
+            1차 측정 및 적용 이후, 더 나은 밸런스를 위해 일부 직업군의 퍼뎀(%)을 추가로 상향 조정했습니다<br>
+            자버프 + 샤프아이즈 심볼이 포함된 측정입니다 (윈드부스터 심볼 제외)<br><br>
+            <div class="rule-item">
+                <strong class="rule-title">◆ 스킬 밸런스 패치 2차 내역 (v1.2)</strong>
+                <table class="skill-table">
+                    <thead><tr><th>직업</th><th>스킬명</th><th>1차 변경 퍼뎀</th><th style="color: #20c997;">v1.2 퍼뎀 (%)</th></tr></thead>
+                    <tbody>
+                        <tr><td>히어로</td><td>브랜디쉬</td><td>420%</td><td><span class="hl">480%</span></td></tr>
+                        <tr><td>팔라딘</td><td>블래스트</td><td>550%</td><td><span class="hl">600%</span></td></tr>
+                        <tr><td>다크나이트</td><td>스피어 버스터(창)</td><td>270%</td><td><span class="hl">315%</span></td></tr>
+                        <tr><td>다크나이트</td><td>스피어 버스터(폴암)</td><td>390%</td><td><span class="hl">480%</span></td></tr>
+                        <tr><td>보우마스터</td><td>폭풍의 시</td><td>150%</td><td><span class="hl">190%</span></td></tr>
+                        <tr><td>보우마스터</td><td>에로우 레인</td><td>400%</td><td><span class="hl">500%</span></td></tr>
+                        <tr><td>신궁</td><td>스트레이프</td><td>130%</td><td><span class="hl">155%</span></td></tr>
+                        <tr><td>나이트로드</td><td>트리플 스로우</td><td>180%</td><td><span class="hl">225%</span></td></tr>
+                        <tr><td>나이트로드</td><td>어벤져</td><td>190%</td><td><span class="hl">200%</span></td></tr>
+                        <tr><td>섀도어</td><td>새비지 블로우</td><td>210%</td><td><span class="hl">270%</span></td></tr>
+                        <tr><td>바이퍼</td><td>데몰리션</td><td>600%</td><td><span class="hl">620%</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
+            감사합니다 ( • ⩊ • )
+        </div>
+        <div class="post-navigation">
+            <div class="nav-item" onclick="showPage('view_skill_v1_3')"><span>▲ 다음글</span>스킬패치 v1.3</div>
+            <div class="nav-item" onclick="showPage('view_skill_v1_1')"><span>▼ 이전글</span>스킬패치 v1.1</div>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('skill')" class="btn-list">목록으로 돌아가기</span></div>
+    </div>
+
+    <!-- 스킬패치 1.1 -->
+    <div id="page-view_skill_v1_1" class="page-section sub-wrapper" style="max-width: 1000px;">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px;">스킬</span>스킬패치 v1.1</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
+        </div>
+        <div class="post-content">
+            안녕하세요 운영진입니다<br><br>
+            미니랜드 스킬 밸런스 패치 1차 상세 표 안내입니다<br>
+            타수, 몹카, 퍼뎀이 전반적으로 조정되었으며, 이는 자버프 + 샤프아이즈 심볼이 포함된 측정 기준입니다<br><br>
+            <div class="rule-item">
+                <strong class="rule-title">◆ 스킬 밸런스 패치 1차 내역 (v1.1)</strong>
+                <table class="skill-table">
+                    <thead><tr><th>직업</th><th>스킬명</th><th>기존 (타수 / 몹카 / 퍼뎀)</th><th style="color: #20c997;">변경 (타수 / 몹카 / 퍼뎀)</th></tr></thead>
+                    <tbody>
+                        <tr><td>히어로</td><td>브랜디쉬</td><td>2 / 3 / 300%</td><td>2 / <span class="hl">4</span> / <span class="hl">420%</span></td></tr>
+                        <tr><td>팔라딘</td><td>블래스트</td><td>2 / 2 / 550%</td><td>2 / <span class="hl">4</span> / 550%</td></tr>
+                        <tr><td>다크나이트</td><td>스피어 버스터(창)</td><td>3 / 3 / 170%</td><td>3 / 3 / <span class="hl">270%</span></td></tr>
+                        <tr><td>다크나이트</td><td>드래곤 쓰레셔(창)</td><td>1 / 6 / 250%</td><td>1 / 6 / <span class="hl">400%</span></td></tr>
+                        <tr><td>다크나이트</td><td>스피어 버스터(폴암)</td><td>3 / 3 / 170%</td><td>3 / 3 / <span class="hl">390%</span></td></tr>
+                        <tr><td>다크나이트</td><td>드래곤 쓰레셔(폴암)</td><td>1 / 6 / 250%</td><td>1 / 6 / <span class="hl">260%</span></td></tr>
+                        <tr><td>다크나이트</td><td>드래곤 로어</td><td>1 / 15 / 240%</td><td>1 / 15 / 240%</td></tr>
+                        <tr><td>아크메이지(불,독)</td><td>페럴라이즈</td><td>2 / 1 / 210%</td><td><span class="hl">4</span> / 1 / 210%</td></tr>
+                        <tr><td>아크메이지(불,독)</td><td>메테오</td><td>1 / 15 / 570%</td><td>1 / 15 / 570%</td></tr>
+                        <tr><td>아크메이지(썬,콜)</td><td>체인 라이트닝</td><td>2 / 1 / 180%</td><td><span class="hl">4</span> / 1 / 180%</td></tr>
+                        <tr><td>아크메이지(썬,콜)</td><td>블리자드</td><td>1 / 15 / 570%</td><td>1 / 15 / 570%</td></tr>
+                        <tr><td>비숍</td><td>엔젤레이</td><td>2 / 1 / 240%</td><td><span class="hl">4</span> / 1 / 240%</td></tr>
+                        <tr><td>비숍</td><td>제네시스</td><td>1 / 15 / 670%</td><td>1 / 15 / 670%</td></tr>
+                        <tr><td>보우마스터</td><td>폭풍의 시</td><td>1 / 1 / 120%</td><td>1 / 1 / <span class="hl">150%</span></td></tr>
+                        <tr><td>보우마스터</td><td>에로우 레인</td><td>1 / 6 / 160%</td><td>1 / 6 / <span class="hl">400%</span></td></tr>
+                        <tr><td>신궁</td><td>스트레이프</td><td>6 / 1 / 100%</td><td>6 / 1 / <span class="hl">130%</span></td></tr>
+                        <tr><td>신궁</td><td>피어싱</td><td>1 / 6 / 850%</td><td>1 / 6 / 850%</td></tr>
+                        <tr><td>나이트로드</td><td>트리플 스로우</td><td>3 / 1 / 150%</td><td>3 / 1 / <span class="hl">180%</span></td></tr>
+                        <tr><td>나이트로드</td><td>어벤져</td><td>1 / 6 / 180%</td><td>1 / 6 / <span class="hl">190%</span></td></tr>
+                        <tr><td>섀도어</td><td>부메랑스탭</td><td>2 / 6 / 500%</td><td>2 / 6 / 500%</td></tr>
+                        <tr><td>섀도어</td><td>새비지 블로우</td><td>6 / 1 / 80%</td><td>6 / 1 / <span class="hl">210%</span></td></tr>
+                        <tr><td>캡틴</td><td>배틀쉽 캐논</td><td>4 / 1 / 380%</td><td>4 / 1 / 380%</td></tr>
+                        <tr><td>캡틴</td><td>배틀쉽 토르페도</td><td>1 / 6 / 780%</td><td>1 / 6 / 780%</td></tr>
+                        <tr><td>바이퍼</td><td>드래곤 스트라이크</td><td>1 / 6 / 810%</td><td>1 / 6 / 810%</td></tr>
+                        <tr><td>바이퍼</td><td>데몰리션</td><td>8 / 1 / 400%</td><td>8 / 1 / <span class="hl">600%</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
+            감사합니다 ( • ⩊ • )
+        </div>
+        <div class="post-navigation">
+            <div class="nav-item" onclick="showPage('view_skill_v1_2')"><span>▲ 다음글</span>스킬패치 v1.2</div>
+            <div class="nav-item" onclick="showPage('view_skill_v1_0')"><span>▼ 이전글</span>스킬패치 v1.0</div>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('skill')" class="btn-list">목록으로 돌아가기</span></div>
+    </div>
+
+    <!-- 스킬패치 1.0 -->
+    <div id="page-view_skill_v1_0" class="page-section sub-wrapper" style="max-width: 900px;">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px;">스킬</span>스킬패치 v1.0</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
+        </div>
+        <div class="post-content">
+            안녕하세요 운영진입니다<br><br>
+            서버의 스킬패치 v1.0 내역을 안내해 드립니다<br>
+            안내해 드린 바와 같이 직업 다양성을 위한 밸런스 조정이 포함되어 있습니다<br><br>
+            <div class="rule-item">
+                <strong class="rule-title">◆ 전사</strong>
+                <ul class="patch-list">
+                    <li><strong>모험가 전사 공통:</strong> 사냥기 범위 동일화 및 증가</li>
+                    <li><strong>다크나이트:</strong> '버서크' 항시 유지</li>
+                </ul>
+            </div>
+            <div class="rule-item">
+                <strong class="rule-title">◆ 마법사 / 비숍</strong>
+                <ul class="patch-list">
+                    <li><strong>불독 2차:</strong> '파이어 에로우' 몹 카운트 증가 (1 ➔ <strong>2</strong> / LV1~30 모두 적용)</li>
+                    <li><strong>공통 (불독/비숍/썬콜):</strong> '페럴라이즈' / '엔젤레이' / '체인 라이트닝' 타수 증가 (1타 ➔ <strong>2타</strong>)</li>
+                </ul>
+            </div>
+            <div class="rule-item">
+                <strong class="rule-title">◆ 궁수</strong>
+                <ul class="patch-list">
+                    <li><strong>신궁:</strong> '피어싱' 차징 삭제</li>
+                    <li><strong>신궁 3차:</strong> '스트레이프' 어택 카운트 증가 (기존 4 ➔ <strong>6</strong>)</li>
+                    <li><strong>보우마스터:</strong> '폭풍의 시' 피격 시에도 끊기지 않고 계속 발동되도록 수정</li>
+                </ul>
+            </div>
+            <div class="rule-item">
+                <strong class="rule-title">◆ 도적</strong>
+                <ul class="patch-list">
+                    <li><strong>시프 2차:</strong> '새비지 블로우' 몹 카운트 증가 (1 ➔ <strong>2</strong> / LV1~30 모두 적용)</li>
+                    <li><strong>섀도어:</strong> '부메랑 스텝' 후딜레이 제거 및 점프샷 가능하도록 수정</li>
+                    <li><strong>섀도어:</strong> '부메랑 스텝' 무적 판정 제거</li>
+                    <li><strong>섀도어:</strong> '암살' 다크사이트 조건부 삭제 (다크사이트 없이 바로 발동 가능)</li>
+                </ul>
+            </div>
+            <div class="rule-item">
+                <strong class="rule-title">◆ 해적</strong>
+                <ul class="patch-list">
+                    <li><strong>바이퍼:</strong> '드래곤 스트라이크' 후딜레이 제거 및 점프샷 가능하도록 수정</li>
+                    <li><strong>바이퍼:</strong> '트랜스폼' 스킬 제거</li>
+                    <li><strong>바이퍼:</strong> '데몰리션' 전체 무적 상태 제거</li>
+                </ul>
+            </div>
+            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
+            감사합니다 ( • ⩊ • )
+        </div>
+        <div class="post-navigation">
+            <div class="nav-item" onclick="showPage('view_skill_v1_1')"><span>▲ 다음글</span>스킬패치 v1.1</div>
+            <div class="nav-item" onclick="showPage('view_skill_1')"><span>▼ 이전글</span>모든 직업 스킬패치 관련 안내</div>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('skill')" class="btn-list">목록으로 돌아가기</span></div>
+    </div>
+
+    <!-- 모든 직업 스킬패치 안내 -->
+    <div id="page-view_skill_1" class="page-section sub-wrapper" style="max-width: 900px;">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px;">스킬</span>모든 직업 스킬패치 관련 안내</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div>
+        </div>
+        <div class="post-content">
+            안녕하세요 운영진입니다<br><br>
+            서버의 모든 직업 스킬패치 관련 안내사항입니다<br><br>
+            <div class="rule-item">
+                <strong class="rule-title">◆ 스킬 건의 및 오류 제보</strong>
+                • 전 직업 스킬 관련 <strong>건의는 절대 받지 않습니다</strong><br>
+                • 단, 스킬 관련 건의와는 별개로 스킬에 대한 <strong>오류 및 수정이 필요한 부분</strong>은 언제든 티켓으로 문의해 주세요
+            </div>
+            <div class="rule-item">
+                <strong class="rule-title">◆ 스킬 밸런스 조정 방향</strong>
+                • 모든 직업의 퍼뎀은 <strong>순정 기반</strong>에서 +-% 조정됩니다<br>
+                • 비인기 및 폐사 직업과 관련하여 전직 차수별 <strong>몹카(타겟 수)</strong> 정도의 수정이 있습니다<br>
+                <span style="color: var(--text-muted); font-size: 14px;">└ 이는 직업 다양성을 위해 진행됩니다</span>
+            </div>
+            <div class="rule-item">
+                <strong class="rule-title">◆ 후딜레이 패치</strong>
+                • 스킬 후딜레이 제거 관련 패치는 정상적으로 이루어집니다
+            </div>
+            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
+            감사합니다 ( • ⩊ • )
+        </div>
+        <div class="post-navigation">
+            <div class="nav-item" onclick="showPage('view_skill_v1_0')"><span>▲ 다음글</span>스킬패치 v1.0</div>
+            <div class="nav-item disabled"><span>▼ 이전글</span>이전 글이 없습니다.</div>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('skill')" class="btn-list">목록으로 돌아가기</span></div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-links">운영정책 | 개인정보처리방침</div>
+            <p>운영진 미니 | 서버<br>© 2026 MINI. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+            const target = document.getElementById('page-' + pageId);
+            if(target) { target.classList.add('active'); }
+            window.scrollTo(0, 0);
+        }
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const post = urlParams.get('post');
+            if(post) { showPage(post); }
+        });
+        const themeBtn = document.getElementById('themeToggleBtn');
+        if (localStorage.getItem('theme') === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); themeBtn.textContent = '☀️'; }
+        function toggleTheme() { if (document.documentElement.getAttribute('data-theme') === 'dark') { document.documentElement.removeAttribute('data-theme'); themeBtn.textContent = '🌙'; localStorage.setItem('theme', 'light'); } else { document.documentElement.setAttribute('data-theme', 'dark'); themeBtn.textContent = '☀️'; localStorage.setItem('theme', 'dark'); } }
+        window.addEventListener('scroll', function() {
+            const banner = document.querySelector('.left-wing-banner');
+            if(window.innerWidth > 1550) { banner.style.top = (window.scrollY + 120) + 'px'; }
+        });
+    </script>
+</body>
+</html>
