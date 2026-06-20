@@ -111,13 +111,15 @@
 </head>
 <body>
 
+    <!-- 🕊️ 좌측 날개 플로팅 배너 -->
     <div class="left-wing-banner">
         <h3 class="left-wing-title">Quick Menu</h3>
         <ul class="wing-menu">
             <li><div class="wing-btn" onclick="location.href='job.html'">미니랜드 직업별 스킬</div></li>
             <li><div class="wing-btn" onclick="window.open('https://miniland1004.github.io/-/', '_blank')">미니랜드 홍보 사이트</div></li>
             <li><div class="wing-btn" onclick="window.open('https://miniland1004.github.io/avatar-gallery/?no=01', '_blank')">미니랜드 아바타 미리보기</div></li>
-            <li><div class="wing-btn" onclick="window.open('https://drive.google.com/file/d/15UVraq9WrkiTKRxIERLXczL_s4liPKRK/view?usp=sharing', '_blank')">미니랜드 다운로드</div></li>
+            <!-- ✅ 다운로드 링크 갱신 완료 -->
+            <li><div class="wing-btn" onclick="window.open('https://drive.google.com/file/d/14rL4gRb9mx1WqcWygEshThs0dS0wzUH_/view?usp=drive_link', '_blank')">미니랜드 다운로드</div></li>
             <li><div class="wing-btn" onclick="location.href='error.html'">미니랜드 오류해결</div></li>
         </ul>
     </div>
@@ -130,6 +132,7 @@
                 <a href="event.html" class="main-link">이벤트</a>
                 <a href="patch.html" class="main-link">패치노트</a>
                 <a href="skill.html" class="main-link">스킬패치</a>
+                
                 <div class="dropdown">
                     <a class="main-link">고객센터</a>
                     <div class="dropdown-content">
@@ -143,6 +146,7 @@
         </div>
     </div>
 
+    <!-- 📝 직업별 스킬 메인 (아코디언 구조) -->
     <div id="page-skill_job" class="page-section active sub-wrapper">
         <div class="post-header">
             <h1 class="post-title-text">
@@ -156,6 +160,7 @@
                 확인하고 싶은 직업군을 선택하시면 세부 직업이 나타납니다
             </div>
             <div class="job-grid">
+                <!-- ⚔️ 전사 -->
                 <div class="job-wrapper">
                     <div class="job-box job-warrior" onclick="toggleSubJob('warrior')">
                         <h3 class="job-title">전사</h3>
@@ -167,6 +172,7 @@
                     </div>
                 </div>
 
+                <!-- 🔮 마법사 -->
                 <div class="job-wrapper">
                     <div class="job-box job-mage" onclick="toggleSubJob('mage')">
                         <h3 class="job-title">마법사</h3>
@@ -178,6 +184,7 @@
                     </div>
                 </div>
 
+                <!-- 🏹 궁수 -->
                 <div class="job-wrapper">
                     <div class="job-box job-archer" onclick="toggleSubJob('archer')">
                         <h3 class="job-title">궁수</h3>
@@ -188,6 +195,7 @@
                     </div>
                 </div>
 
+                <!-- 🗡️ 도적 -->
                 <div class="job-wrapper">
                     <div class="job-box job-thief" onclick="toggleSubJob('thief')">
                         <h3 class="job-title">도적</h3>
@@ -198,6 +206,7 @@
                     </div>
                 </div>
 
+                <!-- 🔫 해적 -->
                 <div class="job-wrapper">
                     <div class="job-box job-pirate" onclick="toggleSubJob('pirate')">
                         <h3 class="job-title">해적</h3>
@@ -212,6 +221,7 @@
         <div class="btn-wrapper"><span onclick="location.href='index.html'" class="btn-list">메인으로 돌아가기</span></div>
     </div>
 
+    <!-- 📝 히어로 스킬 상세 페이지 -->
     <div id="page-skill_hero" class="page-section sub-wrapper">
         <div class="post-header">
             <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px;">전사</span>히어로 스킬 정보</h1>
@@ -282,6 +292,7 @@
         <div class="btn-wrapper"><span onclick="showPage('skill_job')" class="btn-list">직업 목록으로 돌아가기</span></div>
     </div>
 
+    <!-- 📝 팔라딘 스킬 상세 페이지 -->
     <div id="page-skill_paladin" class="page-section sub-wrapper">
         <div class="post-header">
             <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px;">전사</span>팔라딘 스킬 정보</h1>
@@ -354,6 +365,7 @@
         <div class="btn-wrapper"><span onclick="showPage('skill_job')" class="btn-list">직업 목록으로 돌아가기</span></div>
     </div>
 
+    <!-- 📝 다크나이트 스킬 상세 페이지 -->
     <div id="page-skill_darkknight" class="page-section sub-wrapper">
         <div class="post-header">
             <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px;">전사</span>다크나이트 스킬 정보</h1>
@@ -424,6 +436,7 @@
         <div class="btn-wrapper"><span onclick="showPage('skill_job')" class="btn-list">직업 목록으로 돌아가기</span></div>
     </div>
 
+    <!-- 📝 비숍 스킬 상세 페이지 -->
     <div id="page-skill_bishop" class="page-section sub-wrapper">
         <div class="post-header">
             <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px; background: #e3f2fd; color: #1976d2;">마법사</span>비숍 스킬 정보</h1>
@@ -490,6 +503,7 @@
         <div class="btn-wrapper"><span onclick="showPage('skill_job')" class="btn-list">직업 목록으로 돌아가기</span></div>
     </div>
 
+    <!-- 📝 불독 스킬 상세 페이지 -->
     <div id="page-skill_firepoison" class="page-section sub-wrapper">
         <div class="post-header">
             <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px; background: #e3f2fd; color: #1976d2;">마법사</span>불독 스킬 정보</h1>
@@ -555,6 +569,7 @@
         <div class="btn-wrapper"><span onclick="showPage('skill_job')" class="btn-list">직업 목록으로 돌아가기</span></div>
     </div>
 
+    <!-- 📝 썬콜 스킬 상세 페이지 -->
     <div id="page-skill_icelightning" class="page-section sub-wrapper">
         <div class="post-header">
             <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px; background: #e3f2fd; color: #1976d2;">마법사</span>썬콜 스킬 정보</h1>
@@ -620,6 +635,7 @@
         <div class="btn-wrapper"><span onclick="showPage('skill_job')" class="btn-list">직업 목록으로 돌아가기</span></div>
     </div>
 
+    <!-- 📝 보우마스터 스킬 상세 페이지 -->
     <div id="page-skill_bowmaster" class="page-section sub-wrapper">
         <div class="post-header">
             <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px; background: #e8f5e9; color: #388e3c;">궁수</span>보우마스터 스킬 정보</h1>
@@ -685,6 +701,7 @@
         <div class="btn-wrapper"><span onclick="showPage('skill_job')" class="btn-list">직업 목록으로 돌아가기</span></div>
     </div>
 
+    <!-- 📝 신궁 스킬 상세 페이지 -->
     <div id="page-skill_marksman" class="page-section sub-wrapper">
         <div class="post-header">
             <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px; background: #e8f5e9; color: #388e3c;">궁수</span>신궁 스킬 정보</h1>
@@ -750,6 +767,7 @@
         <div class="btn-wrapper"><span onclick="showPage('skill_job')" class="btn-list">직업 목록으로 돌아가기</span></div>
     </div>
 
+    <!-- 📝 나이트로드 스킬 상세 페이지 -->
     <div id="page-skill_nightlord" class="page-section sub-wrapper">
         <div class="post-header">
             <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px; background: #f3e5f5; color: #8e24aa;">도적</span>나이트로드 스킬 정보</h1>
@@ -814,6 +832,7 @@
         <div class="btn-wrapper"><span onclick="showPage('skill_job')" class="btn-list">직업 목록으로 돌아가기</span></div>
     </div>
 
+    <!-- 📝 섀도어 스킬 상세 페이지 -->
     <div id="page-skill_shadower" class="page-section sub-wrapper">
         <div class="post-header">
             <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px; background: #f3e5f5; color: #8e24aa;">도적</span>섀도어 스킬 정보</h1>
@@ -879,6 +898,7 @@
         <div class="btn-wrapper"><span onclick="showPage('skill_job')" class="btn-list">직업 목록으로 돌아가기</span></div>
     </div>
 
+    <!-- 📝 바이퍼 스킬 상세 페이지 -->
     <div id="page-skill_viper" class="page-section sub-wrapper">
         <div class="post-header">
             <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px; background: #fff3e0; color: #f57c00;">해적</span>바이퍼 스킬 정보</h1>
@@ -945,6 +965,7 @@
         <div class="btn-wrapper"><span onclick="showPage('skill_job')" class="btn-list">직업 목록으로 돌아가기</span></div>
     </div>
 
+    <!-- 📝 캡틴 스킬 상세 페이지 -->
     <div id="page-skill_captain" class="page-section sub-wrapper">
         <div class="post-header">
             <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px; background: #fff3e0; color: #f57c00;">해적</span>캡틴 스킬 정보</h1>

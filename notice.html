@@ -14,34 +14,27 @@
         * { font-family: 'Pretendard-Regular', sans-serif !important; -webkit-font-smoothing: antialiased; box-sizing: border-box; }
         body { background: var(--bg-main); color: var(--text-main); margin: 0; padding: 0; transition: background 0.3s, color 0.3s; line-height: 1.6; }
         a { text-decoration: none; color: inherit; }
-        
         .page-section { display: none; animation: fadeIn 0.3s ease-in-out; }
         .page-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
         .header-wrapper { position: sticky; top: 0; z-index: 100; }
         .top-nav { position: relative; background: var(--nav-bg); padding: 0 50px; display: flex; align-items: center; justify-content: space-between; height: 80px; border-bottom: 1px solid var(--border-main); z-index: 101; backdrop-filter: blur(5px); }
         .logo-img { height: 70px; object-fit: contain; cursor: pointer; z-index: 102; transition: transform 0.2s; }
         .logo-img:hover { transform: scale(1.08); }
         .nav-links { display: flex; gap: 50px; position: absolute; left: 50%; transform: translateX(-50%); height: 100%; z-index: 102; }
-        
         .main-link { display: flex; align-items: center; height: 80px; font-size: 17px; font-weight: 700; color: var(--text-main); position: relative; transition: color 0.2s; cursor: pointer; }
         .main-link:hover { color: #20c997; }
-        
         .dropdown { position: relative; display: inline-block; height: 80px; }
         .dropdown-content { display: none; position: absolute; top: 75px; left: 50%; transform: translateX(-50%); background-color: var(--nav-bg); min-width: 150px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); border-radius: 8px; border: 1px solid var(--border-main); z-index: 200; overflow: hidden; backdrop-filter: blur(5px); }
         .dropdown:hover .dropdown-content { display: block; animation: fadeIn 0.2s ease-in-out; }
         .dropdown-content a { color: var(--text-main); padding: 12px 16px; text-decoration: none; display: block; font-size: 15px; font-weight: 600; text-align: center; transition: background 0.2s, color 0.2s; }
         .dropdown-content a:hover { background-color: var(--card-hover); color: #20c997; }
-
         .theme-toggle { cursor: pointer; font-size: 22px; user-select: none; transition: transform 0.2s; padding: 10px; }
         .theme-toggle:hover { transform: scale(1.15); }
         .sub-wrapper { max-width: 1000px; margin: 30px auto; padding: 0 20px; min-height: 60vh; }
-        
         .badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; margin-right: 12px; min-width: 45px; text-align: center; }
         .badge-notice { background: #e3f2fd; color: #1976d2; }
         [data-theme="dark"] .badge-notice { background: #1a2a3a; color: #64b5f6; }
-        
         .page-title { font-family: 'NexonMaplestory', sans-serif !important; font-size: 32px; margin-bottom: 30px; border-bottom: 3px solid var(--text-main); padding-bottom: 15px; }
         .board-table { width: 100%; border-collapse: collapse; text-align: center; }
         .board-table th { padding: 15px 10px; border-bottom: 1px solid var(--text-muted); font-size: 15px; }
@@ -52,35 +45,29 @@
         .td-title { text-align: left; font-weight: 600; }
         .td-writer { width: 120px; color: var(--text-muted); }
         .td-date { width: 120px; color: var(--text-muted); }
-
         .post-header { border-bottom: 2px solid var(--text-main); padding-bottom: 20px; margin-bottom: 30px; }
         .post-title-text { font-size: 28px; font-weight: 700; margin: 0 0 15px 0; display: flex; align-items: center; }
         .post-meta { display: flex; gap: 20px; font-size: 14px; color: var(--text-muted); }
         .post-content { font-size: 16px; padding-bottom: 20px; min-height: 200px; line-height: 1.8; }
         .rule-title { font-size: 18px; color: #20c997; margin-bottom: 8px; display: block; font-family: 'NexonMaplestory', sans-serif !important; }
-        
         .post-navigation { border-top: 2px solid var(--text-main); border-bottom: 1px solid var(--border-main); margin-top: 40px; margin-bottom: 30px; }
         .post-navigation .nav-item { padding: 15px 10px; border-bottom: 1px solid var(--border-main); cursor: pointer; display: flex; align-items: center; font-size: 15px; transition: background 0.2s; }
         .post-navigation .nav-item:last-child { border-bottom: none; }
         .post-navigation .nav-item:hover:not(.disabled) { background: var(--card-hover); color: #20c997; }
         .post-navigation .nav-item span { font-weight: 700; width: 80px; color: var(--text-muted); }
         .post-navigation .nav-item.disabled { color: var(--text-muted); cursor: default; }
-
         .reward-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; margin-top: 20px; }
         .reward-card { background: var(--card-bg); border: 1px solid var(--border-main); border-radius: 8px; padding: 20px; }
         .reward-card strong { color: #20c997; display: block; margin-bottom: 10px; font-size: 17px; }
         .reward-card ul { padding-left: 20px; margin: 0; font-size: 14px; color: var(--text-muted); }
         .reward-card ul li { margin-bottom: 5px; }
-
         .discord-link { color: #5865F2; font-weight: 700; text-decoration: underline; text-decoration-color: transparent; }
         .discord-link:hover { text-decoration-color: #5865F2; }
         [data-theme="dark"] .discord-link { color: #7289da; }
         [data-theme="dark"] .discord-link:hover { text-decoration-color: #7289da; }
-        
         .btn-wrapper { text-align: center; margin-bottom: 30px; }
         .btn-list { display: inline-block; padding: 12px 30px; background-color: var(--card-bg); border: 1px solid var(--border-main); border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.2s, color 0.2s; }
         .btn-list:hover { background-color: #20c997; color: white; border-color: #20c997; }
-
         .left-wing-banner { position: absolute; top: 120px; left: 30px; width: 220px; background: var(--nav-bg); border: 1px solid var(--border-main); border-radius: 12px; padding: 20px; box-shadow: 0 8px 16px rgba(0,0,0,0.05); z-index: 50; backdrop-filter: blur(5px); transition: top 0.4s ease-out; }
         .left-wing-title { font-family: 'NexonMaplestory', sans-serif !important; font-size: 18px; color: #20c997; margin-top: 0; margin-bottom: 15px; text-align: center; border-bottom: 1px dashed var(--border-main); padding-bottom: 10px; }
         .wing-menu { list-style: none; padding: 0; margin: 0; }
@@ -88,18 +75,14 @@
         .wing-menu li:last-child { margin-bottom: 0; }
         .wing-btn { display: block; padding: 12px 10px; background: var(--bg-main); border: 1px solid var(--border-main); border-radius: 8px; text-align: center; font-size: 14px; font-weight: 700; color: var(--text-main); cursor: pointer; transition: all 0.2s ease; }
         .wing-btn:hover { background: #20c997; color: white; border-color: #20c997; transform: translateY(-3px); box-shadow: 0 4px 8px rgba(32, 201, 151, 0.2); }
-
         .footer { border-top: 1px solid var(--border-main); padding: 40px 20px; text-align: left; background: var(--card-bg); color: var(--text-muted); font-size: 13px; margin-top: 50px; }
         .footer-content { max-width: 1200px; margin: 0 auto; }
-        
         @media (max-width: 1550px) { .left-wing-banner { display: none; } }
         @media (max-width: 768px) {
             .top-nav { flex-direction: column; height: auto; gap: 15px; padding: 15px; }
             .nav-links { position: static; transform: none; flex-wrap: wrap; justify-content: center; gap: 20px; }
-            .dropdown-content { top: 40px; }
             .td-num, .td-writer { display: none; }
         }
-        
         .patch-list { padding-left: 20px; line-height: 1.8; color: var(--text-main); font-size: 15px; }
         .patch-list li { margin-bottom: 8px; }
         .patch-list strong { color: #20c997; margin-right: 5px; }
@@ -114,7 +97,7 @@
             <li><div class="wing-btn" onclick="location.href='job.html'">미니랜드 직업별 스킬</div></li>
             <li><div class="wing-btn" onclick="window.open('https://miniland1004.github.io/-/', '_blank')">미니랜드 홍보 사이트</div></li>
             <li><div class="wing-btn" onclick="window.open('https://miniland1004.github.io/avatar-gallery/?no=01', '_blank')">미니랜드 아바타 미리보기</div></li>
-            <li><div class="wing-btn" onclick="window.open('https://drive.google.com/file/d/15UVraq9WrkiTKRxIERLXczL_s4liPKRK/view?usp=sharing', '_blank')">미니랜드 다운로드</div></li>
+            <li><div class="wing-btn" onclick="window.open('https://drive.google.com/file/d/14rL4gRb9mx1WqcWygEshThs0dS0wzUH_/view?usp=drive_link', '_blank')">미니랜드 다운로드</div></li>
             <li><div class="wing-btn" onclick="location.href='error.html'">미니랜드 오류해결</div></li>
         </ul>
     </div>
@@ -127,7 +110,6 @@
                 <a href="event.html" class="main-link">이벤트</a>
                 <a href="patch.html" class="main-link">패치노트</a>
                 <a href="skill.html" class="main-link">스킬패치</a>
-                
                 <div class="dropdown">
                     <a class="main-link">고객센터</a>
                     <div class="dropdown-content">
@@ -141,6 +123,7 @@
         </div>
     </div>
 
+    <!-- 공지사항 목록 (N 표시 제외) -->
     <div id="page-notice" class="page-section active sub-wrapper">
         <h2 class="page-title">공지사항</h2>
         <table class="board-table">
@@ -155,6 +138,8 @@
         </table>
     </div>
 
+    <!-- 이하 세부 내용 -->
+    <!-- 세부 공지사항 1: 콩 관련 안내 -->
     <div id="page-view_kong_info" class="page-section sub-wrapper" style="max-width: 1000px;">
         <div class="post-header">
             <h1 class="post-title-text"><span class="badge badge-notice" style="font-size:15px; padding:5px 12px; margin-right: 15px;">공지</span>콩 관련 안내</h1>
@@ -228,6 +213,7 @@
         <div class="btn-wrapper"><span onclick="showPage('notice')" class="btn-list">목록으로 돌아가기</span></div>
     </div>
 
+    <!-- 세부 공지사항 2: 크리티컬 데미지 -->
     <div id="page-view_critical" class="page-section sub-wrapper" style="max-width: 900px;">
         <div class="post-header">
             <h1 class="post-title-text"><span class="badge badge-notice" style="font-size:15px; padding:5px 12px; margin-right: 15px;">공지</span>크리티컬 데미지 배율 관련 안내</h1>
@@ -256,7 +242,7 @@
             <div class="rule-item">
                 <strong class="rule-title">◆ 직업별 배율이 다른 이유</strong>
                 궁수 직업군(보마, 신궁)의 배율이 나이트로드와 다르게 측정된 것 또한 정상입니다<br>
-                각 직업의 크리티컬 스킬 수치가 다를 뿐만 아니라, 합연산 공식 특성상 스킬 자체의 기본 퍼뎀(폭시, 스트레이프 등)이 낮을수록 크리티컬 발생 시의 최종 '배율'은 더 높게 측정되기 때문입니다    
+                각 직업의 크리티컬 스킬 수치가 다를 뿐만 시, 합연산 공식 특성상 스킬 자체의 기본 퍼뎀(폭시, 스트레이프 등)이 낮을수록 크리티컬 발생 시의 최종 '배율'은 더 높게 측정되기 때문입니다    
             </div>
             <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
             현재 서버의 모든 크리티컬 및 샤프아이즈 연산은 과거 철저한 고증을 바탕으로 완벽하게 구현되어 있으니 안심하고 이용해 주시기 바랍니다<br><br>
@@ -271,6 +257,7 @@
         <div class="btn-wrapper"><span onclick="showPage('notice')" class="btn-list">목록으로 돌아가기</span></div>
     </div>
 
+    <!-- 세부 공지사항 3: 닉네임 동일화 -->
     <div id="page-view_nickname" class="page-section sub-wrapper" style="max-width: 900px;">
         <div class="post-header">
             <h1 class="post-title-text"><span class="badge badge-notice" style="font-size:15px; padding:5px 12px; margin-right: 15px;">공지</span>디스코드 및 인게임 닉네임 동일화 안내</h1>
@@ -290,6 +277,7 @@
         <div class="btn-wrapper"><span onclick="showPage('notice')" class="btn-list">목록으로 돌아가기</span></div>
     </div>
 
+    <!-- 세부 공지사항 4: 매크로 -->
     <div id="page-view_macro" class="page-section sub-wrapper" style="max-width: 900px;">
         <div class="post-header">
             <h1 class="post-title-text"><span class="badge badge-notice" style="font-size:15px; padding:5px 12px; margin-right: 15px;">공지</span>매크로/동꼽 관련안내</h1>
@@ -308,6 +296,7 @@
         <div class="btn-wrapper"><span onclick="showPage('notice')" class="btn-list">목록으로 돌아가기</span></div>
     </div>
 
+    <!-- 세부 공지사항 5: 서버규칙 -->
     <div id="page-view_rule" class="page-section sub-wrapper" style="max-width: 900px;">
         <div class="post-header">
             <h1 class="post-title-text"><span class="badge badge-notice" style="font-size:15px; padding:5px 12px; margin-right: 15px;">공지</span>서버규칙</h1>
@@ -342,15 +331,13 @@
     </div>
 
     <script>
-        /* 싱글 페이지 화면 전환 기능 (로컬 파일 내에서 동작) */
         function showPage(pageId) {
             document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
             const target = document.getElementById('page-' + pageId);
             if(target) { target.classList.add('active'); }
-            window.scrollTo(0, 0); // 화면 맨 위로 부드럽게 끌어올려줌
+            window.scrollTo(0, 0); 
         }
 
-        /* 외부 링크(메인)에서 넘어왔을 때 해당 게시글 바로 열어주는 기능 */
         window.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const post = urlParams.get('post');
@@ -363,12 +350,9 @@
         if (localStorage.getItem('theme') === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); themeBtn.textContent = '☀️'; }
         function toggleTheme() { if (document.documentElement.getAttribute('data-theme') === 'dark') { document.documentElement.removeAttribute('data-theme'); themeBtn.textContent = '🌙'; localStorage.setItem('theme', 'light'); } else { document.documentElement.setAttribute('data-theme', 'dark'); themeBtn.textContent = '☀️'; localStorage.setItem('theme', 'dark'); } }
 
-        // 🕊️ 퀵 메뉴 스크롤 부드럽게 따라다니는 효과 추가
         window.addEventListener('scroll', function() {
             const banner = document.querySelector('.left-wing-banner');
-            if(window.innerWidth > 1550) { // PC 화면에서만 작동
-                banner.style.top = (window.scrollY + 120) + 'px';
-            }
+            if(window.innerWidth > 1550) { banner.style.top = (window.scrollY + 120) + 'px'; }
         });
     </script>
 </body>

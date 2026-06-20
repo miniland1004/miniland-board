@@ -96,7 +96,7 @@
             <li><div class="wing-btn" onclick="location.href='job.html'">미니랜드 직업별 스킬</div></li>
             <li><div class="wing-btn" onclick="window.open('https://miniland1004.github.io/-/', '_blank')">미니랜드 홍보 사이트</div></li>
             <li><div class="wing-btn" onclick="window.open('https://miniland1004.github.io/avatar-gallery/?no=01', '_blank')">미니랜드 아바타 미리보기</div></li>
-            <li><div class="wing-btn" onclick="window.open('https://drive.google.com/file/d/15UVraq9WrkiTKRxIERLXczL_s4liPKRK/view?usp=sharing', '_blank')">미니랜드 다운로드</div></li>
+            <li><div class="wing-btn" onclick="window.open('https://drive.google.com/file/d/14rL4gRb9mx1WqcWygEshThs0dS0wzUH_/view?usp=drive_link', '_blank')">미니랜드 다운로드</div></li>
             <li><div class="wing-btn" onclick="location.href='error.html'">미니랜드 오류해결</div></li>
         </ul>
     </div>
@@ -128,7 +128,8 @@
         <table class="board-table">
             <thead><tr><th class="td-num">번호</th><th class="td-badge">분류</th><th class="td-title">제목</th><th class="td-writer">작성자</th><th class="td-date">등록일</th></tr></thead>
             <tbody>
-                <tr class="clickable-row" onclick="showPage('view_skill_v1_3')"><td class="td-num">5</td><td class="td-badge"><span class="badge badge-skill">스킬</span></td><td class="td-title">스킬패치 v1.3</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
+                <!-- ✅ 스킬패치 새 게시물 N 뱃지 추가 -->
+                <tr class="clickable-row" onclick="showPage('view_skill_v1_3')"><td class="td-num">5</td><td class="td-badge"><span class="badge badge-skill">스킬</span></td><td class="td-title">스킬패치 v1.3 <span style="color: #ff5252; font-size: 12px; font-weight: 900; margin-left: 5px;">N</span></td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
                 <tr class="clickable-row" onclick="showPage('view_skill_v1_2')"><td class="td-num">4</td><td class="td-badge"><span class="badge badge-skill">스킬</span></td><td class="td-title">스킬패치 v1.2</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
                 <tr class="clickable-row" onclick="showPage('view_skill_v1_1')"><td class="td-num">3</td><td class="td-badge"><span class="badge badge-skill">스킬</span></td><td class="td-title">스킬패치 v1.1</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
                 <tr class="clickable-row" onclick="showPage('view_skill_v1_0')"><td class="td-num">2</td><td class="td-badge"><span class="badge badge-skill">스킬</span></td><td class="td-title">스킬패치 v1.0</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
@@ -264,7 +265,6 @@
         <div class="btn-wrapper"><span onclick="showPage('skill')" class="btn-list">목록으로 돌아가기</span></div>
     </div>
 
-    <!-- 스킬패치 1.0 -->
     <div id="page-view_skill_v1_0" class="page-section sub-wrapper" style="max-width: 900px;">
         <div class="post-header">
             <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px;">스킬</span>스킬패치 v1.0</h1>
@@ -323,7 +323,6 @@
         <div class="btn-wrapper"><span onclick="showPage('skill')" class="btn-list">목록으로 돌아가기</span></div>
     </div>
 
-    <!-- 모든 직업 스킬패치 안내 -->
     <div id="page-view_skill_1" class="page-section sub-wrapper" style="max-width: 900px;">
         <div class="post-header">
             <h1 class="post-title-text"><span class="badge badge-skill" style="font-size:15px; padding:5px 12px; margin-right: 15px;">스킬</span>모든 직업 스킬패치 관련 안내</h1>
@@ -369,16 +368,19 @@
             document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
             const target = document.getElementById('page-' + pageId);
             if(target) { target.classList.add('active'); }
-            window.scrollTo(0, 0);
+            window.scrollTo(0, 0); 
         }
+
         window.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const post = urlParams.get('post');
             if(post) { showPage(post); }
         });
+
         const themeBtn = document.getElementById('themeToggleBtn');
         if (localStorage.getItem('theme') === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); themeBtn.textContent = '☀️'; }
         function toggleTheme() { if (document.documentElement.getAttribute('data-theme') === 'dark') { document.documentElement.removeAttribute('data-theme'); themeBtn.textContent = '🌙'; localStorage.setItem('theme', 'light'); } else { document.documentElement.setAttribute('data-theme', 'dark'); themeBtn.textContent = '☀️'; localStorage.setItem('theme', 'dark'); } }
+
         window.addEventListener('scroll', function() {
             const banner = document.querySelector('.left-wing-banner');
             if(window.innerWidth > 1550) { banner.style.top = (window.scrollY + 120) + 'px'; }
