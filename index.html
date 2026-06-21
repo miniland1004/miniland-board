@@ -14,39 +14,48 @@
         * { font-family: 'Pretendard-Regular', sans-serif !important; -webkit-font-smoothing: antialiased; box-sizing: border-box; }
         body { background: var(--bg-main); color: var(--text-main); margin: 0; padding: 0; transition: background 0.3s, color 0.3s; line-height: 1.6; position: relative; }
         a { text-decoration: none; color: inherit; }
+        
         .page-section { display: none; animation: fadeIn 0.3s ease-in-out; }
         .page-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
         .header-wrapper { position: sticky; top: 0; z-index: 100; }
         .top-nav { position: relative; background: var(--nav-bg); padding: 0 50px; display: flex; align-items: center; justify-content: space-between; height: 80px; border-bottom: 1px solid var(--border-main); z-index: 101; backdrop-filter: blur(5px); }
         .logo-img { height: 70px; object-fit: contain; cursor: pointer; z-index: 102; transition: transform 0.2s; }
         .logo-img:hover { transform: scale(1.08); }
         .nav-links { display: flex; gap: 50px; position: absolute; left: 50%; transform: translateX(-50%); height: 100%; z-index: 102; }
+        
         .main-link { display: flex; align-items: center; height: 80px; font-size: 17px; font-weight: 700; color: var(--text-main); position: relative; transition: color 0.2s; cursor: pointer; }
         .main-link:hover { color: #20c997; }
+        
         .dropdown { position: relative; display: inline-block; height: 80px; }
         .dropdown-content { display: none; position: absolute; top: 75px; left: 50%; transform: translateX(-50%); background-color: var(--nav-bg); min-width: 150px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); border-radius: 8px; border: 1px solid var(--border-main); z-index: 200; overflow: hidden; backdrop-filter: blur(5px); }
         .dropdown:hover .dropdown-content { display: block; animation: fadeIn 0.2s ease-in-out; }
         .dropdown-content a { color: var(--text-main); padding: 12px 16px; text-decoration: none; display: block; font-size: 15px; font-weight: 600; text-align: center; transition: background 0.2s, color 0.2s; }
         .dropdown-content a:hover { background-color: var(--card-hover); color: #20c997; }
+
         .theme-toggle { cursor: pointer; font-size: 22px; user-select: none; transition: transform 0.2s; padding: 10px; }
         .theme-toggle:hover { transform: scale(1.15); }
         .main-wrapper, .sub-wrapper { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
         .sub-wrapper { max-width: 1000px; min-height: 60vh; }
+        
         .banner-section { width: 100%; margin-bottom: 40px; }
         .banner-img { width: 100%; height: 320px; background-image: url('main_banner.jpg'); background-size: cover; background-position: center; border-radius: 20px; position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
         [data-theme="dark"] .banner-img { filter: brightness(0.85); }
         .banner-text { position: absolute; bottom: 25px; left: 30px; color: white; text-shadow: 0 3px 6px rgba(0,0,0,0.6); }
         .banner-text h2 { font-family: 'NexonMaplestory', sans-serif !important; font-size: 38px; margin: 0; }
+        
         .content-container { display: flex; flex-wrap: wrap; gap: 30px; width: 100%; margin-bottom: 40px; }
         .board-box { flex: 1 1 calc(50% - 15px); min-width: 320px; }
         .board-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--text-main); padding-bottom: 10px; margin-bottom: 15px; }
         .board-header h3 { margin: 0; font-size: 20px; font-weight: 700; }
         .more-btn { font-size: 13px; color: var(--text-muted); cursor: pointer; }
         .more-btn:hover { color: #20c997; }
+        
         .post-list { list-style: none; padding: 0; margin: 0; }
         .post-list li { display: flex; align-items: center; padding: 12px 5px; border-bottom: 1px solid var(--border-main); font-size: 14px; cursor: pointer; }
         .post-list li:hover { background: var(--card-hover); }
+        
         .badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; margin-right: 12px; min-width: 45px; text-align: center; }
         .badge-notice { background: #e3f2fd; color: #1976d2; }
         .badge-event { background: #e8f5e9; color: #388e3c; }
@@ -56,13 +65,16 @@
         [data-theme="dark"] .badge-event { background: #1a3320; color: #81c784; }
         [data-theme="dark"] .badge-patch { background: #332211; color: #ffb74d; }
         [data-theme="dark"] .badge-skill { background: #2a1a33; color: #ba68c8; }
+        
         .post-title { flex-grow: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .post-date { color: var(--text-muted); font-size: 13px; margin-left: 15px; }
+        
         .quick-menu-section { display: flex; gap: 20px; width: 100%; margin-bottom: 40px; }
         .quick-box { flex: 1; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 30px 20px; text-align: center; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 120px; transition: all 0.2s; }
         .quick-box:hover { transform: translateY(-5px); border-color: #20c997; }
         .quick-box h4 { margin: 0 0 5px 0; font-size: 18px; }
         .quick-box p { margin: 0; font-size: 13px; color: var(--text-muted); }
+
         .left-wing-banner { position: absolute; top: 120px; left: 30px; width: 220px; background: var(--nav-bg); border: 1px solid var(--border-main); border-radius: 12px; padding: 20px; box-shadow: 0 8px 16px rgba(0,0,0,0.05); z-index: 50; backdrop-filter: blur(5px); transition: top 0.4s ease-out; }
         .left-wing-title { font-family: 'NexonMaplestory', sans-serif !important; font-size: 18px; color: #20c997; margin-top: 0; margin-bottom: 15px; text-align: center; border-bottom: 1px dashed var(--border-main); padding-bottom: 10px; }
         .wing-menu { list-style: none; padding: 0; margin: 0; }
@@ -70,13 +82,16 @@
         .wing-menu li:last-child { margin-bottom: 0; }
         .wing-btn { display: block; padding: 12px 10px; background: var(--bg-main); border: 1px solid var(--border-main); border-radius: 8px; text-align: center; font-size: 14px; font-weight: 700; color: var(--text-main); cursor: pointer; transition: all 0.2s ease; }
         .wing-btn:hover { background: #20c997; color: white; border-color: #20c997; transform: translateY(-3px); box-shadow: 0 4px 8px rgba(32, 201, 151, 0.2); }
+
         .footer { border-top: 1px solid var(--border-main); padding: 40px 20px; text-align: left; background: var(--card-bg); color: var(--text-muted); font-size: 13px; margin-top: 50px; }
         .footer-content { max-width: 1200px; margin: 0 auto; }
+        
         .modal-overlay { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(5px); }
         .modal-content { background-color: var(--modal-bg); margin: 10% auto; padding: 40px; border: 2px solid #20c997; border-radius: 20px; width: 90%; max-width: 500px; position: relative; text-align: center; }
         .modal-content h2 { font-family: 'NexonMaplestory', sans-serif !important; color: #20c997; font-size: 32px; margin-top: 0; margin-bottom: 25px; }
         .close-btn { position: absolute; right: 25px; top: 20px; color: #20c997; font-size: 30px; font-weight: bold; cursor: pointer; }
         .modal-inner-box { background: var(--modal-inner); padding: 30px; border-radius: 12px; border: 1.5px dashed var(--border-main); text-align: left; font-size: 16px; line-height: 1.9; font-family: 'NexonMaplestory', sans-serif !important; }
+        
         @media (max-width: 1550px) { .left-wing-banner { display: none; } }
         @media (max-width: 768px) {
             .top-nav { flex-direction: column; height: auto; gap: 15px; padding: 15px; }
@@ -109,6 +124,7 @@
                 <a href="event.html" class="main-link">이벤트</a>
                 <a href="patch.html" class="main-link">패치노트</a>
                 <a href="skill.html" class="main-link">스킬패치</a>
+                
                 <div class="dropdown">
                     <a class="main-link">고객센터</a>
                     <div class="dropdown-content">
@@ -140,25 +156,23 @@
             <div class="board-box">
                 <div class="board-header"><h3>이벤트</h3><span class="more-btn" onclick="location.href='event.html'">더보기 ></span></div>
                 <ul class="post-list">
-                    <!-- ✅ 이벤트 새 게시물 N 뱃지 추가 -->
                     <li onclick="location.href='event.html?post=view_event_donate_x2'"><span class="badge badge-event">진행중</span><span class="post-title">콩 X2 이벤트 안내 <span style="color: #ff5252; font-size: 12px; font-weight: 900; margin-left: 5px;">N</span></span><span class="post-date">06.15</span></li>
                     <li onclick="location.href='event.html?post=view_event_verify'"><span class="badge badge-event">진행중</span><span class="post-title">유저 인증 이벤트 안내</span><span class="post-date">06.15</span></li>
                     <li onclick="location.href='event.html?post=view_event_newbie'"><span class="badge badge-event">진행중</span><span class="post-title">뉴비 성장 지원 이벤트</span><span class="post-date">06.15</span></li>
                 </ul>
             </div>
+            <!-- ✅ 패치노트 리스트 최신화 (v1.8 추가 및 N 뱃지 이동) -->
             <div class="board-box">
                 <div class="board-header"><h3>패치노트</h3><span class="more-btn" onclick="location.href='patch.html'">더보기 ></span></div>
                 <ul class="post-list">
-                    <!-- ✅ 패치노트 새 게시물 N 뱃지 추가 -->
-                    <li onclick="location.href='patch.html?post=view_patch_v1_7'"><span class="badge badge-patch">패치</span><span class="post-title">패치노트 v1.7 <span style="color: #ff5252; font-size: 12px; font-weight: 900; margin-left: 5px;">N</span></span><span class="post-date">06.21</span></li>
+                    <li onclick="location.href='patch.html?post=view_patch_v1_8'"><span class="badge badge-patch">패치</span><span class="post-title">패치노트 v1.8 <span style="color: #ff5252; font-size: 12px; font-weight: 900; margin-left: 5px;">N</span></span><span class="post-date">06.22</span></li>
+                    <li onclick="location.href='patch.html?post=view_patch_v1_7'"><span class="badge badge-patch">패치</span><span class="post-title">패치노트 v1.7</span><span class="post-date">06.21</span></li>
                     <li onclick="location.href='patch.html?post=view_patch_v1_6'"><span class="badge badge-patch">패치</span><span class="post-title">패치노트 v1.6</span><span class="post-date">06.16</span></li>
-                    <li onclick="location.href='patch.html?post=view_patch_v1_5'"><span class="badge badge-patch">패치</span><span class="post-title">패치노트 v1.5</span><span class="post-date">06.15</span></li>
                 </ul>
             </div>
             <div class="board-box">
                 <div class="board-header"><h3>스킬패치</h3><span class="more-btn" onclick="location.href='skill.html'">더보기 ></span></div>
                 <ul class="post-list">
-                    <!-- ✅ 스킬패치 새 게시물 N 뱃지 추가 -->
                     <li onclick="location.href='skill.html?post=view_skill_v1_3'"><span class="badge badge-skill">스킬</span><span class="post-title">스킬패치 v1.3 <span style="color: #ff5252; font-size: 12px; font-weight: 900; margin-left: 5px;">N</span></span><span class="post-date">06.15</span></li>
                     <li onclick="location.href='skill.html?post=view_skill_v1_2'"><span class="badge badge-skill">스킬</span><span class="post-title">스킬패치 v1.2</span><span class="post-date">06.15</span></li>
                     <li onclick="location.href='skill.html?post=view_skill_v1_1'"><span class="badge badge-skill">스킬</span><span class="post-title">스킬패치 v1.1</span><span class="post-date">06.15</span></li>
@@ -180,6 +194,7 @@
         </div>
     </div>
 
+    <!-- ✅ 서버 안내 모달창 오타 수정 완료 -->
     <div id="serverInfoModal" class="modal-overlay">
         <div class="modal-content">
             <span class="close-btn" onclick="closeServerInfo()">&times;</span>

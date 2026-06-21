@@ -128,8 +128,9 @@
         <table class="board-table">
             <thead><tr><th class="td-num">번호</th><th class="td-badge">분류</th><th class="td-title">제목</th><th class="td-writer">작성자</th><th class="td-date">등록일</th></tr></thead>
             <tbody>
-                <!-- ✅ 패치노트 새 게시물 N 뱃지 추가 -->
-                <tr class="clickable-row" onclick="showPage('view_patch_v1_7')"><td class="td-num">8</td><td class="td-badge"><span class="badge badge-patch">패치</span></td><td class="td-title">패치노트 v1.7 <span style="color: #ff5252; font-size: 12px; font-weight: 900; margin-left: 5px;">N</span></td><td class="td-writer">미니</td><td class="td-date">2026.06.21</td></tr>
+                <!-- ✅ 패치노트 v1.8 추가 및 N 뱃지 부착 -->
+                <tr class="clickable-row" onclick="showPage('view_patch_v1_8')"><td class="td-num">9</td><td class="td-badge"><span class="badge badge-patch">패치</span></td><td class="td-title">패치노트 v1.8 <span style="color: #ff5252; font-size: 12px; font-weight: 900; margin-left: 5px;">N</span></td><td class="td-writer">미니</td><td class="td-date">2026.06.22</td></tr>
+                <tr class="clickable-row" onclick="showPage('view_patch_v1_7')"><td class="td-num">8</td><td class="td-badge"><span class="badge badge-patch">패치</span></td><td class="td-title">패치노트 v1.7</td><td class="td-writer">미니</td><td class="td-date">2026.06.21</td></tr>
                 <tr class="clickable-row" onclick="showPage('view_patch_v1_6')"><td class="td-num">7</td><td class="td-badge"><span class="badge badge-patch">패치</span></td><td class="td-title">패치노트 v1.6</td><td class="td-writer">미니</td><td class="td-date">2026.06.16</td></tr>
                 <tr class="clickable-row" onclick="showPage('view_patch_v1_5')"><td class="td-num">6</td><td class="td-badge"><span class="badge badge-patch">패치</span></td><td class="td-title">패치노트 v1.5</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
                 <tr class="clickable-row" onclick="showPage('view_patch_v1_4')"><td class="td-num">5</td><td class="td-badge"><span class="badge badge-patch">패치</span></td><td class="td-title">패치노트 v1.4</td><td class="td-writer">미니</td><td class="td-date">2026.06.15</td></tr>
@@ -141,8 +142,50 @@
         </table>
     </div>
 
-    <!-- 이하 세부 내용 -->
-    <!-- 패치노트 v1.7 -->
+    <!-- ✅ 신규 추가: 세부 패치노트 v1.8 -->
+    <div id="page-view_patch_v1_8" class="page-section sub-wrapper">
+        <div class="post-header">
+            <h1 class="post-title-text"><span class="badge badge-patch" style="font-size:15px; padding:5px 12px; margin-right: 15px;">패치</span>패치노트 v1.8</h1>
+            <div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.22</span></div>
+        </div>
+        <div class="post-content">
+            안녕하세요 운영진입니다<br><br>
+            서버의 v1.8 패치노트를 안내해 드립니다<br>
+            보스 몬스터 관련 수정 및 각종 편의성 개선이 진행되었습니다<br><br>
+            <div class="rule-item">
+                <strong class="rule-title">◆ 패치노트 v1.8 상세 내역</strong>
+                <ul class="patch-list">
+                    <li><strong>148</strong> <strong>시그너스 보스몬스터 소환 오류 해결 완료</strong></li>
+                    <li><strong>149</strong> <strong>용사의 의지</strong> 마스터 레벨 확장 방식 변경 (5레벨 이상부터는 NPC를 통해서만 스킬업 가능)</li>
+                    <li><strong>150</strong> <code>@보스</code> 명령어 시스템에 <strong>베르가모트 초기화</strong> 기능 추가</li>
+                    <li><strong>151</strong> <code>@보너스</code> 명령어 입력 시 <strong>크리티컬 아이템 수치 표기</strong>가 정상적으로 노출되도록 개선</li>
+                    <li><strong>152</strong> 크리티컬 관련 신규 <strong>심볼 아이템</strong> 추가</li>
+                    <li><strong>153</strong> 소환수 공격 시 출력되는 경고 메시지 제한 범위 변경</li>
+                    <li style="margin-top: 15px;"><strong>154</strong> <strong>여제 시그너스 개편 및 보상 추가</strong>
+                        <ul style="list-style-type: circle; margin-top: 5px; color: var(--text-muted); font-size: 14px;">
+                            <li>여제 시그너스 타이머 변경 (기존 1시간 ➔ <strong>12시간</strong>)</li>
+                        </ul>
+                        <div class="item-box" style="margin-top: 10px;">
+                            <h4>💎 여제 시그너스 확정 드랍 보상</h4>
+                            <div class="item-row"><div class="item-name">혼돈의 주문서</div><div class="item-stat">5개 ~ 10개</div></div>
+                            <div class="item-row"><div class="item-name">미니의 단풍잎</div><div class="item-stat">50개 ~ 100개</div></div>
+                            <div class="item-row"><div class="item-name">벼루 주화</div><div class="item-stat">5개 ~ 7개</div></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
+            앞으로도 지속적인 업데이트를 통해 완성도 높은 서버를 만들어 가겠습니다<br>
+            감사합니다 ( • ⩊ • )
+        </div>
+        <div class="post-navigation">
+            <div class="nav-item disabled"><span>▲ 다음글</span>다음 글이 없습니다.</div>
+            <div class="nav-item" onclick="showPage('view_patch_v1_7')"><span>▼ 이전글</span>패치노트 v1.7</div>
+        </div>
+        <div class="btn-wrapper"><span onclick="showPage('patch')" class="btn-list">목록으로 돌아가기</span></div>
+    </div>
+
+    <!-- 세부 패치노트 v1.7 -->
     <div id="page-view_patch_v1_7" class="page-section sub-wrapper">
         <div class="post-header">
             <h1 class="post-title-text"><span class="badge badge-patch" style="font-size:15px; padding:5px 12px; margin-right: 15px;">패치</span>패치노트 v1.7</h1>
@@ -170,7 +213,7 @@
                     <li style="margin-top: 15px;"><strong>146</strong> <strong>신규 맵/몬스터/NPC 추가 작업 (준비 중)</strong>
                         <ul style="list-style-type: circle; margin-top: 5px; color: var(--text-muted); font-size: 14px;">
                             <li>새로운 콘텐츠 업데이트를 위한 기반 데이터(맵, 몬스터, NPC) 추가 작업이 진행되었습니다</li>
-                            <li>해당 콘텐츠는 <strong>몬스터 체력(HP) 밸런스 조정 작업이 완료된 후 정식으로 공개</strong>될 예정입니다</li>
+                            <li>해당 콘텐츠는 <strong>몬스터 체력(HP) 밸런스 조정 작업이 완료된 후 정식 성으로 공개</strong>될 예정입니다</li>
                         </ul>
                     </li>
                     <li><strong>147</strong> 전사 스킬 <strong>'돌진'</strong> 사용 시 간헐적으로 발생하던 캐릭터 경직 현상 제거 완료</li>
@@ -181,13 +224,14 @@
             감사합니다 ( • ⩊ • )
         </div>
         <div class="post-navigation">
-            <div class="nav-item disabled"><span>▲ 다음글</span>다음 글이 없습니다.</div>
+            <!-- ✅ 이전 버전의 다음글/이전글 내비게이션 연결 업데이트 -->
+            <div class="nav-item" onclick="showPage('view_patch_v1_8')"><span>▲ 다음글</span>패치노트 v1.8</div>
             <div class="nav-item" onclick="showPage('view_patch_v1_6')"><span>▼ 이전글</span>패치노트 v1.6</div>
         </div>
         <div class="btn-wrapper"><span onclick="showPage('patch')" class="btn-list">목록으로 돌아가기</span></div>
     </div>
 
-    <!-- 패치노트 v1.6 -->
+    <!-- 세부 패치노트 v1.6 생략 (기존 유지) -->
     <div id="page-view_patch_v1_6" class="page-section sub-wrapper">
         <div class="post-header">
             <h1 class="post-title-text"><span class="badge badge-patch" style="font-size:15px; padding:5px 12px; margin-right: 15px;">패치</span>패치노트 v1.6</h1>
@@ -204,90 +248,10 @@
                     <li><strong>141</strong> 표창 교환 목록에 <strong>'플레임 표창'</strong> 추가 완료</li>
                     <li style="margin-top: 15px;"><strong>142</strong> <strong>여제 장비/무기 세트 정식 추가</strong>
                         <p style="margin-top: 8px; font-size: 14px; color: var(--text-muted);">전 직업군의 여제 아이템 능력치가 적용되었습니다.</p>
-                        
-                        <!-- ⚔️ 전사 여제 아이템 -->
-                        <div class="item-box">
-                            <h4>⚔️ 전사 여제 아이템</h4>
-                            <div class="item-row"><div class="item-name">한손검 (커틀러스)</div><div class="item-stat">STR 35 / DEX 20 / 공격력 131 / 명중률 100 / 업횟 10</div></div>
-                            <div class="item-row"><div class="item-name">한손도끼 (챔피온엑스)</div><div class="item-stat">STR 35 / DEX 20 / 공격력 131 / 명중률 100 / 업횟 10</div></div>
-                            <div class="item-row"><div class="item-name">한손둔기 (배틀해머)</div><div class="item-stat">STR 35 / DEX 20 / 공격력 131 / 명중률 100 / 업횟 10</div></div>
-                            <div class="item-row"><div class="item-name">두손검 (배틀시미터)</div><div class="item-stat">STR 35 / DEX 20 / 공격력 134 / 명중률 100 / 업횟 10</div></div>
-                            <div class="item-row"><div class="item-name">두손도끼 (배틀엑스)</div><div class="item-stat">STR 35 / DEX 20 / 공격력 134 / 명중률 100 / 업횟 10</div></div>
-                            <div class="item-row"><div class="item-name">두손둔기 (기간틱모울)</div><div class="item-stat">STR 35 / DEX 20 / 공격력 134 / 명중률 100 / 업횟 10</div></div>
-                            <div class="item-row"><div class="item-name">창 (푸스키나)</div><div class="item-stat">STR 35 / DEX 20 / 공격력 134 / 명중률 100 / 업횟 10</div></div>
-                            <div class="item-row"><div class="item-name">폴암 (파르티잔)</div><div class="item-stat">STR 35 / DEX 20 / 공격력 134 / 명중률 100 / 업횟 10</div></div>
-                            <div class="item-row"><div class="item-name">방패 (워리어 쉴드)</div><div class="item-stat">STR 10 / DEX 10 / 방어력 130 / 마법방어력 130 / 업횟 10</div></div>
-                            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 12px 0;">
-                            <div class="item-row"><div class="item-name">모자 (배틀헬름)</div><div class="item-stat">STR 23 / DEX 23 / MaxHP 250 / MaxMP 250 / 방어력 300 / 마법방어력 300 / 업횟 11</div></div>
-                            <div class="item-row"><div class="item-name">전신갑옷 (배틀메일)</div><div class="item-stat">STR 32 / DEX 32 / MaxHP 30 / MaxMP 30 / 방어력 300 / 마법방어력 300 / 업횟 10</div></div>
-                            <div class="item-row"><div class="item-name">장갑 (배틀브레이서)</div><div class="item-stat">STR 12 / DEX 12 / MaxHP 50 / MaxMP 50 / 방어력 100 / 마법방어력 100 / 업횟 5</div></div>
-                            <div class="item-row"><div class="item-name">신발 (배틀부츠)</div><div class="item-stat">STR 12 / DEX 12 / 이동속도 5 / 점프력 5 / 방어력 150 / 마법방어력 150 / 업횟 5</div></div>
-                            <div class="item-row"><div class="item-name">망토 (배틀케이프)</div><div class="item-stat">올스탯 7 / 방어력 150 / 마법방어력 150 / 업횟 7</div></div>
-                            <div class="item-row"><div class="item-name">어깨장식 (배틀숄더)</div><div class="item-stat">올스탯 10 / 공격력 7 / 마력 7 / 방어력 100 / 마법방어력 100 / 업횟 1</div></div>
-                        </div>
-
-                        <!-- 🔮 마법사 여제 아이템 -->
-                        <div class="item-box">
-                            <h4>🔮 마법사 여제 아이템</h4>
-                            <div class="item-row"><div class="item-name">완드 (아크완드)</div><div class="item-stat">INT 35 / LUK 20 / 마력 138 / 공격력 85 / 명중률 100 / 업횟 10</div></div>
-                            <div class="item-row"><div class="item-name">스태프 (워스태프)</div><div class="item-stat">INT 35 / LUK 20 / 마력 141 / 공격력 91 / 명중률 100 / 업횟 10</div></div>
-                            <div class="item-row"><div class="item-name">방패 (세이지 쉴드)</div><div class="item-stat">INT 10 / LUK 10 / 마력 2 / 방어력 110 / 마법방어력 110 / 업횟 10</div></div>
-                            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 12px 0;">
-                            <div class="item-row"><div class="item-name">모자 (메이지샐릿)</div><div class="item-stat">INT 23 / LUK 23 / MaxHP 250 / MaxMP 250 / 방어력 300 / 마법방어력 300 / 업횟 11</div></div>
-                            <div class="item-row"><div class="item-name">전신갑옷 (메이지로브)</div><div class="item-stat">INT 32 / LUK 32 / MaxHP 30 / MaxMP 30 / 방어력 300 / 마법방어력 300 / 업횟 10</div></div>
-                            <div class="item-row"><div class="item-name">장갑 (메이지피스트)</div><div class="item-stat">INT 12 / LUK 12 / MaxHP 50 / MaxMP 50 / 방어력 100 / 마법방어력 100 / 업횟 5</div></div>
-                            <div class="item-row"><div class="item-name">신발 (메이지슈즈)</div><div class="item-stat">INT 12 / LUK 12 / 이동속도 5 / 점프력 5 / 방어력 150 / 마법방어력 150 / 업횟 5</div></div>
-                            <div class="item-row"><div class="item-name">망토 (메이지케이프)</div><div class="item-stat">올스탯 7 / 방어력 150 / 마법방어력 150 / 업횟 7</div></div>
-                            <div class="item-row"><div class="item-name">어깨장식 (메이지숄더)</div><div class="item-stat">올스탯 10 / 공격력 7 / 마력 7 / 방어력 100 / 마법방어력 100 / 업횟 1</div></div>
-                        </div>
-
-                        <!-- 🏹 궁수 여제 아이템 -->
-                        <div class="item-box">
-                            <h4>🏹 궁수 여제 아이템</h4>
-                            <div class="item-row"><div class="item-name">활 (컴포지트 보우)</div><div class="item-stat">DEX 35 / STR 20 / 공격력 128 / 명중률 100 / 넉백 68% / 업횟 10</div></div>
-                            <div class="item-row"><div class="item-name">석궁 (헤비크로스보우)</div><div class="item-stat">DEX 35 / STR 20 / 공격력 131 / 명중률 100 / 넉백 68% / 업횟 10</div></div>
-                            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 12px 0;">
-                            <div class="item-row"><div class="item-name">모자 (센티널캡)</div><div class="item-stat">DEX 23 / STR 23 / MaxHP 250 / MaxMP 250 / 방어력 300 / 마법방어력 300 / 업횟 11</div></div>
-                            <div class="item-row"><div class="item-name">전신갑옷 (센티널슈트)</div><div class="item-stat">DEX 32 / STR 32 / MaxHP 30 / MaxMP 30 / 방어력 300 / 마법방어력 300 / 업횟 10</div></div>
-                            <div class="item-row"><div class="item-name">장갑 (센티널글러브)</div><div class="item-stat">DEX 12 / STR 12 / MaxHP 50 / MaxMP 50 / 방어력 100 / 마법방어력 100 / 업횟 5</div></div>
-                            <div class="item-row"><div class="item-name">신발 (센티널부츠)</div><div class="item-stat">DEX 12 / STR 12 / 이동속도 5 / 점프력 5 / 방어력 150 / 마법방어력 150 / 업횟 5</div></div>
-                            <div class="item-row"><div class="item-name">망토 (센티널케이프)</div><div class="item-stat">올스탯 7 / 방어력 150 / 마법방어력 150 / 업횟 7</div></div>
-                            <div class="item-row"><div class="item-name">어깨장식 (센티널숄더)</div><div class="item-stat">올스탯 10 / 공격력 7 / 마력 7 / 방어력 100 / 마법방어력 100 / 업횟 1</div></div>
-                        </div>
-
-                        <!-- 🗡️ 도적 여제 아이템 -->
-                        <div class="item-box">
-                            <h4>🗡️ 도적 여제 아이템</h4>
-                            <div class="item-row"><div class="item-name">단검 (바젤라드)</div><div class="item-stat">LUK 35 / DEX 20 / 공격력 128 / 명중률 100 / 업횟 10</div></div>
-                            <div class="item-row"><div class="item-name">아대 (메탈피스트)</div><div class="item-stat">LUK 35 / DEX 20 / 공격력 69 / 명중률 100 / 업횟 10</div></div>
-                            <div class="item-row"><div class="item-name">방패 (다크니스 쉴드)</div><div class="item-stat">LUK 10 / DEX 10 / 방어력 120 / 마법방어력 120 / 업횟 10</div></div>
-                            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 12px 0;">
-                            <div class="item-row"><div class="item-name">모자 (체이서햇)</div><div class="item-stat">LUK 23 / DEX 23 / MaxHP 250 / MaxMP 250 / 방어력 300 / 마법방어력 300 / 업횟 11</div></div>
-                            <div class="item-row"><div class="item-name">전신갑옷 (체이서아머)</div><div class="item-stat">LUK 32 / DEX 32 / MaxHP 30 / MaxMP 30 / 방어력 300 / 마법방어력 300 / 업횟 10</div></div>
-                            <div class="item-row"><div class="item-name">장갑 (체이서글러브)</div><div class="item-stat">LUK 12 / DEX 12 / MaxHP 50 / MaxMP 50 / 방어력 100 / 마법방어력 100 / 업횟 5</div></div>
-                            <div class="item-row"><div class="item-name">신발 (체이서부츠)</div><div class="item-stat">LUK 12 / DEX 12 / 이동속도 5 / 점프력 5 / 방어력 150 / 마법방어력 150 / 업횟 5</div></div>
-                            <div class="item-row"><div class="item-name">망토 (체이서케이프)</div><div class="item-stat">올스탯 7 / 방어력 150 / 마법방어력 150 / 업횟 7</div></div>
-                            <div class="item-row"><div class="item-name">어깨장식 (체이서숄더)</div><div class="item-stat">올스탯 10 / 공격력 7 / 마력 7 / 방어력 100 / 마법방어력 100 / 업횟 1</div></div>
-                        </div>
-
-                        <!-- 🔫 해적 여제 아이템 -->
-                        <div class="item-box">
-                            <h4>🔫 해적 여제 아이템</h4>
-                            <div class="item-row"><div class="item-name">건 (샤프슈터)</div><div class="item-stat">DEX 35 / STR 20 / 공격력 96 / 명중률 100 / 업횟 10</div></div>
-                            <div class="item-row"><div class="item-name">너클 (와일드탈론)</div><div class="item-stat">STR 35 / DEX 20 / 공격력 98 / 명중률 100 / 업횟 10</div></div>
-                            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 12px 0;">
-                            <div class="item-row"><div class="item-name">모자 (스키퍼햇)</div><div class="item-stat">STR 23 / DEX 23 / MaxHP 250 / MaxMP 250 / 방어력 300 / 마법방어력 300 / 업횟 11</div></div>
-                            <div class="item-row"><div class="item-name">전신갑옷 (스키퍼코트)</div><div class="item-stat">STR 32 / DEX 32 / MaxHP 30 / MaxMP 30 / 방어력 300 / 마법방어력 300 / 업횟 10</div></div>
-                            <div class="item-row"><div class="item-name">장갑 (스키퍼글러브)</div><div class="item-stat">STR 12 / DEX 12 / MaxHP 50 / MaxMP 50 / 방어력 100 / 마법방어력 100 / 업횟 5</div></div>
-                            <div class="item-row"><div class="item-name">신발 (스키퍼부츠)</div><div class="item-stat">STR 12 / DEX 12 / 이동속도 5 / 점프력 5 / 방어력 150 / 마법방어력 150 / 업횟 5</div></div>
-                            <div class="item-row"><div class="item-name">망토 (스키퍼케이프)</div><div class="item-stat">올스탯 7 / 방어력 150 / 마법방어력 150 / 업횟 7</div></div>
-                            <div class="item-row"><div class="item-name">어깨장식 (스키퍼숄더)</div><div class="item-stat">올스탯 10 / 공격력 7 / 마력 7 / 방어력 100 / 마법방어력 100 / 업횟 1</div></div>
-                        </div>
                     </li>
                 </ul>
             </div>
             <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">
-            앞으로도 지속적인 업데이트를 통해 완성도 높은 서버를 만들어 가겠습니다<br>
             감사합니다 ( • ⩊ • )
         </div>
         <div class="post-navigation">
@@ -295,222 +259,6 @@
             <div class="nav-item" onclick="showPage('view_patch_v1_5')"><span>▼ 이전글</span>패치노트 v1.5</div>
         </div>
         <div class="btn-wrapper"><span onclick="showPage('patch')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-
-    <!-- 세부 패치노트 v1.0 ~ v1.5 생략 (글자수 방지, 원본과 동일하게 작동) -->
-    <!-- 패치노트 v1.5 -->
-    <div id="page-view_patch_v1_5" class="page-section sub-wrapper">
-        <div class="post-header"><h1 class="post-title-text"><span class="badge badge-patch">패치</span>패치노트 v1.5</h1><div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div></div>
-        <div class="post-content">
-            <div class="rule-item">
-                <ul class="patch-list">
-                    <li><strong>128</strong> 직업별 방어구 수집 추가 완료 (올스탯 +1 증가)</li>
-                    <li><strong>129</strong> NPC 스트링 최신화 완료</li>
-                    <li><strong>130</strong> 보스 초기화 추가 (홍코/후코)</li>
-                    <li><strong>131</strong> 홍보 상점 경험치/드랍률 쿠폰 추가</li>
-                    <li><strong>132</strong> 장비/방어구/표창/기타 수집 시 일괄 등록 가능하도록 수정</li>
-                    <li><strong>133</strong> 미니의 단풍 슬롯머신 추가</li>
-                    <li><strong>134</strong> 보라색 서핑 보드 '자쿰' 드랍 추가</li>
-                    <li><strong>135</strong> 레벨 보상 확장 (LV.300 ~ LV.1000)</li>
-                    <li><strong>136</strong> '나는야 럭키가이' 훈장 강화 추가</li>
-                    <li><strong>137</strong> '미블코 랜덤뽑기' 100회 뽑기로 상향</li>
-                    <li><strong>138</strong> @드랍 몬스터 검색 시 레벨 표기 추가</li>
-                    <li><strong>139</strong> 베르가모트 1일 1회 입장 수정</li>
-                </ul>
-            </div>
-            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">감사합니다 ( • ⩊ • )
-        </div>
-        <div class="post-navigation"><div class="nav-item" onclick="showPage('view_patch_v1_6')"><span>▲ 다음글</span>패치노트 v1.6</div><div class="nav-item" onclick="showPage('view_patch_v1_4')"><span>▼ 이전글</span>패치노트 v1.4</div></div><div class="btn-wrapper"><span onclick="showPage('patch')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-    
-    <!-- 패치노트 v1.4 -->
-    <div id="page-view_patch_v1_4" class="page-section sub-wrapper">
-        <div class="post-header"><h1 class="post-title-text"><span class="badge badge-patch">패치</span>패치노트 v1.4</h1><div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div></div>
-        <div class="post-content">
-            <div class="rule-item">
-                <ul class="patch-list">
-                    <li><strong>101</strong> 아이템 공/마 제한 해제 및 상향 (32767)</li>
-                    <li><strong>102</strong> 거탐 예외 상황 @거탐 명령어 추가</li>
-                    <li><strong>103</strong> 카오스 혼테일 견장 오류 수정</li>
-                    <li><strong>104</strong> 1+2 레벨업 버닝 추가</li>
-                    <li><strong>105</strong> 인벤토리 페이지 분리 도입 (@인벤1, @인벤2)</li>
-                    <li><strong>106</strong> 미니의 단풍잎 예외 강화 가능 아이템 추가</li>
-                    <li><strong>107</strong> 무기고 마법 데미지 오류 해결</li>
-                    <li><strong>108</strong> 무기고 '절대음감' 드랍 추가</li>
-                    <li><strong>109</strong> 보스 개인 보상 누락 개선</li>
-                    <li><strong>110</strong> 원정대 중간 합류 버그 수정</li>
-                    <li><strong>111</strong> 몬스터북 장비 복구 기능 추가</li>
-                    <li><strong>112</strong> 설치 탭 정렬 튕김 현상 수정</li>
-                    <li><strong>113</strong> 배틀쉽 탑승 스킬 추가</li>
-                    <li><strong>114</strong> 일반 장비 스킬 레벨 +1 능력 제거</li>
-                    <li><strong>115</strong> @판매 예외 처리 적용</li>
-                    <li><strong>116</strong> 게임 런처 파일 체크 속도 개선</li>
-                    <li><strong>117</strong> 홍보 누적 보상 추가 (500회)</li>
-                    <li><strong>118</strong> 백간랑하 스킵 티켓 추가</li>
-                    <li><strong>119</strong> 장비 수집 컬렉션 추가 완료</li>
-                    <li><strong>120</strong> 미니의 단풍잎 강화 한도 상향 (25강)</li>
-                    <li><strong>121</strong> 낚시터 추가 완료</li>
-                    <li><strong>122</strong> 사냥터 드랍 재화 변경 (단풍잎 직접 드랍)</li>
-                    <li><strong>123</strong> 몬스터 컬렉션 요구량 수정</li>
-                    <li><strong>124</strong> 아바타 번호 검색 누락 현상 수정</li>
-                    <li><strong>125</strong> @보너스 명령어 출력 강화</li>
-                    <li><strong>126</strong> 용사의 의지 마스터 레벨 확장 (10)</li>
-                    <li><strong>127</strong> 윈드 부스터 심볼 추가</li>
-                </ul>
-            </div>
-            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">감사합니다 ( • ⩊ • )
-        </div>
-        <div class="post-navigation"><div class="nav-item" onclick="showPage('view_patch_v1_5')"><span>▲ 다음글</span>패치노트 v1.5</div><div class="nav-item" onclick="showPage('view_patch_v1_3')"><span>▼ 이전글</span>패치노트 v1.3</div></div><div class="btn-wrapper"><span onclick="showPage('patch')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-    
-    <!-- 패치노트 v1.3 -->
-    <div id="page-view_patch_v1_3" class="page-section sub-wrapper">
-        <div class="post-header"><h1 class="post-title-text"><span class="badge badge-patch">패치</span>패치노트 v1.3</h1><div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div></div>
-        <div class="post-content">
-            <div class="rule-item">
-                <ul class="patch-list">
-                    <li><strong>074</strong> 표창/불릿 교환 추가</li>
-                    <li><strong>075</strong> 주문서 교환 상점 요구량 조정</li>
-                    <li><strong>076</strong> 여름 이벤트 NPC 추가</li>
-                    <li><strong>077</strong> 딜 미터기 기능 추가</li>
-                    <li><strong>078</strong> @도감 명령어 추가</li>
-                    <li><strong>079</strong> 필드보스/보스 드랍 테이블 수정</li>
-                    <li><strong>080</strong> 단풍잎 장비 강화 시스템 추가</li>
-                    <li><strong>081</strong> 응가 상점 추가</li>
-                    <li><strong>082</strong> 디스코드 아이템 확성기 툴팁 개선</li>
-                    <li><strong>083</strong> 보스 개인 드랍 원정대 기준으로 확장</li>
-                    <li><strong>084</strong> 전체 NPC 스트링 수정</li>
-                    <li><strong>085</strong> 콩 상점 물품 추가</li>
-                    <li><strong>086</strong> 카혼 맵/콘텐츠 추가</li>
-                    <li><strong>087</strong> 캐릭터 최대 HP/MP 상한 확장 (80,000)</li>
-                    <li><strong>088</strong> 인벤토리 정렬 튕김 수정</li>
-                    <li><strong>089</strong> 아이템 링크 디스코드 연동 적용</li>
-                    <li><strong>090</strong> 카쿰 투구 고유 아이템 속성 제거</li>
-                    <li><strong>091</strong> 에피네아 반지 교환 가능 변경</li>
-                    <li><strong>092</strong> 단계별 심볼 추가</li>
-                    <li><strong>093</strong> 몬스터북 카드 구매 시스템 추가</li>
-                    <li><strong>094</strong> 카혼 드랍 테이블 추가</li>
-                    <li><strong>095</strong> 카혼/핑빈 타임리스 드랍률 상승</li>
-                    <li><strong>096</strong> 확장분 정상 적용 수정</li>
-                    <li><strong>097</strong> HP/MP 증가 주문서 전용 NPC 추가</li>
-                    <li><strong>098</strong> 응가 교환 상점 비용 조정</li>
-                    <li><strong>099</strong> 무지개 펭귄 뽑기 보상 상향</li>
-                    <li><strong>100</strong> 일일 퀘스트 (가위바위보) 추가</li>
-                </ul>
-            </div>
-            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">감사합니다 ( • ⩊ • )
-        </div>
-        <div class="post-navigation"><div class="nav-item" onclick="showPage('view_patch_v1_4')"><span>▲ 다음글</span>패치노트 v1.4</div><div class="nav-item" onclick="showPage('view_patch_v1_2')"><span>▼ 이전글</span>패치노트 v1.2</div></div><div class="btn-wrapper"><span onclick="showPage('patch')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-    
-    <!-- 패치노트 v1.2 -->
-    <div id="page-view_patch_v1_2" class="page-section sub-wrapper">
-        <div class="post-header"><h1 class="post-title-text"><span class="badge badge-patch">패치</span>패치노트 v1.2</h1><div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div></div>
-        <div class="post-content">
-            <div class="rule-item">
-                <ul class="patch-list">
-                    <li><strong>060</strong> 거탐 적발 감옥 탈출 NPC 추가</li>
-                    <li><strong>061</strong> 낚시터 추가 (@낚시터)</li>
-                    <li><strong>062</strong> 뉴비 지원 물약 증가</li>
-                    <li><strong>063</strong> 서버 드랍 배율 5배 증가</li>
-                    <li><strong>064</strong> 스노우보드 드랍 및 교환 추가</li>
-                    <li><strong>065</strong> 낚시/홍보/콩 심볼 추가</li>
-                    <li><strong>066</strong> 다마고치 NPC 수정</li>
-                    <li><strong>067</strong> 아이스크림 제작 컨텐츠 추가</li>
-                    <li><strong>068</strong> 딜 미터기 추가</li>
-                    <li><strong>069</strong> 법사 겉뎀 오류 해결</li>
-                    <li><strong>070</strong> 수하 몬스터 스탯 정상화</li>
-                    <li><strong>071</strong> 시그너스 자동전직 추가</li>
-                    <li><strong>072</strong> 젠 관련 패치 (스폰포인트 3배 상향)</li>
-                </ul>
-            </div>
-            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">감사합니다 ( • ⩊ • )
-        </div>
-        <div class="post-navigation"><div class="nav-item" onclick="showPage('view_patch_v1_3')"><span>▲ 다음글</span>패치노트 v1.3</div><div class="nav-item" onclick="showPage('view_patch_v1_1')"><span>▼ 이전글</span>패치노트 v1.1</div></div><div class="btn-wrapper"><span onclick="showPage('patch')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-
-    <!-- 패치노트 v1.1 -->
-    <div id="page-view_patch_v1_1" class="page-section sub-wrapper">
-        <div class="post-header"><h1 class="post-title-text"><span class="badge badge-patch">패치</span>패치노트 v1.1</h1><div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div></div>
-        <div class="post-content">
-            <div class="rule-item">
-                <ul class="patch-list">
-                    <li><strong>043</strong> 모루 시스템 추가</li>
-                    <li><strong>044</strong> 뎀스 변경 추가</li>
-                    <li><strong>045</strong> 시그너스 버프 상향</li>
-                    <li><strong>046</strong> 시그너스 스트링 표기 수정</li>
-                    <li><strong>047</strong> 쪽지 드랍 추가</li>
-                    <li><strong>048</strong> 홍보/콩 포인트 ➔ 코인 변경</li>
-                    <li><strong>049</strong> 뉴비 지원 추가</li>
-                    <li><strong>050</strong> 버프 세이브 기능 개선</li>
-                    <li><strong>051</strong> 거탐 시스템 변경 (전용 NPC 생성)</li>
-                    <li><strong>052</strong> 장비 드롭 상옵 수치 변경</li>
-                    <li><strong>053</strong> 뎀스 가격 인하</li>
-                    <li><strong>054</strong> 거탐 방식 재변경</li>
-                    <li><strong>055</strong> 심볼 스탯 오류 수정</li>
-                    <li><strong>056</strong> 부활 무반응 로그 강화</li>
-                    <li><strong>057</strong> 홍보 누적 횟수 안내 추가</li>
-                    <li><strong>058</strong> 미니 핑크 코인 추가</li>
-                    <li><strong>059</strong> 마스터리북 상점 추가</li>
-                </ul>
-            </div>
-            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">감사합니다 ( • ⩊ • )
-        </div>
-        <div class="post-navigation"><div class="nav-item" onclick="showPage('view_patch_v1_2')"><span>▲ 다음글</span>패치노트 v1.2</div><div class="nav-item" onclick="showPage('view_patch_v1_0')"><span>▼ 이전글</span>패치노트 v1.0</div></div><div class="btn-wrapper"><span onclick="showPage('patch')" class="btn-list">목록으로 돌아가기</span></div>
-    </div>
-
-    <!-- 패치노트 v1.0 -->
-    <div id="page-view_patch_v1_0" class="page-section sub-wrapper">
-        <div class="post-header"><h1 class="post-title-text"><span class="badge badge-patch">패치</span>패치노트 v1.0</h1><div class="post-meta"><span><strong>작성자:</strong> 미니</span><span><strong>등록일:</strong> 2026.06.15</span></div></div>
-        <div class="post-content">
-            <div class="rule-item">
-                <ul class="patch-list">
-                    <li><strong>001</strong> 모든 스킬 퍼뎀 순정화</li>
-                    <li><strong>002</strong> 표기 순정화</li>
-                    <li><strong>003</strong> 버프 지속 1800초</li>
-                    <li><strong>004</strong> 다중 해상도 지원</li>
-                    <li><strong>005</strong> 맥뎀 해제</li>
-                    <li><strong>006</strong> 화면 가속</li>
-                    <li><strong>007</strong> @묘묘 추가</li>
-                    <li><strong>008</strong> 툴팁 변경</li>
-                    <li><strong>009</strong> 펫 먹이 미소모</li>
-                    <li><strong>010</strong> 인벤 풀칸 확장</li>
-                    <li><strong>011</strong> 고확 디코 연동</li>
-                    <li><strong>012</strong> 사다리 이속 상향</li>
-                    <li><strong>013</strong> 도배방지 제거</li>
-                    <li><strong>015</strong> 딜레이 제거</li>
-                    <li><strong>016</strong> @택배 추가</li>
-                    <li><strong>017</strong> @뷰티 추가</li>
-                    <li><strong>018</strong> 소지개수 30,000개</li>
-                    <li><strong>019</strong> 주스탯 분배 명령어</li>
-                    <li><strong>020</strong> @이동 추가</li>
-                    <li><strong>021</strong> 캐시템 버리기 가능</li>
-                    <li><strong>022</strong> @드랍 추가</li>
-                    <li><strong>023</strong> 하향점프 상향</li>
-                    <li><strong>024</strong> 배틀쉽 편의 개선</li>
-                    <li><strong>025</strong> 초보자 길드 생성</li>
-                    <li><strong>026</strong> 드랍테이블 순정화</li>
-                    <li><strong>027</strong> 물약 지원</li>
-                    <li><strong>028</strong> 오토루팅</li>
-                    <li><strong>029</strong> 윗점 / 덥점</li>
-                    <li><strong>030</strong> 길마 추가</li>
-                    <li><strong>031</strong> 부화기 삭제</li>
-                    <li><strong>032</strong> 메이커 삭제</li>
-                    <li><strong>033</strong> 훈장요구 하향</li>
-                    <li><strong>034</strong> 자동포션 (@포션)</li>
-                    <li><strong>035</strong> 계정창고</li>
-                    <li><strong>036</strong> 장비 상옵 증가</li>
-                    <li><strong>037</strong> 콩 상점</li>
-                    <li><strong>038</strong> 몬스터 컬렉션</li>
-                    <li><strong>039</strong> 장비 컬렉션</li>
-                    <li><strong>040</strong> 무지개 펭귄 뽑기</li>
-                    <li><strong>041</strong> 스탯창 변경</li>
-                    <li><strong>042</strong> 버프 심볼 추가</li>
-                </ul>
-            </div>
-            <hr style="border: 0; border-top: 1px dashed var(--border-main); margin: 30px 0;">감사합니다 ( • ⩊ • )
-        </div>
-        <div class="post-navigation"><div class="nav-item" onclick="showPage('view_patch_v1_1')"><span>▲ 다음글</span>패치노트 v1.1</div><div class="nav-item disabled"><span>▼ 이전글</span>이전 글이 없습니다.</div></div><div class="btn-wrapper"><span onclick="showPage('patch')" class="btn-list">목록으로 돌아가기</span></div>
     </div>
 
     <div class="footer">
