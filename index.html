@@ -105,6 +105,7 @@
 </head>
 <body>
 
+    <!-- 🕊️ 좌측 날개 플로팅 배너 -->
     <div class="left-wing-banner">
         <h3 class="left-wing-title">Quick Menu</h3>
         <ul class="wing-menu">
@@ -116,6 +117,7 @@
         </ul>
     </div>
 
+    <!-- 🌐 상단 네비게이션 -->
     <div class="header-wrapper">
         <div class="top-nav">
             <img src="logo.png" alt="미니랜드 로고" class="logo-img" onclick="location.href='index.html'">
@@ -145,6 +147,7 @@
             </div>
         </div>
         <div class="content-container">
+            <!-- 공지사항 뷰 (N 없음) -->
             <div class="board-box">
                 <div class="board-header"><h3>공지사항</h3><span class="more-btn" onclick="location.href='notice.html'">더보기 ></span></div>
                 <ul class="post-list">
@@ -153,6 +156,7 @@
                     <li onclick="location.href='notice.html?post=view_rule'"><span class="badge badge-notice">공지</span><span class="post-title">서버규칙</span><span class="post-date">06.15</span></li>
                 </ul>
             </div>
+            <!-- 이벤트 뷰 -->
             <div class="board-box">
                 <div class="board-header"><h3>이벤트</h3><span class="more-btn" onclick="location.href='event.html'">더보기 ></span></div>
                 <ul class="post-list">
@@ -161,15 +165,17 @@
                     <li onclick="location.href='event.html?post=view_event_newbie'"><span class="badge badge-event">진행중</span><span class="post-title">뉴비 성장 지원 이벤트</span><span class="post-date">06.15</span></li>
                 </ul>
             </div>
-            <!-- ✅ 패치노트 리스트 최신화 (v1.8 추가 및 N 뱃지 이동) -->
+            <!-- 패치노트 뷰 -->
             <div class="board-box">
                 <div class="board-header"><h3>패치노트</h3><span class="more-btn" onclick="location.href='patch.html'">더보기 ></span></div>
                 <ul class="post-list">
-                    <li onclick="location.href='patch.html?post=view_patch_v1_8'"><span class="badge badge-patch">패치</span><span class="post-title">패치노트 v1.8 <span style="color: #ff5252; font-size: 12px; font-weight: 900; margin-left: 5px;">N</span></span><span class="post-date">06.22</span></li>
+                    <!-- ✅ 패치노트 v1.9 추가 및 N 뱃지 이동 -->
+                    <li onclick="location.href='patch.html?post=view_patch_v1_9'"><span class="badge badge-patch">패치</span><span class="post-title">패치노트 v1.9 <span style="color: #ff5252; font-size: 12px; font-weight: 900; margin-left: 5px;">N</span></span><span class="post-date">06.28</span></li>
+                    <li onclick="location.href='patch.html?post=view_patch_v1_8'"><span class="badge badge-patch">패치</span><span class="post-title">패치노트 v1.8</span><span class="post-date">06.22</span></li>
                     <li onclick="location.href='patch.html?post=view_patch_v1_7'"><span class="badge badge-patch">패치</span><span class="post-title">패치노트 v1.7</span><span class="post-date">06.21</span></li>
-                    <li onclick="location.href='patch.html?post=view_patch_v1_6'"><span class="badge badge-patch">패치</span><span class="post-title">패치노트 v1.6</span><span class="post-date">06.16</span></li>
                 </ul>
             </div>
+            <!-- 스킬패치 뷰 -->
             <div class="board-box">
                 <div class="board-header"><h3>스킬패치</h3><span class="more-btn" onclick="location.href='skill.html'">더보기 ></span></div>
                 <ul class="post-list">
@@ -194,7 +200,6 @@
         </div>
     </div>
 
-    <!-- ✅ 서버 안내 모달창 오타 수정 완료 -->
     <div id="serverInfoModal" class="modal-overlay">
         <div class="modal-content">
             <span class="close-btn" onclick="closeServerInfo()">&times;</span>
@@ -209,6 +214,7 @@
     </div>
 
     <script>
+        /* 모달 및 테마 스크립트 */
         function openServerInfo() { document.getElementById('serverInfoModal').style.display = 'block'; }
         function closeServerInfo() { document.getElementById('serverInfoModal').style.display = 'none'; }
         window.onclick = function(event) { if (event.target == document.getElementById('serverInfoModal')) closeServerInfo(); }
@@ -217,9 +223,12 @@
         if (localStorage.getItem('theme') === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); themeBtn.textContent = '☀️'; }
         function toggleTheme() { if (document.documentElement.getAttribute('data-theme') === 'dark') { document.documentElement.removeAttribute('data-theme'); themeBtn.textContent = '🌙'; localStorage.setItem('theme', 'light'); } else { document.documentElement.setAttribute('data-theme', 'dark'); themeBtn.textContent = '☀️'; localStorage.setItem('theme', 'dark'); } }
 
+        // 🕊️ 퀵 메뉴 스크롤 부드럽게 따라다니는 효과 추가
         window.addEventListener('scroll', function() {
             const banner = document.querySelector('.left-wing-banner');
-            if(window.innerWidth > 1550) { banner.style.top = (window.scrollY + 120) + 'px'; }
+            if(window.innerWidth > 1550) { // PC 화면에서만 작동
+                banner.style.top = (window.scrollY + 120) + 'px';
+            }
         });
     </script>
 </body>
